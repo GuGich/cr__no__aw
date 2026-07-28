@@ -1,3 +1,5 @@
+console.log("JS загружен");
+
 document.addEventListener("DOMContentLoaded", () => {
 
   const scrollHint = document.querySelector(".scroll-hint");
