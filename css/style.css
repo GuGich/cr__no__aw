@@ -45,6 +45,19 @@
     font-weight:700;
   }
 
+  body {
+    animation: pageEnter .5s ease;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+
   section.block, footer{
     padding-left:max(24px, calc((100% - 1180px) / 2)) !important;
     padding-right:max(24px, calc((100% - 1180px) / 2)) !important;
@@ -2903,6 +2916,216 @@ footer {
 
     .error-description{
         font-size:16px;
+    }
+
+}
+
+/* =====================
+   PAGE LOADER
+===================== */
+
+
+.page-loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #070707;
+
+    z-index: 99999;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    animation:
+        loaderHide .8s ease 1.8s forwards;
+
+}
+
+
+
+.loader-content {
+
+    text-align:center;
+
+    animation:
+        loaderAppear .8s ease;
+
+}
+
+
+
+.loader-content img {
+
+    width:260px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.loader-year {
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
+
+    font-size:60px;
+
+    color:#d9a441;
+
+    font-weight:700;
+
+    letter-spacing:8px;
+
+}
+
+
+
+.loader-line {
+
+    width:260px;
+
+    height:2px;
+
+    background:
+    rgba(255,255,255,.15);
+
+    margin:30px auto 0;
+
+    overflow:hidden;
+
+}
+
+
+
+.loader-line span {
+
+    display:block;
+
+    height:100%;
+
+    width:0;
+
+    background:#d9a441;
+
+    animation:
+    loaderProgress 1.5s ease forwards;
+
+}
+
+
+
+@keyframes loaderProgress {
+
+    from {
+        width:0;
+    }
+
+    to {
+        width:100%;
+    }
+
+}
+
+
+
+@keyframes loaderHide {
+
+    from {
+        opacity:1;
+        visibility:visible;
+    }
+
+    to {
+        opacity:0;
+        visibility:hidden;
+    }
+
+}
+
+
+
+@keyframes loaderAppear {
+
+    from {
+
+        opacity:0;
+
+        transform:
+        translateY(20px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+body {
+
+    animation:
+    pageEnter .5s ease;
+
+}
+
+
+
+@keyframes pageEnter {
+
+    from {
+
+        opacity:0;
+
+        transform:
+        translateY(10px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+@keyframes pageLeave {
+
+    from {
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+
+    to {
+
+        opacity:0;
+
+        transform:
+        translateY(-15px);
+
     }
 
 }
