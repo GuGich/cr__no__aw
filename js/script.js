@@ -407,7 +407,60 @@ if(toTop){
 
         });
 
+        showToast("↑ Вы вернулись наверх");
+
     });
+
+}
+
+
+function showToast(text){
+
+    let toast = document.querySelector(".ca-toast");
+
+
+    if(!toast){
+
+        toast = document.createElement("div");
+
+        toast.className = "ca-toast";
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    toast.textContent = text;
+
+
+    clearTimeout(toast.timer);
+
+
+    toast.classList.add("show");
+
+
+    toast.timer = setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },4000);
+
+}
+
+
+function normalizePage(path){
+
+    path = path.replace(/\/$/, "");
+
+    if(path === "" || path === "/"){
+        return "/";
+    }
+
+    if(path.endsWith("/index.html")){
+        return "/";
+    }
+
+    return path;
 
 }
 
@@ -415,9 +468,7 @@ if(toTop){
 
 document.querySelectorAll("a").forEach(link => {
 
-
     const url = link.getAttribute("href");
-
 
     if(
         !url ||
@@ -428,8 +479,23 @@ document.querySelectorAll("a").forEach(link => {
         return;
 
 
-
     link.addEventListener("click", e => {
+
+
+        const current = normalizePage(window.location.pathname);
+        const target = normalizePage(new URL(url, location.href).pathname);
+
+
+        if(current === target){
+
+            e.preventDefault();
+
+            showToast("✓ Вы уже находитесь на этой странице");
+
+            return;
+
+        }
+
 
         e.preventDefault();
 
@@ -446,7 +512,6 @@ document.querySelectorAll("a").forEach(link => {
 
 
     });
-
 
 });
 

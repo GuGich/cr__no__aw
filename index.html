@@ -10,6 +10,7 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="https://creativeawards.fun/images/wordmark.png">
 <title>Creative Awards 2026</title>
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -102,14 +103,6 @@
 
 <section class="block" id="about">
   <div class="about-extra">
-      <div class="about-render">
-       <img src="" alt="Creative Awards">
-        <div class="about-render-overlay"></div>
-        <div class="about-render-caption">
-          <span>CREATIVE AWARDS</span>
-         <strong>Создано игроками.</strong>
-        </div>
-      </div>
    <div class="block-head">
     <div class="block-head-about">
     <div class="eyebrow">О церемонии</div>
@@ -137,60 +130,85 @@
 
     <div class="about-socials">
 
-      <div class="about-social-title">
-        <span></span>
-        Mineland Network
-      </div>
+  <div class="about-social-title">
+    <span></span>
+    Mineland Network
+  </div>
 
-      <a href="https://mineland.net/" class="about-social-link">
-        <div class="about-social-icon">◈</div>
 
-        <div>
-          <strong>Официальный сайт</strong>
-          <small>Mineland Network</small>
-        </div>
-
-        <b>↗</b>
-      </a>
-
-      <a href="https://mineland.net/discord/ru" class="about-social-link">
-        <div class="about-social-icon">◉</div>
-
-        <div>
-          <strong>Discord</strong>
-          <small>Сообщество Mineland</small>
-        </div>
-
-        <b>↗</b>
-      </a>
-
-      <a href="https://www.youtube.com/@minelanddev" class="about-social-link">
-        <div class="about-social-icon">▶</div>
-
-        <div>
-          <strong>YouTube</strong>
-          <small>Новости и видео</small>
-        </div>
-
-        <b>↗</b>
-      </a>
-
-      <a href="https://mineland.net/tg" class="about-social-link">
-        <div class="about-social-icon">▶</div>
-
-        <div>
-          <strong>Telegram</strong>
-          <small>Новости Mineland Network</small>
-        </div>
-
-        <b>↗</b>
-      </a>
-
+  <a href="https://mineland.net/" class="about-social-link">
+    <div class="about-social-icon">
+      <img src="images/mineland-logo.png" alt="Mineland">
     </div>
+
+    <div>
+      <strong>Официальный сайт</strong>
+      <small>Mineland Network</small>
+    </div>
+
+    <b>↗</b>
+  </a>
+
+
+  <a href="https://mineland.net/discord/ru" class="about-social-link discord">
+    <div class="about-social-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M19.5 5.2A18.5 18.5 0 0 0 15 3.8l-.6 1.2a16 16 0 0 0-4.8 0L9 3.8a18.5 18.5 0 0 0-4.5 1.4C1.7 9.3 1 13.2 1.3 17a18 18 0 0 0 5.5 2.7l1.1-1.5c-.6-.2-1.2-.5-1.7-.8l.4-.3a12.8 12.8 0 0 0 10.8 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.5a18 18 0 0 0 5.5-2.7c.5-4.4-.8-8.3-3.2-11.8zM8.7 15c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>
+      </svg>
+    </div>
+
+    <div>
+      <strong>Discord</strong>
+      <small>Сообщество Mineland</small>
+    </div>
+
+    <b>↗</b>
+  </a>
+
+
+  <a href="https://www.youtube.com/@minelanddev" class="about-social-link youtube">
+    <div class="about-social-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M21 7.2a3 3 0 0 0-2.1-2.1C17 4.5 12 4.5 12 4.5s-5 0-6.9.6A3 3 0 0 0 3 7.2 31 31 0 0 0 2.4 12 31 31 0 0 0 3 16.8a3 3 0 0 0 2.1 2.1c1.9.6 6.9.6 6.9.6s5 0 6.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .6-4.8 31 31 0 0 0-.6-4.8zM10 15.5v-7l6 3.5-6 3.5z"/>
+      </svg>
+    </div>
+
+    <div>
+      <strong>YouTube</strong>
+      <small>Новости и видео</small>
+    </div>
+
+    <b>↗</b>
+  </a>
+
+
+  <a href="https://mineland.net/tg" class="about-social-link telegram">
+    <div class="about-social-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M21.8 3.4L2.8 10.8c-1.3.5-1.3 1.2-.2 1.6l4.8 1.5 1.8 5.7c.2.7.1 1 .8 1l2.6-2.5 4.9 3.6c.9.5 1.5.2 1.7-.9l3.3-15.5c.3-1.3-.5-1.8-1.7-1.4z"/>
+      </svg>
+    </div>
+
+    <div>
+      <strong>Telegram</strong>
+      <small>Новости Mineland Network</small>
+    </div>
+
+    <b>↗</b>
+  </a>
+
+</div>
 
   </div>
  </div>
-
+      <div class="about-render">
+       <img src="images/banner.png" alt="Creative Awards">
+        <div class="about-render-overlay"></div>
+        <div class="about-render-caption">
+          <span>CREATIVE AWARDS</span>
+         <strong>Создано игроками.</strong>
+        </div>
+      </div>
 </section>
 
 <section class="block" id="process">
@@ -259,7 +277,7 @@
     <div class="history-slide active" data-year="2022">
 
 <div class="history-year">
-  <img src="" alt="">
+  <img src="images/2022.png" alt="">
   <span>2022</span>
 </div>
 
@@ -289,7 +307,7 @@
     <div class="history-slide" data-year="2023">
 
 <div class="history-year">
-  <img src="" alt="">
+  <img src="images/2023.png" alt="">
   <span>2023</span>
 </div>
 
@@ -319,7 +337,7 @@
     <div class="history-slide" data-year="2024">
 
 <div class="history-year">
-  <img src="images/" alt="">
+  <img src="images/2024.png" alt="">
   <span>2024</span>
 </div>
 
@@ -349,7 +367,7 @@
     <div class="history-slide" data-year="2025">
 
 <div class="history-year">
-  <img src="" alt="">
+  <img src="images/2025.png" alt="">
   <span>2025</span>
 </div>
 
@@ -406,7 +424,7 @@
 
 <footer>
   <div class="footer-top">
-    <div class="brand"> <img src="images/wordmark.png" alt="Creative Awards"></div>
+    <div class="brand"> <img src="images/mineland-logo.png" alt="Mineland Network"> <img src="images/wordmark.png" alt="Creative Awards"> </div>
     <a class="btn-vote" href="https://forms.gle/cDPnAFScL49NqXE26">Подать заявку на участие</a>
   </div>
   <div class="footer-grid">
@@ -436,8 +454,13 @@
       </div>
     </div>
   </div>
+
   <div class="foot-bottom">
     <span>© 2026 Creative Community · Mineland Creative+</span>
+      <div class="site-status">
+    <span class="site-status-dot"></span>
+    <span>Сайт работает</span>
+  </div>
     <span>Сайт — неофициальный фан-проект сообщества</span>
   </div>
 </footer>

@@ -1,0 +1,13 @@
+{
+"name":"Creative Awards",
+"short_name":"Creative Awards",
+"icons":[
+{
+"src":"images/icon.png",
+"sizes":"512x512"
+}
+],
+"theme_color":"#070707",
+"background_color":"#070707",
+"display":"standalone"
+}
