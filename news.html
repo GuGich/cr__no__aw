@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новость — Creative Awards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0a08;
+    --panel:#141210;
+    --panel-2:#1b1815;
+    --gold-hi:#e8c887;
+    --gold-mid:#b8934f;
+    --gold-low:#6e5227;
+    --ink:#f3ead9;
+    --muted:#9a9184;
+    --line:rgba(232,200,135,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    padding-top: 80px;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--gold-mid);color:#141210;}
+
+  .display{font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:0.02em;}
+  .eyebrow{font-size:12px;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold-mid);font-weight:700;}
+
+  header, main, footer{
+    padding-left:max(24px, calc((100% - 1000px) / 2)) !important;
+    padding-right:max(24px, calc((100% - 1000px) / 2)) !important;
+  }
+
+  .btn-vote{
+    display:inline-block;
+    background:linear-gradient(180deg, var(--gold-hi), var(--gold-mid));
+    color:#1a1408;
+    border:none;
+    padding:14px 32px;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:0.07em;
+    text-transform:uppercase;
+    text-decoration:none;
+    cursor:pointer;
+    border-radius:2px;
+    box-shadow:0 8px 26px rgba(232,200,135,0.18);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-vote:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(232,200,135,0.3); }
+  .btn-ghost{
+    color:var(--gold-hi);
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--gold-low);
+    padding-bottom:4px;
+    white-space:nowrap;
+  }
+  .btn-ghost:hover{ border-color:var(--gold-hi); }
+
+  header{
+    position:fixed; top:0; left:0; width:100%; z-index:1000;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; padding-top:18px; padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg);
+    flex-wrap:wrap;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .brand .mark{
+    width:30px; height:30px; border:1px solid var(--gold-low);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gold-hi); font-family:'Cormorant Garamond',serif; font-weight:700;
+  }
+  .brand span{
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:19px; letter-spacing:0.05em; color:var(--gold-hi);
+  }
+  nav.top-links{ display:flex; align-items:center; gap:22px; font-size:12.5px; color:var(--muted); flex-wrap:wrap; }
+  nav.top-links a{ text-decoration:none; }
+  nav.top-links a:hover, nav.top-links a.active{ color:var(--gold-hi); }
+  .header-right{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+
+  main{ padding-top:36px; padding-bottom:64px; }
+
+  .crumbs{ font-size:12px; color:var(--muted); margin-bottom:22px; letter-spacing:.04em; }
+  .crumbs a{ text-decoration:none; color:var(--muted); }
+  .crumbs a:hover{ color:var(--gold-hi); }
+
+  article header.article-head{
+    position:static; border:none; padding:0; display:block; background:none;
+    margin-bottom:30px;
+  }
+  .cat-tag{
+    display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold-mid); border:1px solid var(--gold-low); padding:6px 14px; margin-bottom:18px;
+  }
+  h1.article-title{
+    font-size:clamp(30px,5vw,52px); line-height:1.08; margin:0 0 20px; color:var(--gold-hi);
+  }
+  .article-meta{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    font-size:13px; color:var(--muted); padding-bottom:26px; border-bottom:1px solid var(--line);
+  }
+  .article-meta .dot{ width:4px; height:4px; border-radius:50%; background:var(--gold-low); }
+  .article-meta .author{ color:var(--ink); font-weight:700; }
+
+  .cover{
+    margin:32px 0 8px;
+    height:clamp(240px,42vw,480px);
+    position:relative;
+    border:1px solid var(--line);
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 20%, rgba(232,200,135,0.14), transparent 60%),
+      linear-gradient(180deg, #1c1812, #0e0c09);
+  }
+  .cover img{ width:100%; height:100%; object-fit:cover; }
+  .cover .cap{ position:absolute; left:20px; bottom:14px; font-size:11.5px; color:var(--muted); }
+
+  .lead{
+    font-family:'Cormorant Garamond',serif; font-weight:600;
+    font-size:clamp(19px,2.4vw,24px); line-height:1.55; color:var(--ink);
+    margin:30px 0 8px; max-width:760px;
+  }
+
+  .prose{ max-width:760px; margin-top:22px; }
+  .prose p{ color:var(--muted); line-height:1.85; font-size:15.5px; margin:0 0 20px; }
+  .prose p strong{ color:var(--ink); }
+  .prose h2{
+    font-family:'Cormorant Garamond',serif; color:var(--gold-hi);
+    font-size:clamp(22px,3vw,30px); margin:44px 0 16px;
+  }
+  .prose a{ color:var(--gold-hi); text-decoration:underline; text-decoration-color:var(--gold-low); text-underline-offset:2px; }
+  .prose ul{ margin:0 0 20px; padding-left:0; list-style:none; }
+  .prose ul li{
+    color:var(--muted); font-size:15px; line-height:1.7; padding:0 0 10px 20px; position:relative;
+  }
+  .prose ul li::before{ content:'✦'; position:absolute; left:0; top:2px; color:var(--gold-mid); font-size:10px; }
+
+  blockquote{
+    margin:34px 0; max-width:760px; padding:22px 26px;
+    border-left:2px solid var(--gold-mid); background:var(--panel);
+    font-family:'Cormorant Garamond',serif; font-size:20px; line-height:1.5; color:var(--ink);
+  }
+  blockquote cite{
+    display:block; margin-top:12px; font-family:'Manrope',sans-serif; font-style:normal;
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-mid);
+  }
+
+  .gallery{
+    max-width:760px; display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:32px 0;
+  }
+  .gallery .g-item{
+    height:180px; border:1px solid var(--line); position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 20%, rgba(232,200,135,0.1), transparent 60%),
+      linear-gradient(180deg, #1c1812, #0e0c09);
+  }
+  .gallery .g-item img{ width:100%; height:100%; object-fit:cover; }
+  .gallery .g-item.wide{ grid-column:1 / -1; height:280px; }
+
+  .tags-row{
+    display:flex; gap:10px; flex-wrap:wrap; margin:38px 0 0; max-width:760px;
+  }
+  .tag-pill{
+    font-size:11.5px; letter-spacing:.06em; color:var(--muted);
+    border:1px solid var(--line); padding:8px 14px;
+  }
+
+  .share-row{
+    display:flex; align-items:center; gap:16px; margin-top:34px; max-width:760px;
+    padding-top:24px; border-top:1px solid var(--line); flex-wrap:wrap;
+  }
+  .share-row .lbl{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-mid); }
+  .share-row a{
+    text-decoration:none; color:var(--ink); font-size:13px; border:1px solid var(--line);
+    padding:8px 16px;
+  }
+  .share-row a:hover{ border-color:var(--gold-hi); color:var(--gold-hi); }
+
+  .more-block{
+    max-width:760px; margin-top:60px; padding-top:36px; border-top:1px solid var(--line);
+  }
+  .more-block h3{ font-family:'Cormorant Garamond',serif; color:var(--gold-hi); font-size:24px; margin:0 0 20px; }
+  .more-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .more-card{
+    border:1px solid var(--line); background:var(--panel); padding:18px 20px; text-decoration:none;
+  }
+  .more-card .m-cat{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-mid); }
+  .more-card h4{ font-family:'Cormorant Garamond',serif; color:var(--ink); font-size:18px; margin:8px 0 0; line-height:1.3; }
+
+  footer{
+    padding-top:44px; padding-bottom:36px; border-top:1px solid var(--line); margin-top:60px;
+  }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--muted); flex-wrap:wrap; gap:10px;
+  }
+  .foot-bottom a{ color:var(--gold-hi); text-decoration:none; }
+
+  @media (max-width:700px){
+    .gallery{ grid-template-columns:1fr; }
+    .more-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <div class="mark">C</div>
+    <span>CREATIVE AWARDS</span>
+  </a>
+  <div class="header-right">
+    <nav class="top-links">
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила подачи</a>
+      <a href="winners.html">Победители</a>
+      <a href="#" class="active">Новости</a>
+    </nav>
+    <a class="btn-vote" href="index.html#nominations" style="padding:10px 22px;font-size:12px;">Голосовать</a>
+  </div>
+</header>
+
+<main>
+  <div class="crumbs"><a href="index.html">Главная</a> / <a href="#">Новости</a> / Открыт приём заявок на Creative Awards 2027</div>
+
+  <article>
+    <header class="article-head">
+      <span class="cat-tag">Анонс</span>
+      <h1 class="article-title">Открыт приём заявок на Creative Awards 2027</h1>
+      <div class="article-meta">
+        <span class="author">Creative Awards</span>
+        <span class="dot"></span>
+        <span>26 июля 2026</span>
+        <span class="dot"></span>
+        <span>3 мин чтения</span>
+      </div>
+    </header>
+
+    <div class="cover">
+      <img src="https://via.placeholder.com/1200x700/141210/e8c887?text=Creative+Awards" alt="Обложка новости">
+      <div class="cap">Сцена церемонии Creative Awards 2025</div>
+    </div>
+
+    <p class="lead">
+      Сегодня официально стартует приём заявок на участие в шестой церемонии Creative Awards.
+      Организаторы рассказали, что изменится в этом году и на что стоит обратить внимание разработчикам
+      перед подачей своей игры.
+    </p>
+
+    <div class="prose">
+      <p>
+        Как и в прошлые годы, приём заявок будет открыт до конца осени — точная дата закрытия
+        появится позже на этой странице и в Discord-канале сообщества. За это время команда организаторов
+        соберёт список игр, которые попадут в предварительный <a href="rules.html#longlist">лонг-лист церемонии</a>,
+        а в декабре объявит официальных номинантов.
+      </p>
+
+      <h2>Что нового в этом году</h2>
+      <p>
+        Мы пересмотрели часть критериев отбора, чтобы церемония лучше отражала актуальное состояние
+        режима Creative+. Полный список требований и объяснение того, какие проекты подходят для участия,
+        можно найти на странице <a href="rules.html">правил подачи заявки</a>.
+      </p>
+      <ul>
+        <li>Обновлены критерии технической готовности игры на момент подачи заявки.</li>
+        <li>Уточнены правила для командных проектов и игр с несколькими версиями.</li>
+        <li>Расширено пояснение статуса «лонг-лист» — теперь оно вынесено в отдельный раздел правил.</li>
+      </ul>
+
+      <blockquote>
+        Наша задача — сделать так, чтобы в лонг-лист попадали действительно завершённые и играбельные проекты,
+        а не черновики. Это честнее по отношению к тем, кто доводит свою игру до релиза.
+        <cite>Организаторы Creative Awards</cite>
+      </blockquote>
+
+      <h2>Как подать заявку</h2>
+      <p>
+        Форма подачи заявки будет опубликована отдельным сообщением в Discord-сообществе и продублирована
+        здесь на сайте. Рекомендуем заранее ознакомиться с полным списком правил, чтобы не терять время
+        на доработку заявки после отклонения.
+      </p>
+
+      <div class="gallery">
+        <div class="g-item"><img src="https://via.placeholder.com/600x360/1b1815/b8934f?text=Screenshot+1" alt=""></div>
+        <div class="g-item"><img src="https://via.placeholder.com/600x360/1b1815/b8934f?text=Screenshot+2" alt=""></div>
+        <div class="g-item wide"><img src="https://via.placeholder.com/1200x400/1b1815/e8c887?text=Церемония+2025" alt=""></div>
+      </div>
+
+      <p>
+        Следите за обновлениями — все важные даты и объявления будут публиковаться в этом разделе сайта,
+        а также в официальных каналах Mineland Network.
+      </p>
+    </div>
+
+    <div class="tags-row">
+      <span class="tag-pill">Creative Awards 2027</span>
+      <span class="tag-pill">Приём заявок</span>
+      <span class="tag-pill">Анонс</span>
+    </div>
+
+    <div class="share-row">
+      <span class="lbl">Поделиться</span>
+      <a href="#">Discord</a>
+      <a href="#">Telegram</a>
+      <a href="#">Скопировать ссылку</a>
+    </div>
+
+    <div class="more-block">
+      <h3>Читайте также</h3>
+      <div class="more-grid">
+        <a class="more-card" href="#">
+          <span class="m-cat">Итоги</span>
+          <h4>Итоги голосования Creative Awards 2025</h4>
+        </a>
+        <a class="more-card" href="rules.html">
+          <span class="m-cat">Правила</span>
+          <h4>Правила подачи заявки и что такое лонг-лист</h4>
+        </a>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="foot-bottom">
+    <span>© 2026 Creative Community · Mineland Creative+</span>
+    <a href="index.html">На главную ↗</a>
+  </div>
+</footer>
+
+</body>
+</html>
