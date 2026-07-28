@@ -4,6 +4,40 @@ console.log("JS загружен");
 document.addEventListener("DOMContentLoaded", () => {
 
 
+// CREATIVE AWARDS LOADER
+
+const loader = document.querySelector(".ca-loader");
+
+if(loader){
+
+    if(sessionStorage.getItem("caVisited")){
+
+        loader.remove();
+
+    } else {
+
+
+        sessionStorage.setItem("caVisited", "true");
+
+
+        setTimeout(()=>{
+
+            loader.classList.add("hide");
+
+
+            setTimeout(()=>{
+
+                loader.remove();
+
+            },700);
+
+
+        },1500);
+
+    }
+
+}
+
     // Скролл подсказка на главной
     const scrollHint = document.querySelector(".scroll-hint");
 
@@ -338,26 +372,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    const topBtn = document.getElementById("topBtn");
+// Кнопка наверх
 
-window.addEventListener("scroll",()=>{
-
-if(window.scrollY > 500)
-    topBtn.classList.add("show");
-else
-    topBtn.classList.remove("show");
-
-});
+const toTop = document.getElementById("toTop");
 
 
-topBtn.onclick=()=>{
+if(toTop){
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    window.addEventListener("scroll", ()=>{
 
-};
+
+        if(window.scrollY > 600){
+
+            toTop.classList.add("show");
+
+        } else {
+
+            toTop.classList.remove("show");
+
+        }
+
+
+    });
+
+
+
+    toTop.addEventListener("click", ()=>{
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+}
 
 // Переходы между страницами
 
