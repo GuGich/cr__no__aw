@@ -79,3 +79,21 @@ document.getElementById('historyNext').addEventListener('click', () => {
       card.querySelector('.nom-toggle').textContent = wasOpen ? 'Показать номинантов ↓' : 'Скрыть ↑';
     });
   });
+
+    document.querySelectorAll('.year-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      const key = tab.getAttribute('data-year');
+      document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.year-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector('.year-panel[data-panel="'+key+'"]').classList.add('active');
+    });
+  });
+
+    document.querySelectorAll('.faq-item').forEach(function(item){
+      item.querySelector('.faq-q').addEventListener('click', function(){
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if(!wasOpen) item.classList.add('open');
+      });
+    });
