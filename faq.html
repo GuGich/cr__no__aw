@@ -157,12 +157,12 @@
 
 
   <div class="faq-nav">
-    <a href="#apply">Подача заявки</a>
-    <a href="#longlist">Лонг-лист и номинации</a>
-    <a href="#vote">Голосование</a>
-    <a href="#awards">Награды</a>
-    <a href="#ceremony">Церемония</a>
-    <a href="#site">Сайт</a>
+    <a href="#apply" onclick="clearFaqSearch()">Подача заявки</a>
+    <a href="#longlist" onclick="clearFaqSearch()">Лонг-лист и номинации</a>
+    <a href="#vote" onclick="clearFaqSearch()">Голосование</a>
+    <a href="#awards" onclick="clearFaqSearch()">Награды</a>
+    <a href="#ceremony" onclick="clearFaqSearch()">Церемония</a>
+    <a href="#site" onclick="clearFaqSearch()">Сайт</a>
   </div>
 </section>
 <section class="block" id="faq-head">
@@ -1066,6 +1066,15 @@ if (text !== "") {
     });
 
 });
+
+function clearFaqSearch() {
+    const search = document.getElementById("faqSearch");
+
+    if (search) {
+        search.value = "";
+        search.dispatchEvent(new Event("input"));
+    }
+}
 </script>
 </body>
 </html>
