@@ -232,19 +232,11 @@ document.getElementById("sendVote").onclick = async () => {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({
-
-                id: discordUser.id,
-
-                username: discordUser.username,
-
-                game: game,
-
-                category: category,
-
-                comment: comment
-
-            })
+body: JSON.stringify({
+  game,
+  category,
+  comment
+})
         }
     );
 
