@@ -83,16 +83,17 @@
     Войти через Discord
 </button>
 
-<div id="discord-user">
+<div id="discord-user" class="discord-auth-box">
     Проверка Discord...
 </div>
 
-<script>
-document.getElementById("discordLogin").onclick = () => {
-    window.location.href =
-        "https://auth.creativeawards.fun/login";
-};
+<div id="vote-content" style="display:none;">
 
+    <!-- тут твоя форма голосования -->
+
+</div>
+
+<script>
 
 fetch("https://auth.creativeawards.fun/me", {
     credentials: "include"
@@ -101,21 +102,88 @@ fetch("https://auth.creativeawards.fun/me", {
 .then(data => {
 
     const box = document.getElementById("discord-user");
-    const btn = document.getElementById("discordLogin");
+    const vote = document.getElementById("vote-content");
+
 
     if (!data.logged) {
-        box.innerHTML = "Вы не вошли";
+
+        box.innerHTML = `
+            <b>🔒 Требуется Discord</b>
+
+            <p>
+                Для участия в голосовании необходимо войти через Discord.
+            </p>
+
+            <a href="https://auth.creativeawards.fun/login">
+                Войти через Discord
+            </a>
+        `;
+
         return;
     }
 
-    btn.style.display = "none";
 
     box.innerHTML = `
-        <b>✅ Discord подключён</b><br>
+        <span class="discord-success">
+            ✅ Discord подключён
+        </span>
+
+        <br><br>
+
         ${data.user.username}
     `;
+
+
+    vote.style.display = "block";
+
 });
+
 </script>
+
+<style>
+  .discord-auth-box {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,215,0,0.25);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.discord-auth-box b {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.discord-auth-box a,
+.discord-login-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5865F2, #4752C4);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .25s;
+}
+
+.discord-auth-box a:hover,
+.discord-login-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.15);
+}
+
+.discord-success {
+    color: #ffd700;
+    font-weight: 700;
+}
+</style>
 
 
 </section>
