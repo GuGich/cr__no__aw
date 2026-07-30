@@ -87,7 +87,7 @@
 </div>
 
 <script>
-fetch("https://creative-awards-auth.777ilyazar777.workers.dev/me", {
+fetch("https://auth.creativeawards.fun/me", {
     credentials: "include"
 })
 .then(r => r.json())
@@ -97,7 +97,7 @@ fetch("https://creative-awards-auth.777ilyazar777.workers.dev/me", {
 
     if (!data.logged) {
         box.innerHTML = `
-            <a href="https://creative-awards-auth.777ilyazar777.workers.dev/login">
+            <a href="https://auth.creativeawards.fun/login">
                 Войти через Discord
             </a>
         `;
@@ -109,15 +109,13 @@ fetch("https://creative-awards-auth.777ilyazar777.workers.dev/me", {
         ${data.user.username}
     `;
 
+})
+.catch(error => {
+    console.error(error);
+
+    document.getElementById("discord-user").innerHTML =
+        "Ошибка проверки Discord";
 });
-</script>
-<script>
-  document
-.getElementById("discordLogin")
-.onclick = () => {
-    window.location.href =
-    "https://creative-awards-auth.777ilyazar777.workers.dev/login";
-};
 </script>
 
 </section>
