@@ -82,11 +82,18 @@
 <button id="discordLogin">
     Войти через Discord
 </button>
+
 <div id="discord-user">
     Проверка Discord...
 </div>
 
 <script>
+document.getElementById("discordLogin").onclick = () => {
+    window.location.href =
+        "https://auth.creativeawards.fun/login";
+};
+
+
 fetch("https://auth.creativeawards.fun/me", {
     credentials: "include"
 })
@@ -94,29 +101,22 @@ fetch("https://auth.creativeawards.fun/me", {
 .then(data => {
 
     const box = document.getElementById("discord-user");
+    const btn = document.getElementById("discordLogin");
 
     if (!data.logged) {
-        box.innerHTML = `
-            <a href="https://auth.creativeawards.fun/login">
-                Войти через Discord
-            </a>
-        `;
+        box.innerHTML = "Вы не вошли";
         return;
     }
+
+    btn.style.display = "none";
 
     box.innerHTML = `
         <b>✅ Discord подключён</b><br>
         ${data.user.username}
     `;
-
-})
-.catch(error => {
-    console.error(error);
-
-    document.getElementById("discord-user").innerHTML =
-        "Ошибка проверки Discord";
 });
 </script>
+
 
 </section>
 
