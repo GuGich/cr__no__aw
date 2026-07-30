@@ -242,7 +242,9 @@ body: JSON.stringify({
 
 
 
-    const result = await response.json();
+const text = await response.text();
+
+console.log(text);
 
 
 
