@@ -78,49 +78,47 @@
   </header>
 
 <section class="vote-section">
-<div class="form-container">
-  <iframe
-    src="https://docs.google.com/forms/d/e/1FAIpQLSdWmMU8sEk3ZX5ZWKX0uKr4rWlFwYo8at3nQLxL3ErLdhO3CA/viewform?embedded=true"
-    loading="lazy">
-  </iframe>
+
+<button id="discordLogin">
+    Войти через Discord
+</button>
+<div id="discord-user">
+    Проверка Discord...
 </div>
 
-<style>
+<script>
+fetch("https://creative-awards-auth.777ilyazar777.workers.dev/me", {
+    credentials: "include"
+})
+.then(r => r.json())
+.then(data => {
 
-.form-container{
-    overflow:hidden;
-    border-radius:24px;
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
+    const box = document.getElementById("discord-user");
 
-  .form-container iframe{
-    width:100%;
-    height:3150px;
-    border:0;
-    display:block;
-}
-
-/* Планшеты */
-@media (max-width: 1024px){
-    .form-container iframe{
-        height:3450px;
+    if (!data.logged) {
+        box.innerHTML = `
+            <a href="https://creative-awards-auth.777ilyazar777.workers.dev/login">
+                Войти через Discord
+            </a>
+        `;
+        return;
     }
-}
 
-/* Телефоны */
-@media (max-width: 768px){
-    .form-container iframe{
-        height:4150px;
-    }
-}
+    box.innerHTML = `
+        <b>✅ Discord подключён</b><br>
+        ${data.user.username}
+    `;
 
-/* Очень узкие телефоны */
-@media (max-width: 480px){
-    .form-container iframe{
-        height:4550px;
-    }
-}
-</style>
+});
+</script>
+<script>
+  document
+.getElementById("discordLogin")
+.onclick = () => {
+    window.location.href =
+    "https://creative-awards-auth.777ilyazar777.workers.dev/login";
+};
+</script>
 
 </section>
 
