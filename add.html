@@ -202,10 +202,6 @@ document
 
 e.preventDefault();
 
-const button = e.target.querySelector("button");
-
-button.disabled = true;
-button.innerText = "Отправка...";
 
 const genres = [];
 
@@ -213,6 +209,8 @@ document
 .querySelectorAll(".genres input:checked")
 .forEach(el=>genres.push(el.value));
 
+
+// Проверка жанров ДО блокировки кнопки
 if (genres.length === 0) {
 
     document
@@ -223,6 +221,13 @@ if (genres.length === 0) {
     return;
 
 }
+
+
+const button = e.target.querySelector("button");
+
+button.disabled = true;
+button.innerText = "Отправка...";
+
 
 const body = {
 
@@ -243,6 +248,8 @@ document.getElementById("website").value
 };
 
 
+try {
+
 const r = await fetch(
 "https://auth.creativeawards.fun/apply",
 {
@@ -257,30 +264,46 @@ body:JSON.stringify(body)
 
 });
 
+
 const result = await r.json();
 
-if (result.success) {
 
-    document
-    .getElementById("applyResult")
-    .innerHTML =
-    `✅ Заявка отправлена! Ваш номер: ${result.id}`;
+if(result.success){
 
-    document
-    .getElementById("applyForm")
-    .reset();
+document
+.getElementById("applyResult")
+.innerHTML =
+`✅ Заявка отправлена! Номер: ${result.id}`;
 
-} else {
+document
+.getElementById("applyForm")
+.reset();
 
-    document
-    .getElementById("applyResult")
-    .innerHTML =
-    `❌ ${result.message}`;
+}
+else {
+
+document
+.getElementById("applyResult")
+.innerHTML =
+`❌ ${result.message}`;
 
 }
 
+
+}
+catch(error){
+
+document
+.getElementById("applyResult")
+.innerHTML =
+"❌ Ошибка отправки заявки.";
+
+}
+
+
 button.disabled = false;
 button.innerText = "Отправить заявку";
+
 
 });
 </script>
