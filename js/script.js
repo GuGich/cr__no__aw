@@ -983,6 +983,12 @@ html += `
 <br>
 
 <span>
+Автор: ${data.authors}
+</span>
+
+<br>
+
+<span>
 ID заявки: ${id}
 </span>
 
