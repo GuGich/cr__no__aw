@@ -653,7 +653,7 @@ resultBox.innerHTML = `
 
 /* ==========================
    ПОДАЧА ЗАЯВКИ
-========================== */
+========================= */
 
 
 const applyForm =
@@ -718,10 +718,12 @@ document.getElementById("authors").value.trim(),
 ad:
 document.getElementById("ad").value.trim(),
 
+releaseDate:
+document.getElementById("releaseDate").value,
+
 genres:genres
 
 };
-
 
 
 try{

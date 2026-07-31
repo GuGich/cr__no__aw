@@ -3911,7 +3911,97 @@ body {
 
 }
 
+/* ==========================
+   МОИ ЗАЯВКИ
+========================== */
 
+.my-applications{
+    max-width:900px;
+    margin:80px auto;
+    padding:0 20px;
+}
+
+
+.my-applications h2{
+    margin-bottom:20px;
+}
+
+
+#myApplications{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+
+
+#myApplications > div{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:20px 24px;
+    position:relative;
+    overflow:hidden;
+}
+
+
+
+#myApplications > div::before{
+
+    content:"";
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:3px;
+    height:100%;
+
+    background:var(--gold-mid);
+
+}
+
+
+
+#myApplications b{
+
+    color:var(--gold-hi);
+    font-size:18px;
+
+}
+
+
+
+.status-success::before{
+    background:var(--ok)!important;
+}
+
+
+.status-error::before{
+    background:var(--no)!important;
+}
+
+
+.status-pending::before{
+    background:var(--gold-mid)!important;
+}
+
+
+
+.status-success{
+    color:var(--ok);
+}
+
+
+
+.status-error{
+    color:var(--no);
+}
+
+
+
+.status-pending{
+    color:var(--gold-hi);
+}
 
 
 /* ==========================
