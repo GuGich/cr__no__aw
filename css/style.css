@@ -3534,41 +3534,263 @@ body {
     z-index: -1;
 }
 
-/* ===== Проверка статуса заявки ===== */
+/* ==========================
+   ФОРМА ЗАЯВКИ
+========================== */
 
+
+.apply-form,
 .check-status {
 
-    max-width: 900px;
-    margin: 70px auto;
-    padding: 40px;
+    max-width:900px;
 
-    background:
-    var(--panel);
+    margin:70px auto;
 
-    border: 1px solid var(--line);
+    padding:40px;
+
+    background:var(--panel);
+
+    border:1px solid var(--line);
 
 }
 
 
+
+.apply-form h2,
 .check-status h2 {
 
-    margin-top:0;
+    margin:0 0 15px;
 
     color:var(--gold-hi);
 
     font-size:32px;
 
+    font-weight:700;
+
 }
 
 
-.check-status p {
+
+.apply-desc,
+.check-status > p {
 
     color:var(--muted);
 
-    margin-bottom:30px;
+    line-height:1.6;
+
+    margin-bottom:35px;
 
 }
 
+
+
+/* Поля */
+
+
+.field {
+
+    margin-bottom:28px;
+
+}
+
+
+
+.field > label {
+
+    display:block;
+
+    margin-bottom:10px;
+
+    color:var(--ink);
+
+    font-weight:600;
+
+}
+
+
+
+.field input[type="text"] {
+
+    width:100%;
+
+    height:48px;
+
+    box-sizing:border-box;
+
+
+    padding:0 15px;
+
+
+    background:var(--panel-2);
+
+    border:1px solid var(--line);
+
+    color:var(--ink);
+
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+
+
+.field input[type="text"]:focus,
+.check-box input:focus {
+
+    border-color:var(--gold-mid);
+
+}
+
+
+
+
+
+/* Жанры */
+
+
+.genres {
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+}
+
+
+
+.genres label {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+
+    padding:12px;
+
+
+    background:var(--panel-2);
+
+    border:1px solid var(--line);
+
+
+    color:var(--ink);
+
+    font-weight:400;
+
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+
+.genres label:hover {
+
+    border-color:var(--gold-mid);
+
+}
+
+
+
+.genres input {
+
+    accent-color:var(--gold-mid);
+
+}
+
+
+
+
+
+
+/* Кнопки */
+
+
+.apply-form button,
+.check-box button {
+
+
+    height:48px;
+
+    padding:0 35px;
+
+
+    background:
+
+    linear-gradient(
+        180deg,
+        var(--gold-hi),
+        var(--gold-mid)
+    );
+
+
+    border:0;
+
+
+    color:#151008;
+
+
+    font-weight:700;
+
+    font-size:15px;
+
+
+    cursor:pointer;
+
+
+    transition:.2s;
+
+}
+
+
+
+.apply-form button:hover,
+.check-box button:hover {
+
+    filter:brightness(1.08);
+
+}
+
+
+
+.apply-form button:disabled {
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+
+
+
+
+/* Результат отправки */
+
+
+#applyResult {
+
+    margin-top:30px;
+
+}
+
+
+
+
+
+/* ==========================
+   ПРОВЕРКА СТАТУСА
+========================== */
 
 
 .check-box {
@@ -3580,82 +3802,54 @@ body {
 }
 
 
+
 .check-box input {
+
 
     flex:1;
 
+
     height:48px;
 
-    padding:0 16px;
+
+    padding:0 15px;
+
 
     background:var(--panel-2);
 
+
     border:1px solid var(--line);
+
 
     color:var(--ink);
 
+
     font-size:16px;
+
 
     outline:none;
 
 }
 
 
-.check-box input:focus {
 
-    border-color:var(--gold-mid);
-
-}
-
-
-
-.check-box button {
-
-
-    padding:0 30px;
-
-    background:
-    linear-gradient(
-        180deg,
-        var(--gold-hi),
-        var(--gold-mid)
-    );
-
-
-    border:none;
-
-    color:#16110a;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-
-
-.check-box button:hover {
-
-    filter:brightness(1.08);
-
-}
 
 
 
 #checkResult {
 
-
     margin-top:30px;
-
-    font-size:17px;
 
 }
 
 
 
-/* статусы */
+
+
+
+/* ==========================
+   СТАТУСЫ
+========================== */
 
 
 .status-pending,
@@ -3665,9 +3859,14 @@ body {
 
     padding:22px;
 
-    border-left:3px solid;
 
     background:var(--panel-2);
+
+
+    border-left:3px solid;
+
+
+    line-height:1.6;
 
 }
 
@@ -3675,9 +3874,10 @@ body {
 
 .status-pending {
 
-    border-color:var(--gold-mid);
 
     color:var(--gold-hi);
+
+    border-color:var(--gold-mid);
 
 }
 
@@ -3685,9 +3885,10 @@ body {
 
 .status-success {
 
-    border-color:var(--ok);
 
     color:var(--ok);
+
+    border-color:var(--ok);
 
 }
 
@@ -3695,11 +3896,13 @@ body {
 
 .status-error {
 
-    border-color:var(--no);
 
     color:var(--no);
 
+    border-color:var(--no);
+
 }
+
 
 
 .status-error b {
@@ -3708,15 +3911,44 @@ body {
 
 }
 
-@media(max-width:600px){
 
+
+
+
+/* ==========================
+   МОБИЛЬНЫЕ
+========================== */
+
+
+@media(max-width:700px){
+
+
+.apply-form,
 .check-status {
 
-    margin:40px 16px;
+    margin:40px 15px;
 
     padding:25px;
 
 }
+
+
+
+.apply-form h2,
+.check-status h2 {
+
+    font-size:26px;
+
+}
+
+
+
+.genres {
+
+    grid-template-columns:1fr;
+
+}
+
 
 
 .check-box {
@@ -3726,17 +3958,12 @@ body {
 }
 
 
+
 .check-box button {
 
-    height:48px;
+    width:100%;
 
 }
 
-
-.check-status h2 {
-
-    font-size:26px;
-
-}
 
 }
