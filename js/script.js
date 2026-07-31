@@ -995,13 +995,6 @@ ID игры: ${data.ad || "Не указан"}
 <br>
 
 <span>
-Дата релиза:
-${data.releaseDate || "Не указана"}
-</span>
-
-<br>
-
-<span>
 Дата подачи:
 ${
 data.created
