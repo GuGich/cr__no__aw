@@ -4221,6 +4221,38 @@ body {
 
 }
 
+.application-id-copy{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+}
+
+
+.application-id-copy button{
+
+    background:none;
+
+    border:1px solid var(--line);
+
+    color:var(--gold-hi);
+
+    cursor:pointer;
+
+    padding:5px 10px;
+
+    transition:.2s;
+
+}
+
+
+.application-id-copy button:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
+
 /* ==========================
    МОБИЛЬНЫЕ
 ========================== */

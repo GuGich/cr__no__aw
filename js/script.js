@@ -900,9 +900,17 @@ document
 
 <br>
 
-<span class="application-id">
-${result.id}
-</span>
+<div class="application-id-copy">
+
+    <span class="application-id">
+        ${result.id}
+    </span>
+
+    <button onclick="copyApplicationId('${result.id}', this)">
+        📋
+    </button>
+
+</div>
 
 <br><br>
 
@@ -989,6 +997,19 @@ button.innerText = "Отправить заявку";
 }
 
 
+function copyApplicationId(id, button){
+
+    navigator.clipboard.writeText(id);
+
+    button.innerText = "✓";
+
+    setTimeout(()=>{
+
+        button.innerText = "📋";
+
+    },1500);
+
+}
 
 
 
