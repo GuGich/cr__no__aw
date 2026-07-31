@@ -212,15 +212,13 @@ RPG
 </div>
 
 
-
-<!-- Honeypot для антиспама -->
-
 <input
 type="text"
 id="website"
+name="website"
 autocomplete="off"
 tabindex="-1"
-style="display:none"
+aria-hidden="true"
 >
 
 
@@ -237,56 +235,6 @@ style="display:none"
 
 
 </section>
-
-
-
-
-
-<section class="check-status">
-
-
-<h2>
-Проверка статуса заявки
-</h2>
-
-
-<p>
-Введите ID заявки, который был выдан после отправки.
-</p>
-
-
-
-<div class="check-box">
-
-
-<input
-type="text"
-id="applicationId"
-maxlength="10"
-autocomplete="off"
-placeholder="Например: CA26-K7P3M"
->
-
-
-
-<button
-type="button"
-id="checkButton">
-
-Проверить
-
-</button>
-
-
-</div>
-
-
-
-<div id="checkResult"></div>
-
-
-</section>
-
 
 <footer>
   <div class="foot-bottom">

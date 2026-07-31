@@ -515,4 +515,613 @@ document.querySelectorAll("a").forEach(link => {
 
 });
 
+/* ==========================
+   ПРОВЕРКА СТАТУСА ЗАЯВКИ
+========================== */
+
+
+document
+.getElementById("checkButton")
+.addEventListener("click", async ()=>{
+
+
+const id =
+document
+.getElementById("applicationId")
+.value
+.trim()
+.toUpperCase();
+
+
+const resultBox =
+document.getElementById("checkResult");
+
+
+if(!id){
+
+resultBox.innerHTML = `
+<div class="status-error">
+❌ Введите ID заявки.
+</div>
+`;
+
+return;
+
+}
+
+
+
+resultBox.innerHTML = `
+<div class="status-pending">
+🔎 Проверяем заявку...
+</div>
+`;
+
+
+
+try{
+
+
+const response = await fetch(
+"https://auth.creativeawards.fun/check?id="
++ encodeURIComponent(id)
+);
+
+
+
+const data =
+await response.json();
+
+
+
+if(!data.found){
+
+resultBox.innerHTML = `
+<div class="status-error">
+❌ Заявка с таким ID не найдена.
+</div>
+`;
+
+return;
+
+}
+
+
+
+let html;
+
+
+
+if(data.status === "В проверке"){
+
+
+html = `
+
+<div class="status-pending">
+
+🟡 Заявка находится на рассмотрении.
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+else if(data.status === "Принята"){
+
+
+html = `
+
+<div class="status-success">
+
+🟢 Игра допущена к участию.
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+else if(data.status === "Отклонена"){
+
+
+html = `
+
+<div class="status-error">
+
+🔴 Игра не допущена к участию.
+
+<br><br>
+
+<b>Причина:</b>
+
+<br>
+
+${data.decision || "Не указана"}
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+else {
+
+
+html = `
+
+<div class="status-pending">
+
+Статус заявки:
+
+<br><br>
+
+${data.status}
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+resultBox.innerHTML = html;
+
+
+
+}
+
+catch(error){
+
+
+resultBox.innerHTML = `
+
+<div class="status-error">
+
+❌ Ошибка проверки статуса.
+
+</div>
+
+`;
+
+}
+
+
+
+});
+
+
+
+
+
+/* ==========================
+   ПОДАЧА ЗАЯВКИ
+========================== */
+
+
+document
+.getElementById("applyForm")
+.addEventListener("submit", async function(e){
+
+
+e.preventDefault();
+
+
+
+const genres = [];
+
+document
+.querySelectorAll(".genres input:checked")
+.forEach(el => genres.push(el.value));
+
+
+
+
+// проверяем жанры
+
+if(genres.length === 0){
+
+
+document
+.getElementById("applyResult")
+.innerHTML = `
+
+<div class="status-error">
+
+❌ Выберите хотя бы один жанр.
+
+</div>
+
+`;
+
+
+return;
+
+}
+
+
+
+
+const button =
+e.target.querySelector("button");
+
+
+
+button.disabled = true;
+
+button.innerText =
+"Отправка...";
+
+
+
+
+const body = {
+
+
+game:
+document
+.getElementById("gameName")
+.value
+.trim(),
+
+
+authors:
+document
+.getElementById("authors")
+.value
+.trim(),
+
+
+ad:
+document
+.getElementById("ad")
+.value
+.trim(),
+
+
+genres:genres,
+
+
+website:
+document
+.getElementById("website")
+.value
+
+
+
+};
+
+
+
+try{
+
+
+const response =
+await fetch(
+
+"https://auth.creativeawards.fun/apply",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify(body)
+
+}
+
+);
+
+
+
+const result =
+await response.json();
+
+
+
+
+if(result.success){
+
+
+let applications =
+JSON.parse(
+localStorage.getItem("applications") || "[]"
+);
+
+
+applications.push(result.id);
+
+
+
+localStorage.setItem(
+"applications",
+JSON.stringify(applications)
+);
+
+
+
+document
+.getElementById("applyResult")
+.innerHTML = `
+
+<div class="status-success">
+
+🟢 Заявка успешно отправлена.
+
+<br><br>
+
+<b>ID заявки:</b>
+
+<br>
+
+${result.id}
+
+<br><br>
+
+ID автоматически сохранён в этом браузере.
+
+</div>
+
+`;
+
+
+
+document
+.getElementById("applyForm")
+.reset();
+
+
+
+}
+
+else{
+
+
+document
+.getElementById("applyResult")
+.innerHTML = `
+
+
+<div class="status-error">
+
+❌ ${result.message || "Ошибка отправки заявки."}
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+document
+.getElementById("applyResult")
+.innerHTML = `
+
+
+<div class="status-error">
+
+❌ Не удалось отправить заявку.
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+button.disabled = false;
+
+button.innerText =
+"Отправить заявку";
+
+
+
+});
+
+async function loadApplications(){
+
+
+const box =
+document.getElementById("myApplications");
+
+
+const applications =
+JSON.parse(
+localStorage.getItem("applications") || "[]"
+);
+
+
+
+if(applications.length === 0){
+
+box.innerHTML = `
+<div class="status-pending">
+У вас нет сохранённых заявок.
+</div>
+`;
+
+return;
+
+}
+
+
+
+let html = "";
+
+
+
+for(const id of applications){
+
+
+try{
+
+
+const response =
+await fetch(
+"https://auth.creativeawards.fun/check?id="
++ encodeURIComponent(id)
+);
+
+
+
+const data =
+await response.json();
+
+
+
+if(!data.found){
+
+html += `
+
+<div class="status-error">
+
+<b>${id}</b>
+
+<br>
+
+Заявка не найдена.
+
+</div>
+
+`;
+
+continue;
+
+}
+
+
+
+
+let statusClass =
+"status-pending";
+
+
+if(data.status === "Принята")
+statusClass =
+"status-success";
+
+
+if(data.status === "Отклонена")
+statusClass =
+"status-error";
+
+
+
+
+html += `
+
+<div class="${statusClass}">
+
+
+<b>${id}</b>
+
+
+<br><br>
+
+
+${data.status}
+
+
+${
+data.status === "Отклонена"
+
+?
+
+`
+<br><br>
+
+<b>Причина:</b>
+
+<br>
+
+${data.decision || "Не указана"}
+
+`
+
+:
+
+""
+
+}
+
+
+</div>
+
+
+<br>
+
+`;
+
+
+
+}
+
+catch{
+
+
+html += `
+
+<div class="status-error">
+
+${id}
+
+<br>
+
+Ошибка проверки.
+
+</div>
+
+`;
+
+}
+
+
+}
+
+
+
+box.innerHTML = html;
+
+
+}
+
+
+
+loadApplications();
+
 });
