@@ -754,7 +754,7 @@ ad:
 document.getElementById("ad").value.trim(),
 
 releaseDate:
-document.getElementById("releaseDate").value.trim(),
+document.getElementById("releaseDate").value,
 
 genres:genres
 
