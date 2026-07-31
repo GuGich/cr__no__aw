@@ -4052,7 +4052,7 @@ body {
 .my-applications{
     max-width:900px;
     margin:80px auto;
-    padding:0 20px;
+    padding:0px 20px;
 }
 
 
@@ -4065,6 +4065,7 @@ body {
     display:flex;
     flex-direction:column;
     gap:14px;
+    margin-bottom: 24px;
 }
 
 
@@ -4170,7 +4171,7 @@ body {
     width:3px;
     height:100%;
 
-    background:var(--gold-mid);
+    background:var(--muted);
 
 }
 
