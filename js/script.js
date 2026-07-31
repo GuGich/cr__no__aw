@@ -520,9 +520,12 @@ document.querySelectorAll("a").forEach(link => {
 ========================== */
 
 
-document
-.getElementById("checkButton")
-.addEventListener("click", async ()=>{
+const checkButton = document.getElementById("checkButton");
+
+if(checkButton){
+
+checkButton.addEventListener("click", async ()=>{
+
 
 
 const id =
@@ -704,6 +707,8 @@ resultBox.innerHTML = `
 
 
 });
+
+}
 
 
 
@@ -950,9 +955,9 @@ button.innerText =
 
 async function loadApplications(){
 
+const box = document.getElementById("myApplications");
 
-const box =
-document.getElementById("myApplications");
+if(!box) return;
 
 
 const applications =
