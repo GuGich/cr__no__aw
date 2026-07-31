@@ -547,6 +547,11 @@ resultBox.innerHTML = `
 </div>
 `;
 
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
+
 return;
 
 }
@@ -579,6 +584,11 @@ resultBox.innerHTML = `
 </div>
 `;
 
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
+
 return;
 
 }
@@ -596,6 +606,11 @@ html = `
 </div>
 `;
 
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
+
 }
 
 
@@ -606,6 +621,11 @@ html = `
 🟢 Игра допущена к участию.
 </div>
 `;
+
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
 
 }
 
@@ -624,6 +644,11 @@ ${data.decision || "Не указана"}
 </div>
 `;
 
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
+
 }
 
 
@@ -639,6 +664,11 @@ resultBox.innerHTML = `
 ❌ Ошибка проверки.
 </div>
 `;
+
+resultBox.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
 
 }
 
@@ -691,6 +721,11 @@ document
 </div>
 
 `;
+
+document.getElementById("applyResult").scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+});
 
 return;
 
@@ -789,6 +824,10 @@ ID сохранён в браузере.
 
 `;
 
+document.getElementById("applyResult").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+});
 
 applyForm.reset();
 
@@ -808,6 +847,11 @@ document.getElementById("applyResult").innerHTML = `
 
 `;
 
+document.getElementById("applyResult").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+});
+
 }
 
 
@@ -825,6 +869,11 @@ document.getElementById("applyResult").innerHTML = `
 </div>
 
 `;
+
+document.getElementById("applyResult").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+});
 
 }
 
