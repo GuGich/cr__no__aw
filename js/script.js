@@ -978,6 +978,8 @@ html += `
 
 <b>${data.game || "Без названия"}</b>
 
+<div class="application-meta">
+
 <br>
 
 <span>
@@ -1009,6 +1011,8 @@ new Date(data.created).toLocaleString("ru-RU")
 "Неизвестно"
 }
 </span>
+
+</div>
 
 <br><br>
 
