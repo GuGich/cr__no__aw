@@ -519,13 +519,12 @@ document.querySelectorAll("a").forEach(link => {
    ПРОВЕРКА СТАТУСА ЗАЯВКИ
 ========================== */
 
-
 const checkButton = document.getElementById("checkButton");
 
-if(checkButton){
+if (checkButton) {
+
 
 checkButton.addEventListener("click", async ()=>{
-
 
 
 const id =
@@ -553,13 +552,11 @@ return;
 }
 
 
-
 resultBox.innerHTML = `
 <div class="status-pending">
 🔎 Проверяем заявку...
 </div>
 `;
-
 
 
 try{
@@ -571,17 +568,14 @@ const response = await fetch(
 );
 
 
-
-const data =
-await response.json();
-
+const data = await response.json();
 
 
 if(!data.found){
 
 resultBox.innerHTML = `
 <div class="status-error">
-❌ Заявка с таким ID не найдена.
+❌ Заявка не найдена.
 </div>
 `;
 
@@ -591,125 +585,68 @@ return;
 
 
 
-let html;
-
+let html = "";
 
 
 if(data.status === "В проверке"){
 
-
 html = `
-
 <div class="status-pending">
-
 🟡 Заявка находится на рассмотрении.
-
 </div>
-
 `;
 
-
-
 }
-
 
 
 else if(data.status === "Принята"){
 
-
 html = `
-
 <div class="status-success">
-
 🟢 Игра допущена к участию.
-
 </div>
-
 `;
 
-
-
 }
-
 
 
 else if(data.status === "Отклонена"){
 
-
 html = `
-
 <div class="status-error">
-
 🔴 Игра не допущена к участию.
 
 <br><br>
 
-<b>Причина:</b>
-
-<br>
-
+<b>Причина:</b><br>
 ${data.decision || "Не указана"}
 
 </div>
-
 `;
 
-
-
 }
-
-
-
-else {
-
-
-html = `
-
-<div class="status-pending">
-
-Статус заявки:
-
-<br><br>
-
-${data.status}
-
-</div>
-
-`;
-
-
-
-}
-
 
 
 resultBox.innerHTML = html;
 
 
-
 }
 
-catch(error){
-
+catch{
 
 resultBox.innerHTML = `
-
 <div class="status-error">
-
-❌ Ошибка проверки статуса.
-
+❌ Ошибка проверки.
 </div>
-
 `;
 
 }
 
 
-
 });
 
-}
 
+}
 
 
 
@@ -719,42 +656,41 @@ resultBox.innerHTML = `
 ========================== */
 
 
-document
-.getElementById("applyForm")
-.addEventListener("submit", async function(e){
+const applyForm =
+document.getElementById("applyForm");
 
- console.log("Форма отправилась");
+
+if(applyForm){
+
+
+applyForm.addEventListener("submit", async function(e){
+
 
 e.preventDefault();
 
 
-
 const genres = [];
+
 
 document
 .querySelectorAll(".genres input:checked")
-.forEach(el => genres.push(el.value));
+.forEach(el =>
+genres.push(el.value)
+);
 
 
-
-
-// проверяем жанры
 
 if(genres.length === 0){
-
 
 document
 .getElementById("applyResult")
 .innerHTML = `
 
 <div class="status-error">
-
 ❌ Выберите хотя бы один жанр.
-
 </div>
 
 `;
-
 
 return;
 
@@ -762,47 +698,27 @@ return;
 
 
 
-
 const button =
-e.target.querySelector("button");
-
+applyForm.querySelector("button");
 
 
 button.disabled = true;
-
-button.innerText =
-"Отправка...";
-
+button.innerText = "Отправка...";
 
 
 
 const body = {
 
-
 game:
-document
-.getElementById("gameName")
-.value
-.trim(),
-
+document.getElementById("gameName").value.trim(),
 
 authors:
-document
-.getElementById("authors")
-.value
-.trim(),
-
+document.getElementById("authors").value.trim(),
 
 ad:
-document
-.getElementById("ad")
-.value
-.trim(),
+document.getElementById("ad").value.trim(),
 
-
-genres:genres,
-
-
+genres:genres
 
 };
 
@@ -811,34 +727,24 @@ genres:genres,
 try{
 
 
-const response =
-await fetch(
-
+const response = await fetch(
 "https://auth.creativeawards.fun/apply",
-
 {
 
 method:"POST",
 
 headers:{
-
-"Content-Type":
-"application/json"
-
+"Content-Type":"application/json"
 },
 
 body:
 JSON.stringify(body)
 
-}
-
-);
-
+});
 
 
 const result =
 await response.json();
-
 
 
 
@@ -854,7 +760,6 @@ localStorage.getItem("applications") || "[]"
 applications.push(result.id);
 
 
-
 localStorage.setItem(
 "applications",
 JSON.stringify(applications)
@@ -862,9 +767,7 @@ JSON.stringify(applications)
 
 
 
-document
-.getElementById("applyResult")
-.innerHTML = `
+document.getElementById("applyResult").innerHTML = `
 
 <div class="status-success">
 
@@ -872,26 +775,20 @@ document
 
 <br><br>
 
-<b>ID заявки:</b>
-
-<br>
+<b>ID заявки:</b><br>
 
 ${result.id}
 
 <br><br>
 
-ID автоматически сохранён в этом браузере.
+ID сохранён в браузере.
 
 </div>
 
 `;
 
 
-
-document
-.getElementById("applyForm")
-.reset();
-
+applyForm.reset();
 
 
 }
@@ -899,65 +796,66 @@ document
 else{
 
 
-document
-.getElementById("applyResult")
-.innerHTML = `
-
+document.getElementById("applyResult").innerHTML = `
 
 <div class="status-error">
 
-❌ ${result.message || "Ошибка отправки заявки."}
+❌ ${result.message}
 
 </div>
 
-
 `;
-
-
 
 }
 
 
-
 }
 
-catch(error){
+catch{
 
 
-document
-.getElementById("applyResult")
-.innerHTML = `
-
+document.getElementById("applyResult").innerHTML = `
 
 <div class="status-error">
 
-❌ Не удалось отправить заявку.
+❌ Ошибка отправки.
 
 </div>
 
-
 `;
-
-
 
 }
 
 
 
 button.disabled = false;
-
-button.innerText =
-"Отправить заявку";
-
+button.innerText = "Отправить заявку";
 
 
 });
 
+
+}
+
+
+
+
+
+/* ==========================
+   МОИ СОХРАНЁННЫЕ ЗАЯВКИ
+========================== */
+
+
 async function loadApplications(){
 
-const box = document.getElementById("myApplications");
 
-if(!box) return;
+const box =
+document.getElementById("myApplications");
+
+
+if(!box)
+return;
+
 
 
 const applications =
@@ -970,9 +868,13 @@ localStorage.getItem("applications") || "[]"
 if(applications.length === 0){
 
 box.innerHTML = `
+
 <div class="status-pending">
+
 У вас нет сохранённых заявок.
+
 </div>
+
 `;
 
 return;
@@ -1004,29 +906,6 @@ await response.json();
 
 
 
-if(!data.found){
-
-html += `
-
-<div class="status-error">
-
-<b>${id}</b>
-
-<br>
-
-Заявка не найдена.
-
-</div>
-
-`;
-
-continue;
-
-}
-
-
-
-
 let statusClass =
 "status-pending";
 
@@ -1042,20 +921,15 @@ statusClass =
 
 
 
-
 html += `
 
 <div class="${statusClass}">
 
-
 <b>${id}</b>
-
 
 <br><br>
 
-
-${data.status}
-
+${data.status || "Неизвестно"}
 
 ${
 data.status === "Отклонена"
@@ -1064,13 +938,8 @@ data.status === "Отклонена"
 
 `
 <br><br>
-
-<b>Причина:</b>
-
-<br>
-
+<b>Причина:</b><br>
 ${data.decision || "Не указана"}
-
 `
 
 :
@@ -1079,14 +948,11 @@ ${data.decision || "Не указана"}
 
 }
 
-
 </div>
-
 
 <br>
 
 `;
-
 
 
 }
@@ -1114,7 +980,6 @@ ${id}
 }
 
 
-
 box.innerHTML = html;
 
 
@@ -1123,5 +988,7 @@ box.innerHTML = html;
 
 
 loadApplications();
+
+
 
 });
