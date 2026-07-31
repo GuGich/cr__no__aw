@@ -195,7 +195,178 @@ style="display:none"
 
 </section>
 
+<section class="check-status">
+
+<h2>Проверка статуса заявки</h2>
+
+<p>
+Введите ID заявки, который вы получили после отправки.
+</p>
+
+
+<div class="check-box">
+
+<input
+type="text"
+id="applicationId"
+placeholder="Например: CA26-K7P3M"
+maxlength="9"
+>
+
+
+<button id="checkButton">
+Проверить
+</button>
+
+</div>
+
+
+<div id="checkResult"></div>
+
+
+</section>
+
 <script>
+
+document
+.getElementById("checkButton")
+.addEventListener("click", async ()=>{
+
+
+const id =
+document
+.getElementById("applicationId")
+.value
+.trim()
+.toUpperCase();
+
+
+const resultBox =
+document.getElementById("checkResult");
+
+
+if(!id){
+
+resultBox.innerHTML =
+"❌ Введите ID заявки.";
+
+return;
+
+}
+
+
+
+resultBox.innerHTML =
+"🔎 Проверяем...";
+
+
+
+try{
+
+
+const response = await fetch(
+"https://auth.creativeawards.fun/check?id="
++ encodeURIComponent(id)
+);
+
+
+
+const data =
+await response.json();
+
+
+
+if(!data.found){
+
+resultBox.innerHTML =
+"❌ Заявка с таким ID не найдена.";
+
+return;
+
+}
+
+
+
+let html = "";
+
+
+
+if(data.status === "В проверке"){
+
+html = `
+<div class="status-pending">
+🟡 Ваша заявка находится на проверке.
+</div>
+`;
+
+}
+
+
+
+else if(data.status === "Принята"){
+
+html = `
+<div class="status-success">
+🟢 Ваша заявка принята!
+</div>
+`;
+
+}
+
+
+
+else if(data.status === "Отклонена"){
+
+html = `
+<div class="status-error">
+
+🔴 Ваша заявка отклонена.
+
+<br><br>
+
+<b>Причина:</b><br>
+
+${data.decision || "Не указана"}
+
+</div>
+`;
+
+}
+
+
+
+else {
+
+
+html = `
+<div>
+Статус:
+${data.status}
+</div>
+`;
+
+}
+
+
+
+resultBox.innerHTML = html;
+
+
+
+}
+catch(e){
+
+
+resultBox.innerHTML =
+"❌ Ошибка проверки статуса.";
+
+}
+
+
+});
+
+
+
 document
 .getElementById("applyForm")
 .addEventListener("submit", async function(e){
