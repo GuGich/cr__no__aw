@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Creative Awards 2026">
+  <meta property="og:description" content="Ежегодная церемония награждения лучших игр Mineland Creative+. Стань участником прямо сейчас!">
+  <meta property="og:image" content="https://creativeawards.fun/images/CAlogo.png">
+  <meta property="og:url" content="https://creativeawards.fun/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="https://creativeawards.fun/images/wordmark.png">
+  <meta name="keywords" content="Creative Awards, Mineland, Mineland Creative+, Creative+, премия Mineland, лучшие игры Mineland Creative+, игры Minecraft, награждение Mineland">
+  <meta name="description" content="Creative Awards — ежегодная премия Mineland Creative+, посвящённая лучшим играм, разработчикам и проектам сообщества.">
+<title>Creative Awards 2026</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TG7EWNJMGZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+  gtag('config', 'G-TG7EWNJMGZ');
+</script>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="canonical" href="https://creativeawards.fun/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Creative Awards",
+  "url": "https://creativeawards.fun/",
+  "description": "Официальный сайт Creative Awards — ежегодной премии игр Mineland Creative+."
+}
+</script>
+</head>
+<body>
+<div class="ca-loader">
+    <div class="ca-loader-inner">
+
+        <img src="images/wordmark.png" alt="Creative Awards">
+
+        <div class="ca-loader-bar">
+            <span></span>
+        </div>
+
+    </div>
+</div>
+
+<button class="to-top" id="toTop">
+    ↑
+</button>
+<header>
+    <div class="header-left">
+    <a class="brand" href="\">
+      <img src="images/CAlogo.png" alt="Creative+ logo">
+      <span>CREATIVE AWARDS</span>
+    </a>
+      <nav class="top-buttons">
+        <a href="rules.html">Правила подачи</a>
+        <a href="winners.html">Архив</a>
+      </nav>
+    </div>
+    </div>
+    <div class="header-right">
+      <nav class="top-links">
+        <a href="https://discord.gg/creative-com" target="_blank" rel="noopener">Discord</a>
+        <a href="https://t.me/creative_awards" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://mineland.net" target="_blank" rel="noopener">Mineland.net</a>
+        <a href="https://ml-creative.fandom.com/ru/wiki/Creative_Awards#Creative_Awards_2026" target="_blank" rel="noopener">Вики Creative Awards ↗</a>
+      </nav>
+      <a class="btn-vote small" href="https://forms.gle/kyWcMAtYrEcJujSf9">Подать заявку на участие</a>
+    </div>
+  </header>
+
+<section class="vote-section">
+
+<section class="apply-form" id="apply">
+
+<h2>Подача заявки</h2>
+
+<p class="apply-desc">
+Заполните форму ниже, чтобы подать игру на участие в Creative Awards 2026.
+</p>
+
+<form id="applyForm">
+
+<div class="field">
+
+<label>
+Название игры *
+</label>
+
+<input
+type="text"
+id="gameName"
+maxlength="70"
+required
+placeholder="Например: Sky Wars"
+>
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Автор / команда *
+</label>
+
+<input
+type="text"
+id="authors"
+maxlength="100"
+required
+placeholder="Ник или команда разработчиков"
+>
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+ID игры (/ad) *
+</label>
+
+<input
+type="text"
+id="ad"
+required
+placeholder="Буквенный либо цифровой"
+>
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Жанры *
+</label>
+
+<div class="genres">
+
+<label><input type="checkbox" value="Симулятор"> Симулятор</label>
+
+<label><input type="checkbox" value="Roleplay"> Roleplay</label>
+
+<label><input type="checkbox" value="Стратегия"> Стратегия</label>
+
+<label><input type="checkbox" value="Аркада"> Аркада</label>
+
+<label><input type="checkbox" value="Экшен"> Экшен</label>
+
+<label><input type="checkbox" value="RPG"> RPG</label>
+
+<label><input type="checkbox" value="Шутер"> Шутер</label>
+
+<label><input type="checkbox" value="Сюжет"> Сюжет</label>
+
+<label><input type="checkbox" value="Не знаю"> Я не знаю</label>
+
+</div>
+
+</div>
+
+
+
+<input
+type="text"
+id="website"
+autocomplete="off"
+style="display:none"
+>
+
+
+
+<button type="submit">
+
+Отправить заявку
+
+</button>
+
+</form>
+
+<div id="applyResult"></div>
+
+</section>
+
+<script>
+document
+.getElementById("applyForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const button = e.target.querySelector("button");
+
+button.disabled = true;
+button.innerText = "Отправка...";
+
+const genres = [];
+
+document
+.querySelectorAll(".genres input:checked")
+.forEach(el=>genres.push(el.value));
+
+if (genres.length === 0) {
+
+    document
+    .getElementById("applyResult")
+    .innerHTML =
+    "❌ Выберите хотя бы один жанр.";
+
+    return;
+
+}
+
+const body = {
+
+game:
+document.getElementById("gameName").value.trim(),
+
+authors:
+document.getElementById("authors").value.trim(),
+
+ad:
+document.getElementById("ad").value.trim(),
+
+genres:genres,
+
+website:
+document.getElementById("website").value
+
+};
+
+
+const r = await fetch(
+"https://auth.creativeawards.fun/apply",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(body)
+
+});
+
+const result = await r.json();
+
+if (result.success) {
+
+    document
+    .getElementById("applyResult")
+    .innerHTML =
+    `✅ Заявка отправлена! Ваш номер: ${result.id}`;
+
+    document
+    .getElementById("applyForm")
+    .reset();
+
+} else {
+
+    document
+    .getElementById("applyResult")
+    .innerHTML =
+    `❌ ${result.message}`;
+
+}
+
+button.disabled = false;
+button.innerText = "Отправить заявку";
+
+});
+</script>
+
+<style>
+ 
+</style>
+
+
+</section>
+
+
+<footer>
+  <div class="foot-bottom">
+    <span>© 2026 Creative Community · Mineland Creative+</span>
+          <div class="site-status">
+    <span class="site-status-dot"></span>
+    <span>Сайт работает</span>
+  </div>
+    <span>Сайт — неофициальный фан-проект сообщества —
+    <a href="\">На главную ↗</a>
+    </span>
+  </div>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>
