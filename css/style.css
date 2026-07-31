@@ -3843,7 +3843,57 @@ body {
 }
 
 
+#releaseDate{
+    width:100%;
+    box-sizing:border-box;
 
+    background:var(--panel-2);
+    color:var(--ink);
+
+    border:1px solid var(--line);
+
+    padding:14px 16px;
+
+    font-family:Manrope, sans-serif;
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+}
+
+
+#releaseDate:focus{
+
+    border-color:var(--gold-mid);
+
+    box-shadow:
+    0 0 0 3px rgba(184,147,79,.12);
+
+}
+
+
+
+#releaseDate::-webkit-calendar-picker-indicator{
+
+    filter:
+    invert(80%)
+    sepia(30%)
+    saturate(500%);
+
+    cursor:pointer;
+
+    opacity:.8;
+
+}
+
+
+
+#releaseDate::-webkit-calendar-picker-indicator:hover{
+
+    opacity:1;
+
+}
 
 
 
