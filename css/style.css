@@ -3912,12 +3912,10 @@ body {
 }
 
 
-#website {
+#contact_field {
     position:absolute;
     left:-9999px;
-    opacity:0;
-    height:0;
-    width:0;
+    top:-9999px;
 }
 
 
