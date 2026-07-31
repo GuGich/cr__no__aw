@@ -87,7 +87,9 @@
 Заполните форму ниже, чтобы подать игру на участие в Creative Awards 2026.
 </p>
 
+
 <form id="applyForm">
+
 
 <div class="field">
 
@@ -135,7 +137,7 @@ ID игры (/ad) *
 type="text"
 id="ad"
 required
-placeholder="Буквенный либо цифровой"
+placeholder="Например: 12345 или skywars"
 >
 
 </div>
@@ -148,77 +150,137 @@ placeholder="Буквенный либо цифровой"
 Жанры *
 </label>
 
+
 <div class="genres">
 
-<label><input type="checkbox" value="Симулятор"> Симулятор</label>
 
-<label><input type="checkbox" value="Roleplay"> Roleplay</label>
+<label>
+<input type="checkbox" value="Симулятор">
+Симулятор
+</label>
 
-<label><input type="checkbox" value="Стратегия"> Стратегия</label>
 
-<label><input type="checkbox" value="Аркада"> Аркада</label>
+<label>
+<input type="checkbox" value="Roleplay">
+Roleplay
+</label>
 
-<label><input type="checkbox" value="Экшен"> Экшен</label>
 
-<label><input type="checkbox" value="RPG"> RPG</label>
+<label>
+<input type="checkbox" value="Стратегия">
+Стратегия
+</label>
 
-<label><input type="checkbox" value="Шутер"> Шутер</label>
 
-<label><input type="checkbox" value="Сюжет"> Сюжет</label>
+<label>
+<input type="checkbox" value="Аркада">
+Аркада
+</label>
 
-<label><input type="checkbox" value="Не знаю"> Я не знаю</label>
+
+<label>
+<input type="checkbox" value="Экшен">
+Экшен
+</label>
+
+
+<label>
+<input type="checkbox" value="RPG">
+RPG
+</label>
+
+
+<label>
+<input type="checkbox" value="Шутер">
+Шутер
+</label>
+
+
+<label>
+<input type="checkbox" value="Сюжет">
+Сюжет
+</label>
+
+
+<label>
+<input type="checkbox" value="Не знаю">
+Я не знаю
+</label>
+
 
 </div>
 
 </div>
 
 
+
+<!-- Honeypot для антиспама -->
 
 <input
 type="text"
 id="website"
 autocomplete="off"
+tabindex="-1"
 style="display:none"
 >
 
 
 
 <button type="submit">
-
 Отправить заявку
-
 </button>
+
 
 </form>
 
+
 <div id="applyResult"></div>
+
 
 </section>
 
+
+
+
+
 <section class="check-status">
 
-<h2>Проверка статуса заявки</h2>
+
+<h2>
+Проверка статуса заявки
+</h2>
+
 
 <p>
-Введите ID заявки, который вы получили после отправки.
+Введите ID заявки, который был выдан после отправки.
 </p>
+
 
 
 <div class="check-box">
 
+
 <input
 type="text"
 id="applicationId"
-placeholder="Например: CA26-K7P3M"
 maxlength="10"
+autocomplete="off"
+placeholder="Например: CA26-K7P3M"
 >
 
 
-<button id="checkButton">
+
+<button
+type="button"
+id="checkButton">
+
 Проверить
+
 </button>
 
+
 </div>
+
 
 
 <div id="checkResult"></div>
@@ -227,6 +289,11 @@ maxlength="10"
 </section>
 
 <script>
+
+/* ==========================
+   ПРОВЕРКА СТАТУСА ЗАЯВКИ
+========================== */
+
 
 document
 .getElementById("checkButton")
@@ -247,8 +314,11 @@ document.getElementById("checkResult");
 
 if(!id){
 
-resultBox.innerHTML =
-"❌ Введите ID заявки.";
+resultBox.innerHTML = `
+<div class="status-error">
+❌ Введите ID заявки.
+</div>
+`;
 
 return;
 
@@ -256,8 +326,11 @@ return;
 
 
 
-resultBox.innerHTML =
-"🔎 Проверяем...";
+resultBox.innerHTML = `
+<div class="status-pending">
+🔎 Проверяем заявку...
+</div>
+`;
 
 
 
@@ -278,8 +351,11 @@ await response.json();
 
 if(!data.found){
 
-resultBox.innerHTML =
-"❌ Заявка с таким ID не найдена.";
+resultBox.innerHTML = `
+<div class="status-error">
+❌ Заявка с таким ID не найдена.
+</div>
+`;
 
 return;
 
@@ -287,17 +363,24 @@ return;
 
 
 
-let html = "";
+let html;
 
 
 
 if(data.status === "В проверке"){
 
+
 html = `
+
 <div class="status-pending">
-🟡 Ваша заявка находится на проверке.
+
+🟡 Заявка находится на рассмотрении.
+
 </div>
+
 `;
+
+
 
 }
 
@@ -305,11 +388,18 @@ html = `
 
 else if(data.status === "Принята"){
 
+
 html = `
+
 <div class="status-success">
-🟢 Ваша заявка принята!
+
+🟢 Игра допущена к участию.
+
 </div>
+
 `;
+
+
 
 }
 
@@ -317,19 +407,26 @@ html = `
 
 else if(data.status === "Отклонена"){
 
+
 html = `
+
 <div class="status-error">
 
-🔴 Ваша заявка отклонена.
+🔴 Игра не допущена к участию.
 
 <br><br>
 
-<b>Причина:</b><br>
+<b>Причина:</b>
+
+<br>
 
 ${data.decision || "Не указана"}
 
 </div>
+
 `;
+
+
 
 }
 
@@ -339,11 +436,20 @@ else {
 
 
 html = `
-<div>
-Статус:
+
+<div class="status-pending">
+
+Статус заявки:
+
+<br><br>
+
 ${data.status}
+
 </div>
+
 `;
+
+
 
 }
 
@@ -354,129 +460,266 @@ resultBox.innerHTML = html;
 
 
 }
-catch(e){
+
+catch(error){
 
 
-resultBox.innerHTML =
-"❌ Ошибка проверки статуса.";
+resultBox.innerHTML = `
+
+<div class="status-error">
+
+❌ Ошибка проверки статуса.
+
+</div>
+
+`;
 
 }
 
 
+
 });
 
+
+
+
+
+/* ==========================
+   ПОДАЧА ЗАЯВКИ
+========================== */
 
 
 document
 .getElementById("applyForm")
 .addEventListener("submit", async function(e){
 
+
 e.preventDefault();
+
 
 
 const genres = [];
 
 document
 .querySelectorAll(".genres input:checked")
-.forEach(el=>genres.push(el.value));
+.forEach(el => genres.push(el.value));
 
 
-// Проверка жанров ДО блокировки кнопки
-if (genres.length === 0) {
 
-    document
-    .getElementById("applyResult")
-    .innerHTML =
-    "❌ Выберите хотя бы один жанр.";
 
-    return;
+// проверяем жанры
+
+if(genres.length === 0){
+
+
+document
+.getElementById("applyResult")
+.innerHTML = `
+
+<div class="status-error">
+
+❌ Выберите хотя бы один жанр.
+
+</div>
+
+`;
+
+
+return;
 
 }
 
 
-const button = e.target.querySelector("button");
+
+
+const button =
+e.target.querySelector("button");
+
+
 
 button.disabled = true;
-button.innerText = "Отправка...";
+
+button.innerText =
+"Отправка...";
+
+
 
 
 const body = {
 
+
 game:
-document.getElementById("gameName").value.trim(),
+document
+.getElementById("gameName")
+.value
+.trim(),
+
 
 authors:
-document.getElementById("authors").value.trim(),
+document
+.getElementById("authors")
+.value
+.trim(),
+
 
 ad:
-document.getElementById("ad").value.trim(),
+document
+.getElementById("ad")
+.value
+.trim(),
+
 
 genres:genres,
 
+
 website:
-document.getElementById("website").value
+document
+.getElementById("website")
+.value
+
+
 
 };
 
 
-try {
 
-const r = await fetch(
+try{
+
+
+const response =
+await fetch(
+
 "https://auth.creativeawards.fun/apply",
+
 {
 
 method:"POST",
 
 headers:{
-"Content-Type":"application/json"
+
+"Content-Type":
+"application/json"
+
 },
 
-body:JSON.stringify(body)
+body:
+JSON.stringify(body)
 
-});
+}
+
+);
 
 
-const result = await r.json();
+
+const result =
+await response.json();
+
+
 
 
 if(result.success){
 
+
 document
 .getElementById("applyResult")
-.innerHTML =
-`✅ Заявка отправлена! Номер: ${result.id}`;
+.innerHTML = `
+
+
+<div class="status-success">
+
+
+🟢 Заявка успешно отправлена.
+
+
+<br><br>
+
+
+<b>ID заявки:</b>
+
+<br>
+
+${result.id}
+
+
+<br><br>
+
+
+Сохраните этот номер, чтобы отслеживать статус заявки.
+
+
+</div>
+
+
+`;
+
+
 
 document
 .getElementById("applyForm")
 .reset();
 
+
+
 }
-else {
+
+else{
+
 
 document
 .getElementById("applyResult")
-.innerHTML =
-`❌ ${result.message}`;
+.innerHTML = `
+
+
+<div class="status-error">
+
+❌ ${result.message || "Ошибка отправки заявки."}
+
+</div>
+
+
+`;
+
+
 
 }
 
 
+
 }
+
 catch(error){
 
+
 document
 .getElementById("applyResult")
-.innerHTML =
-"❌ Ошибка отправки заявки.";
+.innerHTML = `
+
+
+<div class="status-error">
+
+❌ Не удалось отправить заявку.
+
+</div>
+
+
+`;
+
+
 
 }
+
 
 
 button.disabled = false;
-button.innerText = "Отправить заявку";
+
+button.innerText =
+"Отправить заявку";
+
 
 
 });
+
+
 </script>
 
 <style>
