@@ -3546,12 +3546,26 @@ body {
 ========================== */
 
 
-.apply-form,
-.check-status {
+.apply-form {
 
     max-width:700px;
 
     margin:0px auto;
+
+    padding:32px;
+
+    border:1px solid var(--line);
+
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+
+}
+
+.check-status {
+
+    max-width:600px;
+
+    margin:50px auto;
 
     padding:32px;
 
