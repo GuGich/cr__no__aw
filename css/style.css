@@ -3559,6 +3559,8 @@ body {
 
     border:1px solid var(--line);
 
+    border-radius: 5px;
+
 }
 
 
@@ -3611,6 +3613,8 @@ body {
     color:var(--ink);
 
     font-weight:600;
+
+   border-radius: 5px;
 
 }
 
@@ -3821,6 +3825,8 @@ body {
 
 
     transition:.2s;
+
+        border-radius: 3px;
 
 }
 
@@ -4131,6 +4137,88 @@ body {
     color:var(--gold-hi);
 }
 
+
+/* ==========================
+   ИНФО БЛОК ЗАЯВОК
+========================== */
+
+
+.applications-info{
+
+    margin-bottom:25px;
+
+    padding:20px 24px;
+
+    background:var(--panel);
+
+    border:1px solid var(--line);
+
+    position:relative;
+
+}
+
+
+.applications-info::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:3px;
+    height:100%;
+
+    background:var(--gold-mid);
+
+}
+
+
+
+.applications-info b{
+
+    display:block;
+
+    color:var(--gold-hi);
+
+    font-size:18px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.applications-info p{
+
+    margin:0 0 15px;
+
+    color:var(--muted);
+
+    line-height:1.5;
+
+}
+
+
+
+.applications-info a{
+
+    color:var(--gold-hi);
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+
+
+.applications-info a:hover{
+
+    color:white;
+
+}
 
 /* ==========================
    МОБИЛЬНЫЕ
