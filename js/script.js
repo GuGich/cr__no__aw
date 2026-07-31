@@ -797,10 +797,6 @@ document
 genres:genres,
 
 
-contact_field:
-document.getElementById("contact_field").value
-
-
 
 };
 
