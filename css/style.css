@@ -261,7 +261,14 @@
     background:var(--panel);
     padding:18px 20px;
   }
-  .countdown-box .cap-top{ font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-mid); margin-bottom:12px; }
+  .countdown-box-2{
+    transform: translateY(-50%);  /* поднимает вверх на 15% от своей высоты */
+    margin-top:90px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:18px 20px;
+  }
+  .countdown-cap-top{ font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-mid); margin-bottom:12px; }
   .countdown{ display:flex; }
   .countdown .unit{ flex:1; text-align:center; border-right:1px solid var(--line); }
   .countdown .unit:last-child{ border-right:none; }
