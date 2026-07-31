@@ -3555,11 +3555,10 @@ body {
 
     padding:32px;
 
-    background:var(--panel);
-
     border:1px solid var(--line);
 
     border-radius: 5px;
+    backdrop-filter: blur(5px);
 
 }
 
