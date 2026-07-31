@@ -2740,23 +2740,6 @@ footer {
 }
 
 
-/* Логотип */
-
-.error-logo {
-    display: block;
-
-    width: 180px;
-    height: auto;
-
-    margin: 0 auto 25px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(0 0 25px rgba(220,170,60,.25));
-}
-
-
 /* 404 */
 
 .error-code {
