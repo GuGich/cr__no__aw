@@ -689,6 +689,26 @@ resultBox.scrollIntoView({
 const applyForm =
 document.getElementById("applyForm");
 
+document.querySelectorAll(".field input").forEach(input => {
+
+    input.addEventListener("input", () => {
+
+        if(input.value.trim()) {
+
+            input.classList.remove("input-error");
+
+            const error =
+            input.parentElement.querySelector(".field-error");
+
+            if(error) {
+                error.remove();
+            }
+
+        }
+
+    });
+
+});
 
 if(applyForm){
 
@@ -698,6 +718,68 @@ applyForm.addEventListener("submit", async function(e){
 
 e.preventDefault();
 
+document.querySelectorAll(".field-error")
+.forEach(el => el.remove());
+
+document.querySelectorAll(".input-error")
+.forEach(el => el.classList.remove("input-error"));
+
+
+const requiredFields = [
+    {
+        id:"gameName",
+        name:"Название игры"
+    },
+    {
+        id:"authors",
+        name:"Автор / команда"
+    },
+    {
+        id:"ad",
+        name:"ID игры (/ad)"
+    }
+];
+
+
+let hasError = false;
+
+
+requiredFields.forEach(field => {
+
+    const input = document.getElementById(field.id);
+
+    if(!input.value.trim()){
+
+        hasError = true;
+
+        input.classList.add("input-error");
+
+
+        const error = document.createElement("div");
+
+        error.className = "field-error";
+        error.innerText =
+            `Заполните поле «${field.name}»`;
+
+
+        input.parentElement.appendChild(error);
+
+    }
+
+});
+
+
+if(hasError){
+
+    document.querySelector(".input-error")
+    ?.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+    return;
+
+}
 
 const genres = [];
 
@@ -804,21 +886,39 @@ JSON.stringify(applications)
 
 
 
-document.getElementById("applyResult").innerHTML = `
+document
+.getElementById("applyResult")
+.innerHTML = `
 
 <div class="status-success">
 
-🟢 Заявка успешно отправлена.
+🟢 Заявка успешно отправлена!
 
 <br><br>
 
-<b>ID заявки:</b><br>
+<b>ID заявки:</b>
 
+<br>
+
+<span class="application-id">
 ${result.id}
+</span>
 
 <br><br>
 
-ID сохранён в браузере.
+Сохраните этот ID. Он понадобится для проверки статуса заявки.
+
+<br><br>
+
+<a href="status.html" class="status-link">
+Перейти к проверке статуса →
+</a>
+
+<br><br>
+
+<small>
+ID также автоматически сохранён в этом браузере.
+</small>
 
 </div>
 

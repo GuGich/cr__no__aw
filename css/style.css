@@ -3542,11 +3542,11 @@ body {
 .apply-form,
 .check-status {
 
-    max-width:900px;
+    max-width:700px;
 
-    margin:70px auto;
+    margin:50px auto;
 
-    padding:40px;
+    padding:32px;
 
     background:var(--panel);
 
@@ -3563,7 +3563,7 @@ body {
 
     color:var(--gold-hi);
 
-    font-size:32px;
+   font-size:28px;
 
     font-weight:700;
 
@@ -3589,7 +3589,7 @@ body {
 
 .field {
 
-    margin-bottom:28px;
+    margin-bottom:18px;
 
 }
 
@@ -3708,10 +3708,75 @@ body {
 
 }
 
+.idk:hover {
+
+    border-color:var(--gold-hi);
+
+}
+
+.idk {
+
+    background:var(--panel-2);
+    border:2px solid var(--gold-low);
+
+    color:var(--ink);
+}
+
+.input-error {
+    border-color: #c9857f !important;
+    box-shadow: 0 0 0 3px rgba(201,133,127,0.12);
+}
+
+.field-error {
+    margin-top: 8px;
+    color: #c9857f;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.field-error::before {
+    content: "⚠";
+}
+
+.application-id {
+    display:inline-block;
+    margin-top:8px;
+    padding:8px 14px;
+
+    background:rgba(232,200,135,0.08);
+    border:1px solid var(--line);
+
+    color:var(--gold-hi);
+
+    font-weight:700;
+    letter-spacing:1px;
+}
 
 
+.status-link {
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border:1px solid var(--gold-mid);
+
+    color:var(--gold-hi);
+
+    text-decoration:none;
+
+    transition:.2s;
+
+}
 
 
+.status-link:hover {
+
+    background:rgba(232,200,135,0.12);
+
+}
 
 /* Кнопки */
 
