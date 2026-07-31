@@ -4272,3 +4272,83 @@ body {
 
 
 }
+
+
+.status-banner{
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    padding:30px 40px;
+
+    background:var(--panel);
+
+    border:1px solid var(--line);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.status-banner::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:4px;
+    height:100%;
+
+    background:var(--gold-mid);
+
+}
+
+
+.status-banner h3{
+
+    margin:0 0 10px;
+
+    color:var(--gold-hi);
+
+    font-size:24px;
+
+}
+
+
+.status-banner p{
+
+    color:var(--muted);
+
+    margin:0 0 20px;
+
+}
+
+
+.status-banner a{
+
+    display:inline-block;
+
+    padding:10px 20px;
+
+    border:1px solid var(--gold-mid);
+
+    color:var(--gold-hi);
+
+    text-decoration:none;
+
+    transition:.25s;
+
+}
+
+
+.status-banner a:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
