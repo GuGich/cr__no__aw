@@ -976,11 +976,44 @@ html += `
 
 <div class="${statusClass}">
 
-<b>${id}</b>
+<b>${data.game || "Без названия"}</b>
+
+<br>
+
+<span>
+ID заявки: ${id}
+</span>
+
+<br>
+
+<span>
+ID игры: ${data.ad || "Не указан"}
+</span>
+
+<br>
+
+<span>
+Дата релиза:
+${data.releaseDate || "Не указана"}
+</span>
+
+<br>
+
+<span>
+Дата подачи:
+${
+data.created
+?
+new Date(data.created).toLocaleString("ru-RU")
+:
+"Неизвестно"
+}
+</span>
 
 <br><br>
 
-${data.status || "Неизвестно"}
+${data.status}
+
 
 ${
 data.status === "Отклонена"
