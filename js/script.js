@@ -718,6 +718,7 @@ document
 .getElementById("applyForm")
 .addEventListener("submit", async function(e){
 
+ console.log("Форма отправилась");
 
 e.preventDefault();
 
