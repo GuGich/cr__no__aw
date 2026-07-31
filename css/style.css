@@ -3533,3 +3533,210 @@ body {
 
     z-index: -1;
 }
+
+/* ===== Проверка статуса заявки ===== */
+
+.check-status {
+
+    max-width: 900px;
+    margin: 70px auto;
+    padding: 40px;
+
+    background:
+    var(--panel);
+
+    border: 1px solid var(--line);
+
+}
+
+
+.check-status h2 {
+
+    margin-top:0;
+
+    color:var(--gold-hi);
+
+    font-size:32px;
+
+}
+
+
+.check-status p {
+
+    color:var(--muted);
+
+    margin-bottom:30px;
+
+}
+
+
+
+.check-box {
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+.check-box input {
+
+    flex:1;
+
+    height:48px;
+
+    padding:0 16px;
+
+    background:var(--panel-2);
+
+    border:1px solid var(--line);
+
+    color:var(--ink);
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+
+.check-box input:focus {
+
+    border-color:var(--gold-mid);
+
+}
+
+
+
+.check-box button {
+
+
+    padding:0 30px;
+
+    background:
+    linear-gradient(
+        180deg,
+        var(--gold-hi),
+        var(--gold-mid)
+    );
+
+
+    border:none;
+
+    color:#16110a;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+
+.check-box button:hover {
+
+    filter:brightness(1.08);
+
+}
+
+
+
+#checkResult {
+
+
+    margin-top:30px;
+
+    font-size:17px;
+
+}
+
+
+
+/* статусы */
+
+
+.status-pending,
+.status-success,
+.status-error {
+
+
+    padding:22px;
+
+    border-left:3px solid;
+
+    background:var(--panel-2);
+
+}
+
+
+
+.status-pending {
+
+    border-color:var(--gold-mid);
+
+    color:var(--gold-hi);
+
+}
+
+
+
+.status-success {
+
+    border-color:var(--ok);
+
+    color:var(--ok);
+
+}
+
+
+
+.status-error {
+
+    border-color:var(--no);
+
+    color:var(--no);
+
+}
+
+
+.status-error b {
+
+    color:var(--ink);
+
+}
+
+@media(max-width:600px){
+
+.check-status {
+
+    margin:40px 16px;
+
+    padding:25px;
+
+}
+
+
+.check-box {
+
+    flex-direction:column;
+
+}
+
+
+.check-box button {
+
+    height:48px;
+
+}
+
+
+.check-status h2 {
+
+    font-size:26px;
+
+}
+
+}
