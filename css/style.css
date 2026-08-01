@@ -4531,3 +4531,29 @@ body {
     }
 
 }
+
+.about-card {
+  position: relative;
+}
+
+.about-card.active {
+  border-color: var(--gold-hi);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
+}
+
+.about-card .status {
+  display: none;
+}
+
+.about-card.active .status {
+  display: block;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+}
