@@ -3163,6 +3163,10 @@ body {
 
 }
 
+body.page-leave {
+    animation: pageLeave .4s forwards;
+}
+
 /* =====================
    BACK TO TOP BUTTON
 ===================== */

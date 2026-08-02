@@ -1,13 +1,12 @@
 console.log("JS загружен");
 
+document.body.style.animation = "";
+
+window.addEventListener("pageshow", () => {
+    document.body.classList.remove("page-leave");
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-
-window.addEventListener("pageshow", (e) => {
-    if (e.persisted) {
-        document.body.style.animation = "";
-    }
-});
 
 // CREATIVE AWARDS LOADER
 
@@ -505,8 +504,7 @@ document.querySelectorAll("a").forEach(link => {
         e.preventDefault();
 
 
-        document.body.style.animation =
-        "pageLeave .4s forwards";
+        document.body.classList.add("page-leave");
 
 
         setTimeout(()=>{
