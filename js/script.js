@@ -621,7 +621,7 @@ else if(data.status === "Принята"){
 
 html = `
 <div class="status-success">
-🟢 Игра допущена к участию.
+🟢 Заявка принята.
 </div>
 `;
 
@@ -637,7 +637,7 @@ else if(data.status === "Отклонена"){
 
 html = `
 <div class="status-error">
-🔴 Игра не допущена к участию.
+🔴 Заявка отклонена.
 
 <br><br>
 
