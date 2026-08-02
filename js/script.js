@@ -3,6 +3,11 @@ console.log("JS загружен");
 
 document.addEventListener("DOMContentLoaded", () => {
 
+window.addEventListener("pageshow", (e) => {
+    if (e.persisted) {
+        document.body.style.animation = "";
+    }
+});
 
 // CREATIVE AWARDS LOADER
 
