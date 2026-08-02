@@ -1224,6 +1224,9 @@ section#faq-head {
 text-align: center;
 
 }
+.block-head-rules{ margin-bottom:36px; max-width:760px; margin: 0 auto; text-align: center; }
+.block-head-rules h2{ font-size:clamp(26px,3.4vw,38px); margin:10px 0 12px; color:var(--gold-hi); }
+    .block-head-rules p{ color:var(--muted); line-height:1.7; font-size:15px; }
     .block-head p{ color:var(--muted); line-height:1.7; font-size:15px; }
 
     .check-grid{ display:flex; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
