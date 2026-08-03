@@ -1279,13 +1279,13 @@ text-align: center;
     .faq-item{ border-bottom:1px solid var(--line); max-width:900px; margin: 0 auto; }
     .faq-q{
       padding:22px 4px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;
-      font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--ink);
+      font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--ink); text-align:left;
     }
     .faq-q .plus{ color:var(--gold-mid); font-size:20px; transition:transform .2s ease; }
     .faq-item.open .plus{ transform:rotate(45deg); }
     .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
     .faq-item.open .faq-a{ max-height:300px; }
-    .faq-a p{ color:var(--muted); font-size:18.5px; line-height:1.75; padding:0 4px 22px; margin:0; }
+    .faq-a p{ color:var(--muted); font-size:18.5px; line-height:1.75; padding:0 4px 22px; margin:0; text-align:left; }
 
 
     .cta-block{ text-align:center; padding:70px 0; }
