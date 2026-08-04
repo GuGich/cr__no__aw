@@ -107,7 +107,11 @@ class="btn-vote">
 <b id="username"></b>
 </p>
 
+<div id="voteLoader">
+    Загрузка ваших голосов...
+</div>
 
+<div id="userBox" style="display:none">
 <h3>
 Игра года
 </h3>
@@ -138,7 +142,7 @@ document.getElementById('gameOfYear').value
 Сохранить голос
 </button>
 
-
+</div>
 </div>
 
 
@@ -163,6 +167,50 @@ document.getElementById('gameOfYear').value
   </div>
 </footer>
 <script>
+
+async function loadVotes(){
+
+    document
+    .getElementById("voteLoader")
+    .style.display="block";
+
+
+    const res = await fetch(
+        AUTH + "/get-votes",
+        {
+            credentials:"include"
+        }
+    );
+
+
+    const data = await res.json();
+
+
+
+    if(data.votes){
+
+        if(data.votes["Игра года"]){
+
+            document
+            .getElementById("gameOfYear")
+            .value =
+            data.votes["Игра года"];
+
+        }
+
+    }
+
+
+    document
+    .getElementById("voteLoader")
+    .style.display="none";
+
+
+    document
+    .getElementById("userBox")
+    .style.display="block";
+
+}
 
 const AUTH =
 "https://auth.creativeawards.fun";
