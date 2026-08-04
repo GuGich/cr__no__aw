@@ -1179,46 +1179,4 @@ box.innerHTML = html;
 loadApplications();
 
 
-
-const popup = document.getElementById("ceremonyPopup");
-const closeBtn = document.getElementById("popupClose");
-
-let popupClosed = localStorage.getItem("ceremonyPopupClosed") === "1";
-
-const showPopup = () => {
-    if (popupClosed) return;
-    popup.classList.add("show");
-    window.removeEventListener("scroll", scrollHandler);
-};
-
-const scrollHandler = () => {
-    if (popupClosed) return;
-
-    const percent =
-        window.scrollY /
-        (document.documentElement.scrollHeight - window.innerHeight);
-
-    if (percent > 0.35) {
-        showPopup();
-    }
-};
-
-if (!popupClosed) {
-    setTimeout(showPopup, 8000);
-    window.addEventListener("scroll", scrollHandler);
-}
-
-closeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    popupClosed = true;
-    localStorage.setItem("ceremonyPopupClosed", "1");
-
-    popup.classList.remove("show");
-
-    window.removeEventListener("scroll", scrollHandler);
-}); 
-
-
 });
