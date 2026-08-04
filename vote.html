@@ -168,50 +168,6 @@ document.getElementById('gameOfYear').value
 </footer>
 <script>
 
-async function loadVotes(){
-
-    document
-    .getElementById("voteLoader")
-    .style.display="block";
-
-
-    const res = await fetch(
-        AUTH + "/get-votes",
-        {
-            credentials:"include"
-        }
-    );
-
-
-    const data = await res.json();
-
-
-
-    if(data.votes){
-
-        if(data.votes["Игра года"]){
-
-            document
-            .getElementById("gameOfYear")
-            .value =
-            data.votes["Игра года"];
-
-        }
-
-    }
-
-
-    document
-    .getElementById("voteLoader")
-    .style.display="none";
-
-
-    document
-    .getElementById("userBox")
-    .style.display="block";
-
-}
-
 const AUTH =
 "https://auth.creativeawards.fun";
 
@@ -358,6 +314,50 @@ data.success
 
 }
 
+
+async function loadVotes(){
+
+    document
+    .getElementById("voteLoader")
+    .style.display="block";
+
+
+    const res = await fetch(
+        AUTH + "/get-votes",
+        {
+            credentials:"include"
+        }
+    );
+
+
+    const data = await res.json();
+
+
+
+    if(data.votes){
+
+        if(data.votes["Игра года"]){
+
+            document
+            .getElementById("gameOfYear")
+            .value =
+            data.votes["Игра года"];
+
+        }
+
+    }
+
+
+    document
+    .getElementById("voteLoader")
+    .style.display="none";
+
+
+    document
+    .getElementById("userBox")
+    .style.display="block";
+
+}
 
 checkUser();
 
