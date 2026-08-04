@@ -77,321 +77,75 @@
     </div>
   </header>
 
-<section class="vote-section">
+<section class="block vote-page">
 
-<div id="discord-user" class="discord-auth-box">
-    Проверка Discord...
-</div>
+<div class="vote-card">
 
-<div id="vote-content" class="vote-form" style="display:none;">
+<h1>
+Голосование Creative Awards
+</h1>
 
-    <h2>Голосование</h2>
+<div id="loginBox">
 
-    <div class="form-group">
-        <label>Выберите игру</label>
+<p>
+Проверьте, что вы вошли через Google.
+</p>
 
-        <select id="game">
-            <option value="">Выберите игру...</option>
-            <option>Игра 1</option>
-            <option>Игра 2</option>
-            <option>Игра 3</option>
-        </select>
-    </div>
-
-
-    <div class="form-group">
-        <label>Номинация</label>
-
-        <select id="category">
-            <option value="">Выберите номинацию...</option>
-            <option>Игра года</option>
-            <option>Лучший сюжет</option>
-            <option>Выбор игроков</option>
-        </select>
-    </div>
-
-
-    <div class="form-group">
-        <label>Комментарий (необязательно)</label>
-
-        <textarea 
-            id="comment"
-            placeholder="Почему вы выбрали эту игру?"
-        ></textarea>
-    </div>
-
-
-    <button id="sendVote">
-        Отдать голос
-    </button>
-
+<a 
+href="https://auth.creativeawards.fun/login"
+class="btn-vote">
+Войти через Google
+</a>
 
 </div>
 
-<script>
 
-let discordUser = null;
+<div id="userBox" style="display:none">
 
+<p>
+Вы вошли как:
+<b id="username"></b>
+</p>
 
-// Проверка Discord
-fetch("https://auth.creativeawards.fun/me", {
-    credentials: "include"
-})
-.then(r => r.json())
-.then(data => {
 
-    const box = document.getElementById("discord-user");
-    const vote = document.getElementById("vote-content");
+<h3>
+Игра года
+</h3>
 
 
-    if (!data.logged) {
+<select id="gameOfYear">
 
-        box.innerHTML = `
-            <b>🔒 Требуется Discord</b>
+<option value="">
+Выберите игру
+</option>
 
-            <p>
-                Для участия в голосовании необходимо войти через Discord.
-            </p>
+<option>
+Игра 1
+</option>
 
-            <a href="https://auth.creativeawards.fun/login">
-                Войти через Discord
-            </a>
-        `;
+<option>
+Игра 2
+</option>
 
-        return;
-    }
+</select>
 
 
-    // сохраняем данные пользователя
-    discordUser = data.user;
+<button 
+onclick="sendVote(
+'Игра года',
+document.getElementById('gameOfYear').value
+)">
+Сохранить голос
+</button>
 
 
-    box.innerHTML = `
-        <span class="discord-success">
-            ✅ Discord подключён
-        </span>
+</div>
 
-        <br><br>
 
-        ${discordUser.username}
-    `;
+<div id="message"></div>
 
 
-    // показываем форму
-    vote.style.display = "block";
-
-});
-
-
-
-
-// Отправка голоса
-document.getElementById("sendVote").onclick = async () => {
-
-
-    if (!discordUser) {
-
-        alert("Сначала войдите через Discord");
-
-        return;
-
-    }
-
-
-    const game =
-        document.getElementById("game").value;
-
-
-    const category =
-        document.getElementById("category").value;
-
-
-    const comment =
-        document.getElementById("comment").value;
-
-
-
-    if (!game || !category) {
-
-        alert("Выберите игру и номинацию");
-
-        return;
-
-    }
-
-
-
-    const response = await fetch(
-        "https://auth.creativeawards.fun/submit",
-        {
-            method: "POST",
-
-            credentials: "include",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-body: JSON.stringify({
-  game,
-  category,
-  comment
-})
-        }
-    );
-
-
-
-const result = await response.json();
-
-
-
-    if (result.success) {
-
-        alert("✅ Голос отправлен!");
-
-    } else {
-
-        alert("❌ Ошибка отправки");
-
-    }
-
-};
-
-</script>
-
-<style>
-  .vote-form {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 35px;
-    border-radius: 24px;
-
-    background:
-    rgba(255,255,255,0.05);
-
-    border:
-    1px solid rgba(255,215,0,.25);
-
-    backdrop-filter: blur(12px);
-
-    color:white;
-}
-
-
-.vote-form h2 {
-    text-align:center;
-    margin-bottom:30px;
-}
-
-
-.form-group {
-    margin-bottom:20px;
-}
-
-
-.form-group label {
-    display:block;
-    margin-bottom:8px;
-    font-weight:700;
-}
-
-
-.form-group select,
-.form-group textarea {
-
-    width:100%;
-    padding:14px;
-
-    border-radius:12px;
-
-    background:#111;
-    color:white;
-
-    border:1px solid rgba(255,255,255,.15);
-
-    font-size:16px;
-}
-
-
-.form-group textarea {
-    min-height:120px;
-    resize:vertical;
-}
-
-
-#sendVote {
-
-    width:100%;
-
-    padding:15px;
-
-    border-radius:14px;
-
-    border:none;
-
-    cursor:pointer;
-
-    background:
-    linear-gradient(135deg,#ffd700,#ffae00);
-
-    color:#111;
-
-    font-weight:800;
-
-    font-size:18px;
-
-    transition:.25s;
-}
-
-
-#sendVote:hover {
-    transform:translateY(-3px);
-}
-  .discord-auth-box {
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,215,0,0.25);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    color: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-.discord-auth-box b {
-    font-size: 22px;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.discord-auth-box a,
-.discord-login-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 14px 28px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #5865F2, #4752C4);
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    transition: .25s;
-}
-
-.discord-auth-box a:hover,
-.discord-login-btn:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.15);
-}
-
-.discord-success {
-    color: #ffd700;
-    font-weight: 700;
-}
-</style>
-
+</div>
 
 </section>
 
@@ -408,6 +162,159 @@ const result = await response.json();
     </span>
   </div>
 </footer>
+<script>
+
+const AUTH =
+"https://auth.creativeawards.fun";
+
+
+async function checkUser(){
+
+
+const res =
+await fetch(
+AUTH + "/me",
+{
+credentials:"include"
+}
+);
+
+
+const data =
+await res.json();
+
+
+
+if(data.logged){
+
+
+document
+.getElementById("loginBox")
+.style.display="none";
+
+
+document
+.getElementById("userBox")
+.style.display="block";
+
+
+document
+.getElementById("username")
+.innerText =
+data.user.username;
+
+
+
+loadVotes();
+
+
+}
+
+}
+
+
+
+async function loadVotes(){
+
+
+const res =
+await fetch(
+AUTH + "/get-votes",
+{
+credentials:"include"
+}
+);
+
+
+const data =
+await res.json();
+
+
+console.log(data);
+
+
+if(data.votes){
+
+if(data.votes["Игра года"]){
+
+document
+.getElementById("gameOfYear")
+.value =
+data.votes["Игра года"];
+
+}
+
+}
+
+
+}
+
+
+
+async function sendVote(category,game){
+
+
+if(!game){
+
+alert("Выберите игру");
+
+return;
+
+}
+
+
+
+const res =
+await fetch(
+AUTH + "/vote",
+{
+
+method:"POST",
+
+credentials:"include",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+
+body:JSON.stringify({
+
+category:category,
+
+game:game
+
+})
+
+}
+
+);
+
+
+
+const data =
+await res.json();
+
+
+
+document
+.getElementById("message")
+.innerHTML =
+data.success
+?
+"✅ Голос сохранён"
+:
+"❌ " + data.message;
+
+
+
+}
+
+
+checkUser();
+
+
+</script>
 <script src="js/script.js"></script>
 </body>
 </html>
