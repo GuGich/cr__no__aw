@@ -142,7 +142,7 @@ function changeLanguage(lang){
 
     if(lang !== "ru"){
 
-        autoTranslatePage(lang);
+        // autoTranslatePage(lang);
 
     }
 
