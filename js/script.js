@@ -1179,4 +1179,34 @@ box.innerHTML = html;
 loadApplications();
 
 
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileMenu = document.querySelector(".mobile-menu");
+const mobileClose = document.querySelector(".mobile-close");
+
+
+menuToggle.addEventListener("click",()=>{
+
+    mobileMenu.classList.add("active");
+
+});
+
+
+mobileClose.addEventListener("click",()=>{
+
+    mobileMenu.classList.remove("active");
+
+});
+
+
+document.querySelectorAll(".mobile-menu a")
+.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        mobileMenu.classList.remove("active");
+
+    });
+
+});
+
 });
