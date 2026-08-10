@@ -1,49 +1,87 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Создание новости — Creative Awards</title>
+    <title>Админ-панель — Creative Awards</title>
 
     <link rel="stylesheet" href="/css/style.css">
 
     <style>
-        .admin-page {
-            max-width: 3000px;
-            margin: 0 auto;
-            padding: 80px 24px 120px;
+        * {
+            box-sizing: border-box;
         }
 
-        .admin-head {
-            margin-bottom: 40px;
-        }
-
-        .admin-head h1 {
-            margin: 0 0 10px;
-        }
-
-        .admin-head p {
-            opacity: .65;
+        body {
             margin: 0;
         }
 
-        .admin-form {
-            display: grid;
-            gap: 22px;
+        .admin-page {
+            width: min(1900px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 50px 0 100px;
         }
 
+        .admin-head {
+            margin-bottom: 30px;
+        }
+
+        .admin-head h1 {
+            margin: 8px 0 8px;
+        }
+
+        .admin-head p {
+            margin: 0;
+            opacity: .55;
+        }
+
+        /* =========================================
+           LAYOUT
+        ========================================= */
+
+        .admin-layout {
+            display: grid;
+            grid-template-columns: minmax(500px, 1fr) minmax(500px, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .editor-column {
+            min-width: 0;
+        }
+
+        .preview-column {
+            position: sticky;
+            top: 20px;
+            min-width: 0;
+        }
+
+        /* =========================================
+           CARDS
+        ========================================= */
+
         .admin-section {
-            padding: 28px;
+            padding: 25px;
+            margin-bottom: 18px;
+
             border: 1px solid var(--line);
-            border-radius: 18px;
-            background: var(--surface);
+            border-radius: 16px;
+
+            background: var(--surface, rgba(255,255,255,.02));
         }
 
         .admin-section h2 {
-            margin: 0 0 22px;
-            font-size: 20px;
+            margin: 0 0 20px;
+
+            font-size: 18px;
+            font-weight: 800;
         }
+
+        /* =========================================
+           FIELDS
+        ========================================= */
 
         .field {
             display: grid;
@@ -56,61 +94,150 @@
         }
 
         .field label {
-            font-size: 13px;
-            font-weight: 700;
-            opacity: .75;
+            font-size: 12px;
+            font-weight: 800;
+            opacity: .7;
         }
 
         .field input,
         .field textarea,
         .field select {
             width: 100%;
-            box-sizing: border-box;
-            padding: 13px 15px;
+
+            padding: 12px 14px;
+
             border: 1px solid var(--line);
-            border-radius: 11px;
+            border-radius: 10px;
+
             background: transparent;
             color: inherit;
-            font: inherit;
-            outline: none;
-        }
 
-        .field textarea {
-            min-height: 320px;
-            resize: vertical;
-            font-family: monospace;
-            line-height: 1.55;
+            font: inherit;
+
+            outline: none;
         }
 
         .field input:focus,
         .field textarea:focus,
         .field select:focus {
-            border-color: currentColor;
+            border-color: var(--gold-mid, #b8934f);
+        }
+
+        .field textarea {
+            min-height: 300px;
+            resize: vertical;
+
+            line-height: 1.6;
+        }
+
+        #content {
+            min-height: 500px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 13px;
         }
 
         .field-hint {
-            font-size: 12px;
-            opacity: .5;
+            font-size: 11px;
+            opacity: .45;
         }
 
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            gap: 15px;
         }
+
+        /* =========================================
+           COVER
+        ========================================= */
+
+        .cover-preview {
+            display: none;
+
+            margin-top: 12px;
+
+            border-radius: 12px;
+            overflow: hidden;
+
+            border: 1px solid var(--line);
+        }
+
+        .cover-preview img {
+            display: block;
+
+            width: 100%;
+            max-height: 280px;
+
+            object-fit: cover;
+        }
+
+        .cover-preview.active {
+            display: block;
+        }
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-button {
+            border: 1px solid var(--line);
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            background: transparent;
+            color: inherit;
+
+            font: inherit;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .admin-button:hover {
+            border-color: var(--gold-mid, #b8934f);
+        }
+
+        .admin-button.primary {
+            background: var(--gold-mid, #b8934f);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .admin-button.danger {
+            color: #d98b83;
+        }
+
+        .admin-button:disabled {
+            opacity: .45;
+            cursor: wait;
+        }
+
+        /* =========================================
+           PUBLISH
+        ========================================= */
 
         .publish-box {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 24px 28px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-        }
 
-        .publish-info {
-            min-width: 0;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 22px;
+
+            border: 1px solid var(--line);
+            border-radius: 16px;
+
+            background: var(--surface, rgba(255,255,255,.02));
         }
 
         .publish-info strong {
@@ -119,66 +246,231 @@
         }
 
         .publish-url {
-            font-size: 13px;
-            opacity: .55;
+            font-size: 12px;
+            opacity: .5;
+
             word-break: break-all;
         }
 
-        .publish-button {
-            border: 0;
-            padding: 14px 22px;
-            border-radius: 12px;
-            background: var(--accent, #b8934f);
-            color: #fff;
-            font: inherit;
-            font-weight: 800;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .publish-button:hover {
-            opacity: .9;
-        }
-
-        .publish-button:disabled {
-            opacity: .5;
-            cursor: wait;
-        }
+        /* =========================================
+           RESULT
+        ========================================= */
 
         .result {
             display: none;
-            padding: 18px 20px;
-            border-radius: 14px;
+
+            padding: 15px 18px;
+            margin-bottom: 18px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
             line-height: 1.5;
         }
 
         .result.success {
             display: block;
-            border: 1px solid rgba(80, 180, 100, .35);
+            border: 1px solid rgba(100,190,120,.3);
         }
 
         .result.error {
             display: block;
-            border: 1px solid rgba(220, 70, 70, .4);
+            border: 1px solid rgba(220,90,90,.35);
         }
 
         .result a {
             color: inherit;
+            font-weight: 800;
+        }
+
+        /* =========================================
+           PREVIEW
+        ========================================= */
+
+        .preview-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 12px;
+        }
+
+        .preview-header strong {
+            font-size: 14px;
+        }
+
+        .preview-header span {
+            font-size: 11px;
+            opacity: .45;
+        }
+
+        .preview-frame {
+            height: calc(100vh - 150px);
+            min-height: 650px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--line);
+            border-radius: 16px;
+
+            background: var(--bg, #0b0a08);
+        }
+
+        .preview-frame iframe {
+            width: 100%;
+            height: 100%;
+
+            border: 0;
+        }
+
+        /* =========================================
+           NEWS LIST
+        ========================================= */
+
+        .news-manager {
+            margin-top: 25px;
+        }
+
+        .news-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .news-tab {
+            padding: 9px 14px;
+
+            border: 1px solid var(--line);
+            border-radius: 9px;
+
+            background: transparent;
+            color: inherit;
+
+            cursor: pointer;
+
+            font: inherit;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .news-tab.active {
+            background: var(--gold-mid, #b8934f);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .news-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .news-item {
+            display: grid;
+            grid-template-columns: 90px 1fr auto;
+
+            gap: 14px;
+            align-items: center;
+
+            padding: 12px;
+
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+        .news-thumb {
+            width: 90px;
+            height: 60px;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            background: rgba(255,255,255,.03);
+        }
+
+        .news-thumb img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .news-info {
+            min-width: 0;
+        }
+
+        .news-info strong {
+            display: block;
+
+            margin-bottom: 4px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .news-info span {
+            font-size: 11px;
+            opacity: .5;
+        }
+
+        .news-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .news-action {
+            padding: 8px 10px;
+
+            border: 1px solid var(--line);
+            border-radius: 8px;
+
+            background: transparent;
+            color: inherit;
+
+            cursor: pointer;
+
+            font-size: 11px;
             font-weight: 700;
         }
 
-        @media (max-width: 700px) {
+        .news-action:hover {
+            border-color: var(--gold-mid, #b8934f);
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-column {
+                position: static;
+            }
+
+            .preview-frame {
+                height: 700px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
             .admin-page {
-                padding: 50px 16px 80px;
+                width: min(100% - 24px, 700px);
+                padding-top: 30px;
             }
 
             .admin-section {
-                padding: 20px;
+                padding: 18px;
             }
 
             .two-columns {
                 grid-template-columns: 1fr;
-                gap: 18px;
             }
 
             .publish-box {
@@ -186,8 +478,25 @@
                 align-items: stretch;
             }
 
-            .publish-button {
+            .publish-box .admin-button {
                 width: 100%;
+            }
+
+            .news-item {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .news-thumb {
+                width: 60px;
+                height: 50px;
+            }
+
+            .news-actions {
+                grid-column: 1 / -1;
+            }
+
+            .news-actions button {
+                flex: 1;
             }
         }
     </style>
@@ -197,287 +506,456 @@
 
 <main class="admin-page">
 
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
     <div class="admin-head">
-        <div class="eyebrow">Creative Awards</div>
+
+        <div class="eyebrow">
+            Creative Awards
+        </div>
 
         <h1 class="display">
-            Создание новости
+            Админ-панель новостей
         </h1>
 
         <p>
-            Административная панель публикации материалов.
+            Создание, редактирование и публикация материалов.
         </p>
+
     </div>
 
 
-    <form class="admin-form" id="newsForm">
+    <!-- =========================================
+         MAIN EDITOR
+    ========================================== -->
 
-        <!-- ОСНОВНАЯ ИНФОРМАЦИЯ -->
+    <div class="admin-layout">
 
-        <section class="admin-section">
+        <!-- =====================================
+             EDITOR
+        ====================================== -->
 
-            <h2>Основная информация</h2>
+        <div class="editor-column">
 
-            <div class="field">
-                <label for="title">
-                    Заголовок
-                </label>
+            <form id="newsForm">
 
-                <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    placeholder="Открыт приём заявок Creative Awards 2026"
-                    required
-                >
-            </div>
+                <!-- Основная информация -->
+
+                <section class="admin-section">
+
+                    <h2>Основная информация</h2>
+
+                    <div class="field">
+
+                        <label for="title">
+                            Заголовок
+                        </label>
+
+                        <input
+                            id="title"
+                            name="title"
+                            type="text"
+                            placeholder="Открыт приём заявок Creative Awards 2026"
+                            required
+                        >
+
+                    </div>
 
 
-            <div class="two-columns">
+                    <div class="two-columns">
 
-                <div class="field">
-                    <label for="date">
-                        Дата публикации
-                    </label>
+                        <div class="field">
 
-                    <input
-                        id="date"
-                        name="date"
-                        type="text"
-                        placeholder="10 августа 2026"
-                        required
+                            <label for="date">
+                                Дата публикации
+                            </label>
+
+                            <input
+                                id="date"
+                                name="date"
+                                type="text"
+                                placeholder="10 августа 2026"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="tag">
+                                Категория
+                            </label>
+
+                            <input
+                                id="tag"
+                                name="tag"
+                                type="text"
+                                value="Новости"
+                                placeholder="Новости"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="slug">
+                            Slug
+                        </label>
+
+                        <input
+                            id="slug"
+                            name="slug"
+                            type="text"
+                            placeholder="open-applications-2026"
+                            required
+                        >
+
+                        <span class="field-hint">
+                            Можно писать по-русски — Worker автоматически транслитерирует slug.
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Обложка -->
+
+                <section class="admin-section">
+
+                    <h2>Обложка</h2>
+
+                    <div class="field">
+
+                        <label for="coverImage">
+                            URL изображения
+                        </label>
+
+                        <input
+                            id="coverImage"
+                            name="coverImage"
+                            type="url"
+                            placeholder="https://creativeawards.fun/images/news/example.jpg"
+                        >
+
+                        <span class="field-hint">
+                            Пока используется изображение по прямой ссылке.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="cover-preview"
+                        id="coverPreview"
                     >
-                </div>
+                        <img
+                            id="coverPreviewImage"
+                            src=""
+                            alt=""
+                        >
+                    </div>
 
 
-                <div class="field">
-                    <label for="tag">
-                        Категория
-                    </label>
+                    <div class="field">
 
-                    <input
-                        id="tag"
-                        name="tag"
-                        type="text"
-                        placeholder="Новости"
-                        value="Новости"
-                    >
-                </div>
+                        <label for="coverCaption">
+                            Подпись изображения
+                        </label>
 
-            </div>
+                        <input
+                            id="coverCaption"
+                            name="coverCaption"
+                            type="text"
+                            placeholder="Creative Awards 2026"
+                        >
 
+                    </div>
 
-            <div class="field">
-                <label for="slug">
-                    Slug
-                </label>
-
-                <input
-                    id="slug"
-                    name="slug"
-                    type="text"
-                    placeholder="open-applications-2026"
-                    required
-                >
-
-                <span class="field-hint">
-                    Например: open-applications-2026
-                </span>
-            </div>
-
-        </section>
+                </section>
 
 
-        <!-- ОБЛОЖКА -->
+                <!-- Описание -->
 
-        <section class="admin-section">
+                <section class="admin-section">
 
-            <h2>Обложка</h2>
+                    <h2>Описание</h2>
 
-            <div class="field">
+                    <div class="field">
 
-                <label for="coverImage">
-                    URL изображения
-                </label>
+                        <label for="description">
+                            Краткое описание
+                        </label>
 
-                <input
-                    id="coverImage"
-                    name="coverImage"
-                    type="url"
-                    placeholder="https://creativeawards.fun/images/news/example.jpg"
-                >
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="4"
+                            placeholder="Коротко опишите содержание новости..."
+                            required
+                        ></textarea>
 
-            </div>
+                        <span class="field-hint">
+                            Используется как вступительный текст.
+                        </span>
 
-
-            <div class="field">
-
-                <label for="coverCaption">
-                    Подпись
-                </label>
-
-                <input
-                    id="coverCaption"
-                    name="coverCaption"
-                    type="text"
-                    placeholder="Creative Awards 2026"
-                >
-
-            </div>
-
-        </section>
+                    </div>
 
 
-        <!-- ОПИСАНИЕ -->
+                    <div class="field">
 
-        <section class="admin-section">
+                        <label for="tags">
+                            Теги
+                        </label>
 
-            <h2>Описание</h2>
+                        <input
+                            id="tags"
+                            name="tags"
+                            type="text"
+                            placeholder="Creative Awards 2026, Новости, Анонс"
+                        >
 
-            <div class="field">
+                        <span class="field-hint">
+                            Разделяйте теги запятыми.
+                        </span>
 
-                <label for="description">
-                    Краткое описание
-                </label>
+                    </div>
 
-                <textarea
-                    id="description"
-                    name="description"
-                    rows="4"
-                    placeholder="Коротко опишите содержание новости..."
-                    required
-                ></textarea>
-
-                <span class="field-hint">
-                    Используется как вступление и описание страницы.
-                </span>
-
-            </div>
+                </section>
 
 
-            <div class="field">
+                <!-- Содержание -->
 
-                <label for="tags">
-                    Теги
-                </label>
+                <section class="admin-section">
 
-                <input
-                    id="tags"
-                    name="tags"
-                    type="text"
-                    placeholder="Creative Awards 2026, Новости, Анонс"
-                >
+                    <h2>Содержание</h2>
 
-                <span class="field-hint">
-                    Разделяйте теги запятыми.
-                </span>
+                    <div class="field">
 
-            </div>
+                        <label for="content">
+                            HTML-код новости
+                        </label>
 
-        </section>
-
-
-        <!-- СОДЕРЖАНИЕ -->
-
-        <section class="admin-section">
-
-            <h2>Содержание</h2>
-
-            <div class="field">
-
-                <label for="content">
-                    HTML-код новости
-                </label>
-
-                <textarea
-                    id="content"
-                    name="content"
-                    placeholder="<h2>Что нового</h2>
+                        <textarea
+                            id="content"
+                            name="content"
+                            placeholder="<h2>Заголовок</h2>
 
 <p>
 Текст новости...
 </p>
 
 <ul>
-    <li>Первый пункт</li>
-    <li>Второй пункт</li>
+    <li>Пункт</li>
+    <li>Пункт</li>
 </ul>"
-                    required
-                ></textarea>
+                            required
+                        ></textarea>
 
-                <span class="field-hint">
-                    Здесь можно использовать HTML.
-                </span>
+                        <span class="field-hint">
+                            Здесь используется HTML. Предпросмотр справа обновляется автоматически.
+                        </span>
 
-            </div>
+                    </div>
 
-        </section>
+                </section>
 
 
-        <!-- ПАРОЛЬ -->
+                <!-- Связанные новости -->
 
-        <section class="admin-section">
+                <section class="admin-section">
 
-            <h2>Авторизация</h2>
+                    <h2>Читайте также</h2>
 
-            <div class="field">
+                    <div class="field">
 
-                <label for="password">
-                    Пароль администратора
-                </label>
+                        <label for="relatedNews">
+                            HTML-код карточек
+                        </label>
 
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autocomplete="current-password"
-                    required
+                        <textarea
+                            id="relatedNews"
+                            name="relatedNews"
+                            rows="8"
+                            placeholder='<a class="more-card" href="/news/2026/example.html">
+    <span class="m-cat">Новости</span>
+    <h4>Название новости</h4>
+</a>'
+                        ></textarea>
+
+                        <span class="field-hint">
+                            Необязательно.
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Авторизация -->
+
+                <section class="admin-section">
+
+                    <h2>Авторизация</h2>
+
+                    <div class="field">
+
+                        <label for="password">
+                            Пароль администратора
+                        </label>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+                </section>
+
+
+                <!-- Результат -->
+
+                <div
+                    class="result"
+                    id="result"
+                ></div>
+
+
+                <!-- Публикация -->
+
+                <div class="publish-box">
+
+                    <div class="publish-info">
+
+                        <strong>
+                            URL публикации
+                        </strong>
+
+                        <span
+                            class="publish-url"
+                            id="previewUrl"
+                        >
+                            Заполните slug
+                        </span>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button
+                            type="button"
+                            class="admin-button"
+                            id="saveDraftButton"
+                        >
+                            Сохранить черновик
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="admin-button primary"
+                            id="publishButton"
+                        >
+                            Опубликовать
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- =====================================
+                 NEWS MANAGER
+            ====================================== -->
+
+            <section class="admin-section news-manager">
+
+                <h2>
+                    Управление новостями
+                </h2>
+
+                <div class="news-tabs">
+
+                    <button
+                        type="button"
+                        class="news-tab active"
+                        data-tab="published"
+                    >
+                        Опубликованные
+                    </button>
+
+                    <button
+                        type="button"
+                        class="news-tab"
+                        data-tab="drafts"
+                    >
+                        Черновики
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="news-list"
+                    id="newsList"
                 >
 
-            </div>
+                    <div
+                        style="opacity:.5;font-size:13px;"
+                    >
+                        Загрузка...
+                    </div>
 
-        </section>
+                </div>
 
-
-        <!-- РЕЗУЛЬТАТ -->
-
-        <div
-            class="result"
-            id="result"
-        ></div>
-
-
-        <!-- ПУБЛИКАЦИЯ -->
-
-        <div class="publish-box">
-
-            <div class="publish-info">
-
-                <strong>
-                    URL публикации
-                </strong>
-
-                <span
-                    class="publish-url"
-                    id="previewUrl"
-                >
-                    Заполните slug
-                </span>
-
-            </div>
-
-
-            <button
-                class="publish-button"
-                id="publishButton"
-                type="submit"
-            >
-                Опубликовать
-            </button>
+            </section>
 
         </div>
 
-    </form>
+
+        <!-- =====================================
+             PREVIEW
+        ====================================== -->
+
+        <div class="preview-column">
+
+            <div class="preview-header">
+
+                <strong>
+                    Предпросмотр
+                </strong>
+
+                <span>
+                    Обновляется автоматически
+                </span>
+
+            </div>
+
+
+            <div class="preview-frame">
+
+                <iframe
+                    id="previewFrame"
+                    title="Предпросмотр новости"
+                ></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </main>
 
@@ -485,71 +963,92 @@
 <script>
 
 const WORKER_URL =
-    "https://cms.creativeawards.fun/";
+    "https://cms.creativeawards.fun";
+
+
+const SITE_URL =
+    "https://creativeawards.fun";
 
 
 const form =
     document.getElementById("newsForm");
 
-const publishButton =
-    document.getElementById("publishButton");
-
-const result =
-    document.getElementById("result");
-
-const previewUrl =
-    document.getElementById("previewUrl");
-
 const titleInput =
     document.getElementById("title");
-
-const slugInput =
-    document.getElementById("slug");
 
 const dateInput =
     document.getElementById("date");
 
+const tagInput =
+    document.getElementById("tag");
 
-// ------------------------------------------
-// Slug preview
-// ------------------------------------------
+const slugInput =
+    document.getElementById("slug");
 
-function normalizeSlug(value) {
+const coverImageInput =
+    document.getElementById("coverImage");
+
+const coverCaptionInput =
+    document.getElementById("coverCaption");
+
+const descriptionInput =
+    document.getElementById("description");
+
+const tagsInput =
+    document.getElementById("tags");
+
+const contentInput =
+    document.getElementById("content");
+
+const relatedNewsInput =
+    document.getElementById("relatedNews");
+
+const passwordInput =
+    document.getElementById("password");
+
+const previewFrame =
+    document.getElementById("previewFrame");
+
+const previewUrl =
+    document.getElementById("previewUrl");
+
+const result =
+    document.getElementById("result");
+
+const publishButton =
+    document.getElementById("publishButton");
+
+const saveDraftButton =
+    document.getElementById("saveDraftButton");
+
+const coverPreview =
+    document.getElementById("coverPreview");
+
+const coverPreviewImage =
+    document.getElementById("coverPreviewImage");
+
+const newsList =
+    document.getElementById("newsList");
+
+
+/* =========================================
+   SLUG
+========================================= */
+
+function makeSlug(value) {
 
     const translit = {
-        "а": "a",
-        "б": "b",
-        "в": "v",
-        "г": "g",
-        "д": "d",
-        "е": "e",
-        "ё": "yo",
-        "ж": "zh",
-        "з": "z",
-        "и": "i",
-        "й": "y",
-        "к": "k",
-        "л": "l",
-        "м": "m",
-        "н": "n",
-        "о": "o",
-        "п": "p",
-        "р": "r",
-        "с": "s",
-        "т": "t",
-        "у": "u",
-        "ф": "f",
-        "х": "kh",
-        "ц": "ts",
-        "ч": "ch",
-        "ш": "sh",
-        "щ": "shch",
-        "ъ": "",
-        "ы": "y",
-        "ь": "",
-        "э": "e",
-        "ю": "yu",
-        "я": "ya"
+
+        "а":"a","б":"b","в":"v","г":"g",
+        "д":"d","е":"e","ё":"yo","ж":"zh",
+        "з":"z","и":"i","й":"y","к":"k",
+        "л":"l","м":"m","н":"n","о":"o",
+        "п":"p","р":"r","с":"s","т":"t",
+        "у":"u","ф":"f","х":"kh","ц":"ts",
+        "ч":"ch","ш":"sh","щ":"shch",
+        "ъ":"","ы":"y","ь":"","э":"e",
+        "ю":"yu","я":"ya"
+
     };
 
     return value
@@ -560,22 +1059,429 @@ function normalizeSlug(value) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/-+/g, "-")
         .replace(/^-|-$/g, "");
+}
+
+
+slugInput.addEventListener("input", () => {
+
+    slugInput.dataset.manual = "true";
+
+});
+
+
+titleInput.addEventListener("input", () => {
+
+    if (
+        !slugInput.dataset.manual ||
+        slugInput.value === ""
+    ) {
+
+        slugInput.value =
+            makeSlug(titleInput.value);
+
+    }
+
+    updatePreview();
+
+});
+
+
+/* =========================================
+   COVER
+========================================= */
+
+coverImageInput.addEventListener("input", () => {
+
+    const url =
+        coverImageInput.value.trim();
+
+    if (!url) {
+
+        coverPreview.classList.remove("active");
+        return;
+
+    }
+
+    coverPreviewImage.src = url;
+
+    coverPreview.classList.add("active");
+
+    updatePreview();
+
+});
+
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function createTags(value) {
+
+    if (!value.trim()) {
+        return "";
+    }
+
+    return value
+        .split(",")
+        .map(tag => tag.trim())
+        .filter(Boolean)
+        .map(
+            tag =>
+                `<span class="tag-pill">${escapeHtml(tag)}</span>`
+        )
+        .join("\n");
+
+}
+
+
+function calculateReadingTime(text) {
+
+    const clean =
+        text.replace(/<[^>]*>/g, " ");
+
+    const words =
+        clean
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean)
+            .length;
+
+    const minutes =
+        Math.max(
+            1,
+            Math.ceil(words / 180)
+        );
+
+    return `${minutes} мин. чтения`;
 
 }
 
 
 function updatePreview() {
 
+    const title =
+        titleInput.value ||
+        "Заголовок новости";
+
+    const date =
+        dateInput.value ||
+        "10 августа 2026";
+
+    const tag =
+        tagInput.value ||
+        "Новости";
+
+    const image =
+        coverImageInput.value;
+
+    const caption =
+        coverCaptionInput.value;
+
+    const description =
+        descriptionInput.value ||
+        "Краткое описание новости появится здесь.";
+
+    const content =
+        contentInput.value ||
+        "<h2>Содержание новости</h2><p>Начните писать текст новости слева.</p>";
+
+    const tags =
+        createTags(tagsInput.value);
+
+    const related =
+        relatedNewsInput.value;
+
+    const readingTime =
+        calculateReadingTime(content);
+
+
+    const cover =
+        image
+            ? `
+                <div class="cover">
+                    <img
+                        src="${escapeHtml(image)}"
+                        alt="${escapeHtml(title)}"
+                    >
+                    <div class="cap">
+                        ${escapeHtml(caption)}
+                    </div>
+                </div>
+            `
+            : "";
+
+
+    const previewHTML = `
+
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    ${escapeHtml(title)}
+</title>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 40px 20px 100px;
+
+    background: #0b0a08;
+    color: #f3ead9;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    line-height: 1.7;
+}
+
+.preview {
+    width: min(900px, 100%);
+    margin: 0 auto;
+}
+
+.crumbs {
+    opacity: .5;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.article-head {
+    margin-bottom: 30px;
+}
+
+.cat-tag {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 6px 10px;
+
+    border: 1px solid #6e5227;
+    border-radius: 7px;
+
+    color: #e8c887;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.article-title {
+    margin: 0 0 15px;
+
+    font-family: Georgia, serif;
+
+    font-size:
+        clamp(36px, 6vw, 70px);
+
+    line-height: 1;
+}
+
+.article-meta {
+    display: flex;
+    gap: 10px;
+
+    font-size: 12px;
+
+    opacity: .5;
+}
+
+.dot::after {
+    content: "•";
+}
+
+.cover {
+    margin-bottom: 30px;
+}
+
+.cover img {
+    width: 100%;
+
+    max-height: 500px;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+}
+
+.cap {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    opacity: .45;
+}
+
+.lead {
+    font-size: 20px;
+
+    line-height: 1.6;
+
+    opacity: .8;
+
+    margin-bottom: 35px;
+}
+
+.prose {
+    font-size: 16px;
+}
+
+.prose h2 {
+    margin-top: 45px;
+}
+
+.prose a {
+    color: #e8c887;
+}
+
+.prose blockquote {
+    margin: 30px 0;
+
+    padding: 20px;
+
+    border-left: 3px solid #b8934f;
+
+    background: rgba(255,255,255,.03);
+}
+
+.prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.tags-row {
+    display: flex;
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    margin-top: 40px;
+}
+
+.tag-pill {
+    padding: 7px 10px;
+
+    border: 1px solid rgba(232,200,135,.2);
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    color: #e8c887;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="preview">
+
+    <div class="crumbs">
+        Главная / ${escapeHtml(title)}
+    </div>
+
+    <article>
+
+        <header class="article-head">
+
+            <span class="cat-tag">
+                ${escapeHtml(tag)}
+            </span>
+
+            <h1 class="article-title">
+                ${escapeHtml(title)}
+            </h1>
+
+            <div class="article-meta">
+
+                <span>
+                    Creative Awards
+                </span>
+
+                <span class="dot"></span>
+
+                <span>
+                    ${escapeHtml(date)}
+                </span>
+
+                <span class="dot"></span>
+
+                <span>
+                    ${readingTime}
+                </span>
+
+            </div>
+
+        </header>
+
+        ${cover}
+
+        <p class="lead">
+            ${escapeHtml(description)}
+        </p>
+
+        <div class="prose">
+
+            ${content}
+
+        </div>
+
+        <div class="tags-row">
+
+            ${tags}
+
+        </div>
+
+    </article>
+
+</div>
+
+</body>
+
+</html>
+
+`;
+
+
+    previewFrame.srcdoc =
+        previewHTML;
+
+
+    updateUrl();
+
+}
+
+
+function updateUrl() {
+
     const slug =
-        normalizeSlug(slugInput.value);
-
-    const yearMatch =
-        dateInput.value.match(/\b(20\d{2})\b/);
-
-    const year =
-        yearMatch
-            ? yearMatch[1]
-            : new Date().getFullYear();
+        slugInput.value.trim();
 
     if (!slug) {
 
@@ -586,76 +1492,127 @@ function updatePreview() {
 
     }
 
+    const year =
+        dateInput.value.match(
+            /\b(20\d{2})\b/
+        )?.[1]
+        || new Date().getFullYear();
+
+
+    const cleanSlug =
+        makeSlug(slug);
+
+
     previewUrl.textContent =
-        `https://creativeawards.fun/news/${year}/${slug}.html`;
+        `${SITE_URL}/news/${year}/${cleanSlug}.html`;
 
 }
 
 
-slugInput.addEventListener(
-    "input",
-    updatePreview
-);
+[
+    dateInput,
+    tagInput,
+    coverCaptionInput,
+    descriptionInput,
+    tagsInput,
+    contentInput,
+    relatedNewsInput,
+    slugInput
+].forEach(element => {
 
-dateInput.addEventListener(
-    "input",
-    updatePreview
-);
+    element.addEventListener(
+        "input",
+        updatePreview
+    );
 
-
-// ------------------------------------------
-// Automatic slug from title
-// ------------------------------------------
-
-titleInput.addEventListener(
-    "input",
-    () => {
-
-        if (
-            slugInput.dataset.manual === "true"
-        ) {
-            return;
-        }
-
-        slugInput.value =
-            normalizeSlug(
-                titleInput.value
-            );
-
-        updatePreview();
-
-    }
-);
+});
 
 
-slugInput.addEventListener(
-    "input",
-    () => {
+/* =========================================
+   FORM DATA
+========================================= */
 
-        slugInput.dataset.manual =
-            "true";
+function getFormData() {
 
-        updatePreview();
+    return {
 
-    }
-);
+        title:
+            titleInput.value.trim(),
+
+        date:
+            dateInput.value.trim(),
+
+        tag:
+            tagInput.value.trim() ||
+            "Новости",
+
+        slug:
+            makeSlug(
+                slugInput.value.trim()
+            ),
+
+        coverImage:
+            coverImageInput.value.trim(),
+
+        coverCaption:
+            coverCaptionInput.value.trim(),
+
+        description:
+            descriptionInput.value.trim(),
+
+        tags:
+            tagsInput.value.trim(),
+
+        content:
+            contentInput.value,
+
+        relatedNews:
+            relatedNewsInput.value,
+
+        password:
+            passwordInput.value
+
+    };
+
+}
 
 
-// ------------------------------------------
-// Submit
-// ------------------------------------------
+/* =========================================
+   RESULT
+========================================= */
+
+function showResult(
+    message,
+    type = "success"
+) {
+
+    result.className =
+        `result ${type}`;
+
+    result.innerHTML =
+        message;
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* =========================================
+   PUBLISH
+========================================= */
 
 form.addEventListener(
     "submit",
-    async (event) => {
+    async event => {
 
         event.preventDefault();
 
-        result.className =
-            "result";
+        const data =
+            getFormData();
 
-        result.innerHTML =
-            "";
 
         publishButton.disabled =
             true;
@@ -664,58 +1621,11 @@ form.addEventListener(
             "Публикация...";
 
 
-        const data = {
+        result.className =
+            "result";
 
-            title:
-                titleInput.value.trim(),
-
-            date:
-                dateInput.value.trim(),
-
-            slug:
-                slugInput.value.trim(),
-
-            tag:
-                document
-                    .getElementById("tag")
-                    .value
-                    .trim(),
-
-            coverImage:
-                document
-                    .getElementById("coverImage")
-                    .value
-                    .trim(),
-
-            coverCaption:
-                document
-                    .getElementById("coverCaption")
-                    .value
-                    .trim(),
-
-            description:
-                document
-                    .getElementById("description")
-                    .value
-                    .trim(),
-
-            tags:
-                document
-                    .getElementById("tags")
-                    .value
-                    .trim(),
-
-            content:
-                document
-                    .getElementById("content")
-                    .value,
-
-            password:
-                document
-                    .getElementById("password")
-                    .value
-
-        };
+        result.innerHTML =
+            "";
 
 
         try {
@@ -751,43 +1661,43 @@ form.addEventListener(
             }
 
 
-            result.className =
-                "result success";
+            showResult(
 
-            result.innerHTML = `
-                <strong>
-                    Новость опубликована!
-                </strong>
-                <br>
-                <a
-                    href="${responseData.url}"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    ${responseData.url}
-                </a>
-            `;
+                `
+                    <strong>
+                        ${responseData.message}
+                    </strong>
+                    <br>
+                    <a
+                        href="${responseData.url}"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Открыть новость →
+                    </a>
+                `,
+
+                "success"
+
+            );
 
 
-            publishButton.textContent =
-                "Опубликовано";
+            loadNews();
 
+        }
 
-        } catch (error) {
+        catch (error) {
 
-            result.className =
-                "result error";
-
-            result.innerHTML = `
-                <strong>
-                    Ошибка публикации
-                </strong>
-                <br>
-                ${escapeHtml(
+            showResult(
+                escapeHtml(
                     error.message
-                )}
-            `;
+                ),
+                "error"
+            );
 
+        }
+
+        finally {
 
             publishButton.disabled =
                 false;
@@ -801,27 +1711,377 @@ form.addEventListener(
 );
 
 
-// ------------------------------------------
-// Escape
-// ------------------------------------------
+/* =========================================
+   DRAFTS
+========================================= */
 
-function escapeHtml(value) {
+const DRAFTS_KEY =
+    "creative_awards_news_drafts";
 
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+
+function getDrafts() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                DRAFTS_KEY
+            ) || "[]"
+        );
+
+    }
+
+    catch {
+
+        return [];
+
+    }
 
 }
 
 
-// Initial preview
+function saveDraft() {
+
+    const data =
+        getFormData();
+
+
+    if (!data.title) {
+
+        showResult(
+            "Введите заголовок новости.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const drafts =
+        getDrafts();
+
+
+    const existingIndex =
+        drafts.findIndex(
+            draft =>
+                draft.slug === data.slug
+        );
+
+
+    data.savedAt =
+        new Date().toISOString();
+
+
+    if (existingIndex >= 0) {
+
+        drafts[existingIndex] =
+            data;
+
+    }
+
+    else {
+
+        drafts.unshift(
+            data
+        );
+
+    }
+
+
+    localStorage.setItem(
+        DRAFTS_KEY,
+        JSON.stringify(drafts)
+    );
+
+
+    showResult(
+        "Черновик сохранён в этом браузере.",
+        "success"
+    );
+
+
+    loadDrafts();
+
+}
+
+
+saveDraftButton.addEventListener(
+    "click",
+    saveDraft
+);
+
+
+/* =========================================
+   LOAD DRAFT
+========================================= */
+
+function loadDraft(draft) {
+
+    titleInput.value =
+        draft.title || "";
+
+    dateInput.value =
+        draft.date || "";
+
+    tagInput.value =
+        draft.tag || "Новости";
+
+    slugInput.value =
+        draft.slug || "";
+
+    slugInput.dataset.manual =
+        "true";
+
+    coverImageInput.value =
+        draft.coverImage || "";
+
+    coverCaptionInput.value =
+        draft.coverCaption || "";
+
+    descriptionInput.value =
+        draft.description || "";
+
+    tagsInput.value =
+        draft.tags || "";
+
+    contentInput.value =
+        draft.content || "";
+
+    relatedNewsInput.value =
+        draft.relatedNews || "";
+
+    passwordInput.value =
+        draft.password || "";
+
+    updatePreview();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================
+   DELETE DRAFT
+========================================= */
+
+function deleteDraft(index) {
+
+    const drafts =
+        getDrafts();
+
+
+    drafts.splice(
+        index,
+        1
+    );
+
+
+    localStorage.setItem(
+        DRAFTS_KEY,
+        JSON.stringify(drafts)
+    );
+
+
+    loadDrafts();
+
+}
+
+
+/* =========================================
+   LOAD DRAFTS
+========================================= */
+
+function loadDrafts() {
+
+    const drafts =
+        getDrafts();
+
+
+    if (!drafts.length) {
+
+        newsList.innerHTML =
+            `
+            <div style="opacity:.5;font-size:13px;">
+                Черновиков пока нет.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    newsList.innerHTML =
+        drafts.map(
+            (draft, index) => `
+
+            <div class="news-item">
+
+                <div class="news-thumb">
+
+                    ${
+                        draft.coverImage
+
+                            ? `<img
+                                src="${escapeHtml(draft.coverImage)}"
+                                alt=""
+                              >`
+
+                            : ""
+                    }
+
+                </div>
+
+                <div class="news-info">
+
+                    <strong>
+                        ${escapeHtml(
+                            draft.title
+                        )}
+                    </strong>
+
+                    <span>
+                        ${escapeHtml(
+                            draft.date || ""
+                        )}
+                    </span>
+
+                </div>
+
+                <div class="news-actions">
+
+                    <button
+                        class="news-action"
+                        onclick="loadDraft(
+                            getDrafts()[${index}]
+                        )"
+                    >
+                        Редактировать
+                    </button>
+
+                    <button
+                        class="news-action"
+                        onclick="deleteDraft(${index})"
+                    >
+                        Удалить
+                    </button>
+
+                </div>
+
+            </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================
+   NEWS API
+========================================= */
+
+let currentTab =
+    "published";
+
+
+async function loadNews() {
+
+    if (currentTab === "drafts") {
+
+        loadDrafts();
+
+        return;
+
+    }
+
+
+    /*
+        ВАЖНО:
+
+        Твой текущий Worker умеет только
+        POST / публикацию.
+
+        Поэтому опубликованные новости
+        пока нельзя получить через него.
+
+        Когда добавим GET /news в Worker,
+        эта функция автоматически будет
+        использовать его.
+    */
+
+
+    newsList.innerHTML =
+
+        `
+        <div style="opacity:.5;font-size:13px;line-height:1.6;">
+            Список опубликованных новостей пока
+            не подключён к Worker.
+            <br><br>
+            Следующий шаг — добавить GET API,
+            которое получает список файлов
+            из GitHub.
+        </div>
+        `;
+
+}
+
+
+/* =========================================
+   TABS
+========================================= */
+
+document
+    .querySelectorAll(".news-tab")
+    .forEach(tab => {
+
+        tab.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".news-tab"
+                    )
+                    .forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+
+                tab.classList.add(
+                    "active"
+                );
+
+
+                currentTab =
+                    tab.dataset.tab;
+
+
+                loadNews();
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   INITIAL
+========================================= */
 
 updatePreview();
+
+loadNews();
 
 </script>
 
 </body>
 </html>
+```
