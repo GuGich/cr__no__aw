@@ -67,7 +67,7 @@
     padding-right:max(24px, calc((100% - 1180px) / 2)) !important;
     padding-top: 30px;
   }
-  main2{
+  .main{
     padding-left:max(24px, calc((100% - 1000px) / 2)) !important;
     padding-right:max(24px, calc((100% - 1000px) / 2)) !important;
   }
