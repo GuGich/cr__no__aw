@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Админ-панель — Creative Awards</title>
+    <title>Новости — Creative Awards</title>
 
     <link rel="stylesheet" href="/css/style.css">
 
@@ -18,31 +19,75 @@
         }
 
         .admin-page {
-            width: min(1900px, calc(100% - 40px));
+            max-width: 1900px;
             margin: 0 auto;
-            padding: 50px 0 100px;
+            padding: 60px 24px 100px;
         }
 
         .admin-head {
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
 
         .admin-head h1 {
-            margin: 8px 0 8px;
+            margin: 0 0 8px;
         }
 
         .admin-head p {
             margin: 0;
-            opacity: .55;
+            opacity: .6;
         }
 
-        /* =========================================
-           LAYOUT
-        ========================================= */
+        /* =========================
+           TOP BAR
+        ========================= */
 
-        .admin-layout {
+        .admin-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        .toolbar-left,
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toolbar-button {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: inherit;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .toolbar-button:hover {
+            background: rgba(128,128,128,.08);
+        }
+
+        .toolbar-button.primary {
+            border-color: transparent;
+            background: var(--accent, #b8934f);
+            color: #fff;
+        }
+
+        /* =========================
+           CMS LAYOUT
+        ========================= */
+
+        .cms-layout {
             display: grid;
-            grid-template-columns: minmax(500px, 1fr) minmax(500px, 1fr);
+            grid-template-columns: minmax(520px, 1fr) minmax(450px, .85fr);
             gap: 24px;
             align-items: start;
         }
@@ -57,35 +102,48 @@
             min-width: 0;
         }
 
-        /* =========================================
-           CARDS
-        ========================================= */
+        /* =========================
+           PANELS
+        ========================= */
 
         .admin-section {
-            padding: 25px;
+            padding: 24px;
             margin-bottom: 18px;
-
             border: 1px solid var(--line);
-            border-radius: 16px;
-
-            background: var(--surface, rgba(255,255,255,.02));
+            border-radius: 18px;
+            background: var(--surface);
         }
 
-        .admin-section h2 {
-            margin: 0 0 20px;
+        .admin-section:last-child {
+            margin-bottom: 0;
+        }
 
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            margin: 0;
             font-size: 18px;
-            font-weight: 800;
         }
 
-        /* =========================================
-           FIELDS
-        ========================================= */
+        .section-title span {
+            font-size: 12px;
+            opacity: .5;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
 
         .field {
             display: grid;
             gap: 8px;
-            margin-bottom: 18px;
+            margin-bottom: 17px;
         }
 
         .field:last-child {
@@ -99,40 +157,38 @@
         }
 
         .field input,
-        .field textarea,
-        .field select {
+        .field textarea {
             width: 100%;
-
-            padding: 12px 14px;
-
             border: 1px solid var(--line);
-            border-radius: 10px;
-
+            border-radius: 11px;
             background: transparent;
             color: inherit;
-
+            padding: 12px 14px;
             font: inherit;
-
             outline: none;
         }
 
         .field input:focus,
-        .field textarea:focus,
-        .field select:focus {
-            border-color: var(--gold-mid, #b8934f);
+        .field textarea:focus {
+            border-color: var(--accent, #b8934f);
         }
 
         .field textarea {
-            min-height: 300px;
             resize: vertical;
-
-            line-height: 1.6;
+            min-height: 280px;
+            line-height: 1.55;
         }
 
         #content {
             min-height: 500px;
-            font-family: Consolas, Monaco, monospace;
+            font-family: monospace;
             font-size: 13px;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
         }
 
         .field-hint {
@@ -140,159 +196,112 @@
             opacity: .45;
         }
 
-        .two-columns {
+        /* =========================
+           IMAGE UPLOAD
+        ========================= */
+
+        .upload-box {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
-        /* =========================================
-           COVER
-        ========================================= */
-
-        .cover-preview {
-            display: none;
-
-            margin-top: 12px;
-
-            border-radius: 12px;
-            overflow: hidden;
-
-            border: 1px solid var(--line);
-        }
-
-        .cover-preview img {
-            display: block;
-
-            width: 100%;
-            max-height: 280px;
-
-            object-fit: cover;
-        }
-
-        .cover-preview.active {
-            display: block;
-        }
-
-        /* =========================================
-           BUTTONS
-        ========================================= */
-
-        .actions {
+        .upload-row {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .admin-button {
+        .upload-row input {
+            flex: 1;
+        }
+
+        .upload-button {
+            flex: 0 0 auto;
             border: 1px solid var(--line);
-
-            padding: 12px 18px;
-
-            border-radius: 10px;
-
             background: transparent;
             color: inherit;
-
+            padding: 0 16px;
+            border-radius: 11px;
             font: inherit;
-            font-weight: 800;
-
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .admin-button:hover {
-            border-color: var(--gold-mid, #b8934f);
+        .upload-button:hover {
+            background: rgba(128,128,128,.08);
         }
 
-        .admin-button.primary {
-            background: var(--gold-mid, #b8934f);
-            color: #fff;
-            border-color: transparent;
-        }
-
-        .admin-button.danger {
-            color: #d98b83;
-        }
-
-        .admin-button:disabled {
-            opacity: .45;
-            cursor: wait;
-        }
-
-        /* =========================================
-           PUBLISH
-        ========================================= */
-
-        .publish-box {
-            display: flex;
-
-            justify-content: space-between;
-            align-items: center;
-
-            gap: 20px;
-
-            padding: 22px;
-
-            border: 1px solid var(--line);
-            border-radius: 16px;
-
-            background: var(--surface, rgba(255,255,255,.02));
-        }
-
-        .publish-info strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .publish-url {
-            font-size: 12px;
-            opacity: .5;
-
-            word-break: break-all;
-        }
-
-        /* =========================================
-           RESULT
-        ========================================= */
-
-        .result {
+        .cover-preview {
             display: none;
-
-            padding: 15px 18px;
-            margin-bottom: 18px;
-
-            border-radius: 12px;
-
-            font-size: 14px;
-            line-height: 1.5;
+            overflow: hidden;
+            border-radius: 13px;
+            border: 1px solid var(--line);
+            aspect-ratio: 16 / 7;
         }
 
-        .result.success {
+        .cover-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            border: 1px solid rgba(100,190,120,.3);
         }
 
-        .result.error {
-            display: block;
-            border: 1px solid rgba(220,90,90,.35);
+        /* =========================
+           TAGS
+        ========================= */
+
+        .tag-editor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            padding: 10px;
+            min-height: 46px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
         }
 
-        .result a {
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 9px;
+            border-radius: 8px;
+            background: rgba(128,128,128,.1);
+            font-size: 12px;
+        }
+
+        .tag-item button {
+            border: 0;
+            background: transparent;
             color: inherit;
-            font-weight: 800;
+            cursor: pointer;
+            opacity: .5;
+            padding: 0;
         }
 
-        /* =========================================
+        .tag-input {
+            border: 0 !important;
+            padding: 4px !important;
+            min-width: 130px;
+            flex: 1;
+        }
+
+        /* =========================
            PREVIEW
-        ========================================= */
+        ========================= */
+
+        .preview-panel {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+        }
 
         .preview-header {
             display: flex;
-
-            justify-content: space-between;
             align-items: center;
-
-            margin-bottom: 12px;
+            justify-content: space-between;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--line);
         }
 
         .preview-header strong {
@@ -301,60 +310,44 @@
 
         .preview-header span {
             font-size: 11px;
-            opacity: .45;
+            opacity: .5;
         }
 
         .preview-frame {
+            width: 100%;
             height: calc(100vh - 150px);
             min-height: 650px;
-
-            overflow: hidden;
-
-            border: 1px solid var(--line);
-            border-radius: 16px;
-
-            background: var(--bg, #0b0a08);
-        }
-
-        .preview-frame iframe {
-            width: 100%;
-            height: 100%;
-
             border: 0;
+            background: #fff;
         }
 
-        /* =========================================
+        /* =========================
            NEWS LIST
-        ========================================= */
+        ========================= */
 
         .news-manager {
-            margin-top: 25px;
+            margin-top: 24px;
         }
 
         .news-tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .news-tab {
-            padding: 9px 14px;
-
             border: 1px solid var(--line);
-            border-radius: 9px;
-
             background: transparent;
             color: inherit;
-
-            cursor: pointer;
-
+            padding: 9px 14px;
+            border-radius: 9px;
             font: inherit;
-            font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
+            cursor: pointer;
         }
 
         .news-tab.active {
-            background: var(--gold-mid, #b8934f);
+            background: var(--accent, #b8934f);
             color: #fff;
             border-color: transparent;
         }
@@ -365,51 +358,46 @@
         }
 
         .news-item {
-            display: grid;
-            grid-template-columns: 90px 1fr auto;
-
-            gap: 14px;
+            display: flex;
             align-items: center;
-
-            padding: 12px;
-
+            gap: 14px;
+            padding: 14px;
             border: 1px solid var(--line);
-            border-radius: 12px;
+            border-radius: 14px;
+            background: var(--surface);
         }
 
         .news-thumb {
             width: 90px;
             height: 60px;
-
-            border-radius: 8px;
-
+            flex: 0 0 90px;
+            border-radius: 9px;
             overflow: hidden;
-
-            background: rgba(255,255,255,.03);
+            background: rgba(128,128,128,.1);
         }
 
         .news-thumb img {
             width: 100%;
             height: 100%;
-
             object-fit: cover;
         }
 
         .news-info {
             min-width: 0;
+            flex: 1;
         }
 
         .news-info strong {
             display: block;
-
             margin-bottom: 4px;
-
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
-        .news-info span {
+        .news-meta {
+            display: flex;
+            gap: 8px;
             font-size: 11px;
             opacity: .5;
         }
@@ -417,34 +405,103 @@
         .news-actions {
             display: flex;
             gap: 6px;
+            flex: 0 0 auto;
         }
 
         .news-action {
-            padding: 8px 10px;
-
+            width: 36px;
+            height: 36px;
             border: 1px solid var(--line);
-            border-radius: 8px;
-
+            border-radius: 9px;
             background: transparent;
             color: inherit;
-
             cursor: pointer;
-
-            font-size: 11px;
-            font-weight: 700;
         }
 
         .news-action:hover {
-            border-color: var(--gold-mid, #b8934f);
+            background: rgba(128,128,128,.08);
         }
 
-        /* =========================================
+        .news-action.danger:hover {
+            color: #d65b5b;
+            border-color: rgba(214,91,91,.4);
+        }
+
+        .empty-list {
+            padding: 30px;
+            text-align: center;
+            opacity: .5;
+            border: 1px dashed var(--line);
+            border-radius: 14px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: none;
+            margin-bottom: 18px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            border: 1px solid rgba(70,180,100,.35);
+        }
+
+        .status.error {
+            border: 1px solid rgba(220,70,70,.4);
+        }
+
+        .status.loading {
+            border: 1px solid var(--line);
+        }
+
+        /* =========================
+           FOOTER ACTIONS
+        ========================= */
+
+        .editor-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .action-button {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: inherit;
+            padding: 13px 18px;
+            border-radius: 11px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .action-button.primary {
+            border-color: transparent;
+            background: var(--accent, #b8934f);
+            color: #fff;
+        }
+
+        .action-button.danger {
+            color: #d65b5b;
+        }
+
+        /* =========================
            MOBILE
-        ========================================= */
+        ========================= */
 
         @media (max-width: 1000px) {
-
-            .admin-layout {
+            .cms-layout {
                 grid-template-columns: 1fr;
             }
 
@@ -457,11 +514,9 @@
             }
         }
 
-        @media (max-width: 650px) {
-
+        @media (max-width: 700px) {
             .admin-page {
-                width: min(100% - 24px, 700px);
-                padding-top: 30px;
+                padding: 40px 14px 80px;
             }
 
             .admin-section {
@@ -472,30 +527,48 @@
                 grid-template-columns: 1fr;
             }
 
-            .publish-box {
-                flex-direction: column;
+            .admin-toolbar {
                 align-items: stretch;
+                flex-direction: column;
             }
 
-            .publish-box .admin-button {
+            .toolbar-left,
+            .toolbar-right {
                 width: 100%;
             }
 
-            .news-item {
-                grid-template-columns: 60px 1fr;
+            .toolbar-button {
+                flex: 1;
             }
 
-            .news-thumb {
-                width: 60px;
-                height: 50px;
+            .upload-row {
+                flex-direction: column;
+            }
+
+            .upload-button {
+                padding: 12px;
+            }
+
+            .news-item {
+                align-items: flex-start;
             }
 
             .news-actions {
-                grid-column: 1 / -1;
+                flex-direction: column;
             }
 
-            .news-actions button {
-                flex: 1;
+            .news-thumb {
+                width: 70px;
+                height: 50px;
+                flex-basis: 70px;
+            }
+
+            .editor-actions {
+                flex-direction: column;
+            }
+
+            .action-button {
+                width: 100%;
             }
         }
     </style>
@@ -505,46 +578,93 @@
 
 <main class="admin-page">
 
-    <!-- =========================================
+    <!-- =========================
          HEADER
-    ========================================== -->
+    ========================= -->
 
     <div class="admin-head">
-
-        <div class="eyebrow">
-            Creative Awards
-        </div>
+        <div class="eyebrow">Creative Awards</div>
 
         <h1 class="display">
-            Админ-панель новостей
+            Новости
         </h1>
 
         <p>
-            Создание, редактирование и публикация материалов.
+            Управление публикациями и черновиками.
         </p>
+    </div>
+
+
+    <!-- =========================
+         TOOLBAR
+    ========================= -->
+
+    <div class="admin-toolbar">
+
+        <div class="toolbar-left">
+            <button
+                class="toolbar-button primary"
+                type="button"
+                onclick="newArticle()"
+            >
+                + Новая новость
+            </button>
+
+            <button
+                class="toolbar-button"
+                type="button"
+                onclick="loadNews()"
+            >
+                ↻ Обновить
+            </button>
+        </div>
+
+        <div class="toolbar-right">
+            <span
+                id="saveStatus"
+                style="font-size:12px;opacity:.55;"
+            >
+                Готово
+            </span>
+        </div>
 
     </div>
 
 
-    <!-- =========================================
-         MAIN EDITOR
-    ========================================== -->
+    <!-- =========================
+         STATUS
+    ========================= -->
 
-    <div class="admin-layout">
+    <div
+        id="status"
+        class="status"
+    ></div>
 
-        <!-- =====================================
+
+    <!-- =========================
+         CMS
+    ========================= -->
+
+    <div class="cms-layout">
+
+        <!-- =====================
              EDITOR
-        ====================================== -->
+        ====================== -->
 
         <div class="editor-column">
 
             <form id="newsForm">
 
-                <!-- Основная информация -->
+
+                <!-- MAIN -->
 
                 <section class="admin-section">
 
-                    <h2>Основная информация</h2>
+                    <div class="section-title">
+                        <h2>Основная информация</h2>
+                        <span id="editorMode">Новая публикация</span>
+                    </div>
+
 
                     <div class="field">
 
@@ -554,7 +674,6 @@
 
                         <input
                             id="title"
-                            name="title"
                             type="text"
                             placeholder="Открыт приём заявок Creative Awards 2026"
                             required
@@ -573,7 +692,6 @@
 
                             <input
                                 id="date"
-                                name="date"
                                 type="text"
                                 placeholder="10 августа 2026"
                                 required
@@ -590,10 +708,8 @@
 
                             <input
                                 id="tag"
-                                name="tag"
                                 type="text"
                                 value="Новости"
-                                placeholder="Новости"
                             >
 
                         </div>
@@ -609,7 +725,6 @@
 
                         <input
                             id="slug"
-                            name="slug"
                             type="text"
                             placeholder="open-applications-2026"
                             required
@@ -624,84 +739,94 @@
                 </section>
 
 
-                <!-- Обложка -->
+                <!-- COVER -->
 
                 <section class="admin-section">
 
-                    <h2>Обложка</h2>
-
-                    <div class="field">
-
-                        <label for="coverImage">
-                            URL изображения
-                        </label>
-
-                        <input
-                            id="coverImage"
-                            name="coverImage"
-                            type="url"
-                            placeholder="https://creativeawards.fun/images/news/example.jpg"
-                        >
-
-                        <span class="field-hint">
-                            Пока используется изображение по прямой ссылке.
-                        </span>
-
+                    <div class="section-title">
+                        <h2>Обложка</h2>
                     </div>
 
 
-                    <div
-                        class="cover-preview"
-                        id="coverPreview"
-                    >
-                        <img
-                            id="coverPreviewImage"
-                            src=""
-                            alt=""
+                    <div class="upload-box">
+
+                        <div class="upload-row">
+
+                            <input
+                                id="coverImage"
+                                type="text"
+                                placeholder="URL изображения"
+                            >
+
+                            <button
+                                class="upload-button"
+                                type="button"
+                                onclick="document.getElementById('imageFile').click()"
+                            >
+                                Загрузить
+                            </button>
+
+                            <input
+                                id="imageFile"
+                                type="file"
+                                accept="image/*"
+                                hidden
+                            >
+
+                        </div>
+
+
+                        <div
+                            id="coverPreview"
+                            class="cover-preview"
                         >
-                    </div>
+                            <img id="coverPreviewImage" src="" alt="">
+                        </div>
 
 
-                    <div class="field">
+                        <div class="field">
 
-                        <label for="coverCaption">
-                            Подпись изображения
-                        </label>
+                            <label for="coverCaption">
+                                Подпись к изображению
+                            </label>
 
-                        <input
-                            id="coverCaption"
-                            name="coverCaption"
-                            type="text"
-                            placeholder="Creative Awards 2026"
-                        >
+                            <input
+                                id="coverCaption"
+                                type="text"
+                                placeholder="Creative Awards 2026"
+                            >
+
+                        </div>
 
                     </div>
 
                 </section>
 
 
-                <!-- Описание -->
+                <!-- DESCRIPTION -->
 
                 <section class="admin-section">
 
-                    <h2>Описание</h2>
+                    <div class="section-title">
+                        <h2>Описание</h2>
+                    </div>
+
 
                     <div class="field">
 
                         <label for="description">
-                            Краткое описание
+                            Вступление
                         </label>
 
                         <textarea
                             id="description"
-                            name="description"
-                            rows="4"
-                            placeholder="Коротко опишите содержание новости..."
+                            rows="5"
+                            placeholder="Короткое описание новости..."
                             required
                         ></textarea>
 
                         <span class="field-hint">
-                            Используется как вступительный текст.
+                            Отображается крупным вступительным текстом на странице.
                         </span>
 
                     </div>
@@ -709,31 +834,43 @@
 
                     <div class="field">
 
-                        <label for="tags">
+                        <label>
                             Теги
                         </label>
 
-                        <input
-                            id="tags"
-                            name="tags"
-                            type="text"
-                            placeholder="Creative Awards 2026, Новости, Анонс"
+                        <div
+                            id="tagEditor"
+                            class="tag-editor"
                         >
 
-                        <span class="field-hint">
-                            Разделяйте теги запятыми.
-                        </span>
+                            <input
+                                id="tagInput"
+                                class="tag-input"
+                                type="text"
+                                placeholder="Введите тег и нажмите Enter"
+                            >
+
+                        </div>
 
                     </div>
 
                 </section>
 
 
-                <!-- Содержание -->
+                <!-- CONTENT -->
 
                 <section class="admin-section">
 
-                    <h2>Содержание</h2>
+                    <div class="section-title">
+
+                        <h2>Содержание</h2>
+
+                        <span>
+                            HTML
+                        </span>
+
+                    </div>
+
 
                     <div class="field">
 
@@ -743,22 +880,14 @@
 
                         <textarea
                             id="content"
-                            name="content"
                             placeholder="<h2>Заголовок</h2>
 
-<p>
-Текст новости...
-</p>
-
-<ul>
-    <li>Пункт</li>
-    <li>Пункт</li>
-</ul>"
+<p>Текст новости...</p>"
                             required
                         ></textarea>
 
                         <span class="field-hint">
-                            Здесь используется HTML. Предпросмотр справа обновляется автоматически.
+                            Используй обычный HTML: h2, p, ul, li, blockquote, img, a и т. д.
                         </span>
 
                     </div>
@@ -766,30 +895,29 @@
                 </section>
 
 
-                <!-- Связанные новости -->
+                <!-- RELATED -->
 
                 <section class="admin-section">
 
-                    <h2>Читайте также</h2>
+                    <div class="section-title">
+                        <h2>Читайте также</h2>
+                    </div>
+
 
                     <div class="field">
 
                         <label for="relatedNews">
-                            HTML-код карточек
+                            HTML карточек
                         </label>
 
                         <textarea
                             id="relatedNews"
-                            name="relatedNews"
                             rows="8"
-                            placeholder='<a class="more-card" href="/news/2026/example.html">
-    <span class="m-cat">Новости</span>
-    <h4>Название новости</h4>
-</a>'
+                            placeholder='<a class="more-card" href="...">...</a>'
                         ></textarea>
 
                         <span class="field-hint">
-                            Необязательно.
+                            Необязательное поле.
                         </span>
 
                     </div>
@@ -797,11 +925,14 @@
                 </section>
 
 
-                <!-- Авторизация -->
+                <!-- PASSWORD -->
 
                 <section class="admin-section">
 
-                    <h2>Авторизация</h2>
+                    <div class="section-title">
+                        <h2>Авторизация</h2>
+                    </div>
+
 
                     <div class="field">
 
@@ -811,7 +942,6 @@
 
                         <input
                             id="password"
-                            name="password"
                             type="password"
                             autocomplete="current-password"
                             required
@@ -822,131 +952,57 @@
                 </section>
 
 
-                <!-- Результат -->
+                <!-- ACTIONS -->
 
-                <div
-                    class="result"
-                    id="result"
-                ></div>
+                <div class="editor-actions">
 
-
-                <!-- Публикация -->
-
-                <div class="publish-box">
-
-                    <div class="publish-info">
-
-                        <strong>
-                            URL публикации
-                        </strong>
-
-                        <span
-                            class="publish-url"
-                            id="previewUrl"
-                        >
-                            Заполните slug
-                        </span>
-
-                    </div>
+                    <button
+                        class="action-button"
+                        type="button"
+                        onclick="saveDraft()"
+                    >
+                        Сохранить черновик
+                    </button>
 
 
-                    <div class="actions">
-
-                        <button
-                            type="button"
-                            class="admin-button"
-                            id="saveDraftButton"
-                        >
-                            Сохранить черновик
-                        </button>
-
-                        <button
-                            type="submit"
-                            class="admin-button primary"
-                            id="publishButton"
-                        >
-                            Опубликовать
-                        </button>
-
-                    </div>
+                    <button
+                        class="action-button primary"
+                        type="submit"
+                    >
+                        Опубликовать
+                    </button>
 
                 </div>
 
             </form>
 
-
-            <!-- =====================================
-                 NEWS MANAGER
-            ====================================== -->
-
-            <section class="admin-section news-manager">
-
-                <h2>
-                    Управление новостями
-                </h2>
-
-                <div class="news-tabs">
-
-                    <button
-                        type="button"
-                        class="news-tab active"
-                        data-tab="published"
-                    >
-                        Опубликованные
-                    </button>
-
-                    <button
-                        type="button"
-                        class="news-tab"
-                        data-tab="drafts"
-                    >
-                        Черновики
-                    </button>
-
-                </div>
-
-
-                <div
-                    class="news-list"
-                    id="newsList"
-                >
-
-                    <div
-                        style="opacity:.5;font-size:13px;"
-                    >
-                        Загрузка...
-                    </div>
-
-                </div>
-
-            </section>
-
         </div>
 
 
-        <!-- =====================================
+        <!-- =====================
              PREVIEW
-        ====================================== -->
+        ====================== -->
 
         <div class="preview-column">
 
-            <div class="preview-header">
+            <div class="preview-panel">
 
-                <strong>
-                    Предпросмотр
-                </strong>
+                <div class="preview-header">
 
-                <span>
-                    Обновляется автоматически
-                </span>
+                    <strong>
+                        Предпросмотр
+                    </strong>
 
-            </div>
+                    <span>
+                        Обновляется автоматически
+                    </span>
 
+                </div>
 
-            <div class="preview-frame">
 
                 <iframe
                     id="previewFrame"
+                    class="preview-frame"
                     title="Предпросмотр новости"
                 ></iframe>
 
@@ -956,21 +1012,93 @@
 
     </div>
 
+
+    <!-- =========================
+         NEWS MANAGER
+    ========================= -->
+
+    <section class="admin-section news-manager">
+
+        <div class="section-title">
+
+            <h2>
+                Материалы
+            </h2>
+
+            <span id="newsCount">
+                0 материалов
+            </span>
+
+        </div>
+
+
+        <div class="news-tabs">
+
+            <button
+                class="news-tab active"
+                data-tab="published"
+                type="button"
+                onclick="switchTab('published')"
+            >
+                Опубликованные
+            </button>
+
+            <button
+                class="news-tab"
+                data-tab="drafts"
+                type="button"
+                onclick="switchTab('drafts')"
+            >
+                Черновики
+            </button>
+
+        </div>
+
+
+        <div
+            id="newsList"
+            class="news-list"
+        ></div>
+
+    </section>
+
 </main>
 
 
 <script>
 
-const WORKER_URL =
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const API_URL =
     "https://cms.creativeawards.fun";
 
 
-const SITE_URL =
-    "https://creativeawards.fun";
+/* =====================================================
+   STATE
+===================================================== */
 
+let currentTab = "published";
+
+let currentDraftId = null;
+let currentSlug = null;
+
+let tags = [];
+
+let publishedNews = [];
+let drafts = [];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const form =
     document.getElementById("newsForm");
+
+const statusBox =
+    document.getElementById("status");
 
 const titleInput =
     document.getElementById("title");
@@ -993,9 +1121,6 @@ const coverCaptionInput =
 const descriptionInput =
     document.getElementById("description");
 
-const tagsInput =
-    document.getElementById("tags");
-
 const contentInput =
     document.getElementById("content");
 
@@ -1005,531 +1130,143 @@ const relatedNewsInput =
 const passwordInput =
     document.getElementById("password");
 
+const tagEditor =
+    document.getElementById("tagEditor");
+
+const tagTextInput =
+    document.getElementById("tagInput");
+
 const previewFrame =
     document.getElementById("previewFrame");
-
-const previewUrl =
-    document.getElementById("previewUrl");
-
-const result =
-    document.getElementById("result");
-
-const publishButton =
-    document.getElementById("publishButton");
-
-const saveDraftButton =
-    document.getElementById("saveDraftButton");
-
-const coverPreview =
-    document.getElementById("coverPreview");
-
-const coverPreviewImage =
-    document.getElementById("coverPreviewImage");
 
 const newsList =
     document.getElementById("newsList");
 
+const newsCount =
+    document.getElementById("newsCount");
 
-/* =========================================
-   SLUG
-========================================= */
-
-function makeSlug(value) {
-
-    const translit = {
-
-        "а":"a","б":"b","в":"v","г":"g",
-        "д":"d","е":"e","ё":"yo","ж":"zh",
-        "з":"z","и":"i","й":"y","к":"k",
-        "л":"l","м":"m","н":"n","о":"o",
-        "п":"p","р":"r","с":"s","т":"t",
-        "у":"u","ф":"f","х":"kh","ц":"ts",
-        "ч":"ch","ш":"sh","щ":"shch",
-        "ъ":"","ы":"y","ь":"","э":"e",
-        "ю":"yu","я":"ya"
-
-    };
-
-    return value
-        .toLowerCase()
-        .split("")
-        .map(char => translit[char] ?? char)
-        .join("")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-}
+const saveStatus =
+    document.getElementById("saveStatus");
 
 
-slugInput.addEventListener("input", () => {
+/* =====================================================
+   STATUS
+===================================================== */
 
-    slugInput.dataset.manual = "true";
+function showStatus(message, type = "loading") {
 
-});
+    statusBox.textContent = message;
 
-
-titleInput.addEventListener("input", () => {
-
-    if (
-        !slugInput.dataset.manual ||
-        slugInput.value === ""
-    ) {
-
-        slugInput.value =
-            makeSlug(titleInput.value);
-
-    }
-
-    updatePreview();
-
-});
-
-
-/* =========================================
-   COVER
-========================================= */
-
-coverImageInput.addEventListener("input", () => {
-
-    const url =
-        coverImageInput.value.trim();
-
-    if (!url) {
-
-        coverPreview.classList.remove("active");
-        return;
-
-    }
-
-    coverPreviewImage.src = url;
-
-    coverPreview.classList.add("active");
-
-    updatePreview();
-
-});
-
-
-/* =========================================
-   PREVIEW
-========================================= */
-
-function escapeHtml(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    statusBox.className =
+        `status show ${type}`;
 
 }
 
 
-function createTags(value) {
+function hideStatus() {
 
-    if (!value.trim()) {
-        return "";
-    }
-
-    return value
-        .split(",")
-        .map(tag => tag.trim())
-        .filter(Boolean)
-        .map(
-            tag =>
-                `<span class="tag-pill">${escapeHtml(tag)}</span>`
-        )
-        .join("\n");
+    statusBox.className =
+        "status";
 
 }
 
 
-function calculateReadingTime(text) {
+/* =====================================================
+   TAGS
+===================================================== */
 
-    const clean =
-        text.replace(/<[^>]*>/g, " ");
+function renderTags() {
 
-    const words =
-        clean
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean)
-            .length;
+    const input =
+        tagTextInput;
 
-    const minutes =
-        Math.max(
-            1,
-            Math.ceil(words / 180)
-        );
+    tagEditor.innerHTML = "";
 
-    return `${minutes} мин. чтения`;
+    tags.forEach((tag, index) => {
+
+        const item =
+            document.createElement("span");
+
+        item.className =
+            "tag-item";
+
+        item.innerHTML = `
+            ${escapeHtml(tag)}
+            <button
+                type="button"
+                onclick="removeTag(${index})"
+            >×</button>
+        `;
+
+        tagEditor.appendChild(item);
+
+    });
+
+    tagEditor.appendChild(input);
 
 }
 
 
-function updatePreview() {
-
-    const title =
-        titleInput.value ||
-        "Заголовок новости";
-
-    const date =
-        dateInput.value ||
-        "10 августа 2026";
+function addTag(value) {
 
     const tag =
-        tagInput.value ||
-        "Новости";
+        value.trim();
 
-    const image =
-        coverImageInput.value;
-
-    const caption =
-        coverCaptionInput.value;
-
-    const description =
-        descriptionInput.value ||
-        "Краткое описание новости появится здесь.";
-
-    const content =
-        contentInput.value ||
-        "<h2>Содержание новости</h2><p>Начните писать текст новости слева.</p>";
-
-    const tags =
-        createTags(tagsInput.value);
-
-    const related =
-        relatedNewsInput.value;
-
-    const readingTime =
-        calculateReadingTime(content);
-
-
-    const cover =
-        image
-            ? `
-                <div class="cover">
-                    <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(title)}"
-                    >
-                    <div class="cap">
-                        ${escapeHtml(caption)}
-                    </div>
-                </div>
-            `
-            : "";
-
-
-    const previewHTML = `
-
-<!DOCTYPE html>
-
-<html lang="ru">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>
-    ${escapeHtml(title)}
-</title>
-
-<style>
-
-body {
-    margin: 0;
-    padding: 40px 20px 100px;
-
-    background: #0b0a08;
-    color: #f3ead9;
-
-    font-family:
-        Arial,
-        sans-serif;
-
-    line-height: 1.7;
-}
-
-.preview {
-    width: min(900px, 100%);
-    margin: 0 auto;
-}
-
-.crumbs {
-    opacity: .5;
-    font-size: 13px;
-    margin-bottom: 30px;
-}
-
-.article-head {
-    margin-bottom: 30px;
-}
-
-.cat-tag {
-    display: inline-block;
-
-    margin-bottom: 15px;
-
-    padding: 6px 10px;
-
-    border: 1px solid #6e5227;
-    border-radius: 7px;
-
-    color: #e8c887;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    text-transform: uppercase;
-}
-
-.article-title {
-    margin: 0 0 15px;
-
-    font-family: Georgia, serif;
-
-    font-size:
-        clamp(36px, 6vw, 70px);
-
-    line-height: 1;
-}
-
-.article-meta {
-    display: flex;
-    gap: 10px;
-
-    font-size: 12px;
-
-    opacity: .5;
-}
-
-.dot::after {
-    content: "•";
-}
-
-.cover {
-    margin-bottom: 30px;
-}
-
-.cover img {
-    width: 100%;
-
-    max-height: 500px;
-
-    object-fit: cover;
-
-    border-radius: 14px;
-}
-
-.cap {
-    margin-top: 8px;
-
-    font-size: 12px;
-
-    opacity: .45;
-}
-
-.lead {
-    font-size: 20px;
-
-    line-height: 1.6;
-
-    opacity: .8;
-
-    margin-bottom: 35px;
-}
-
-.prose {
-    font-size: 16px;
-}
-
-.prose h2 {
-    margin-top: 45px;
-}
-
-.prose a {
-    color: #e8c887;
-}
-
-.prose blockquote {
-    margin: 30px 0;
-
-    padding: 20px;
-
-    border-left: 3px solid #b8934f;
-
-    background: rgba(255,255,255,.03);
-}
-
-.prose img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-}
-
-.tags-row {
-    display: flex;
-    gap: 8px;
-
-    flex-wrap: wrap;
-
-    margin-top: 40px;
-}
-
-.tag-pill {
-    padding: 7px 10px;
-
-    border: 1px solid rgba(232,200,135,.2);
-
-    border-radius: 20px;
-
-    font-size: 11px;
-
-    color: #e8c887;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="preview">
-
-    <div class="crumbs">
-        Главная / ${escapeHtml(title)}
-    </div>
-
-    <article>
-
-        <header class="article-head">
-
-            <span class="cat-tag">
-                ${escapeHtml(tag)}
-            </span>
-
-            <h1 class="article-title">
-                ${escapeHtml(title)}
-            </h1>
-
-            <div class="article-meta">
-
-                <span>
-                    Creative Awards
-                </span>
-
-                <span class="dot"></span>
-
-                <span>
-                    ${escapeHtml(date)}
-                </span>
-
-                <span class="dot"></span>
-
-                <span>
-                    ${readingTime}
-                </span>
-
-            </div>
-
-        </header>
-
-        ${cover}
-
-        <p class="lead">
-            ${escapeHtml(description)}
-        </p>
-
-        <div class="prose">
-
-            ${content}
-
-        </div>
-
-        <div class="tags-row">
-
-            ${tags}
-
-        </div>
-
-    </article>
-
-</div>
-
-</body>
-
-</html>
-
-`;
-
-
-    previewFrame.srcdoc =
-        previewHTML;
-
-
-    updateUrl();
-
-}
-
-
-function updateUrl() {
-
-    const slug =
-        slugInput.value.trim();
-
-    if (!slug) {
-
-        previewUrl.textContent =
-            "Заполните slug";
-
+    if (!tag)
         return;
 
+    if (
+        !tags.some(
+            x =>
+                x.toLowerCase() ===
+                tag.toLowerCase()
+        )
+    ) {
+        tags.push(tag);
     }
 
-    const year =
-        dateInput.value.match(
-            /\b(20\d{2})\b/
-        )?.[1]
-        || new Date().getFullYear();
+    tagTextInput.value = "";
 
+    renderTags();
 
-    const cleanSlug =
-        makeSlug(slug);
-
-
-    previewUrl.textContent =
-        `${SITE_URL}/news/${year}/${cleanSlug}.html`;
-
+    updatePreview();
 }
 
 
-[
-    dateInput,
-    tagInput,
-    coverCaptionInput,
-    descriptionInput,
-    tagsInput,
-    contentInput,
-    relatedNewsInput,
-    slugInput
-].forEach(element => {
+function removeTag(index) {
 
-    element.addEventListener(
-        "input",
-        updatePreview
-    );
+    tags.splice(index, 1);
 
-});
+    renderTags();
+
+    updatePreview();
+}
 
 
-/* =========================================
+tagTextInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter" ||
+            event.key === ","
+        ) {
+
+            event.preventDefault();
+
+            addTag(
+                tagTextInput.value
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
    FORM DATA
-========================================= */
+===================================================== */
 
 function getFormData() {
 
@@ -1546,9 +1283,7 @@ function getFormData() {
             "Новости",
 
         slug:
-            makeSlug(
-                slugInput.value.trim()
-            ),
+            slugInput.value.trim(),
 
         coverImage:
             coverImageInput.value.trim(),
@@ -1559,11 +1294,11 @@ function getFormData() {
         description:
             descriptionInput.value.trim(),
 
-        tags:
-            tagsInput.value.trim(),
-
         content:
             contentInput.value,
+
+        tags:
+            tags.join(", "),
 
         relatedNews:
             relatedNewsInput.value,
@@ -1576,282 +1311,35 @@ function getFormData() {
 }
 
 
-/* =========================================
-   RESULT
-========================================= */
+/* =====================================================
+   NEW ARTICLE
+===================================================== */
 
-function showResult(
-    message,
-    type = "success"
-) {
+function newArticle() {
 
-    result.className =
-        `result ${type}`;
+    form.reset();
 
-    result.innerHTML =
-        message;
+    tags = [];
 
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-
-}
-
-
-/* =========================================
-   PUBLISH
-========================================= */
-
-form.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-        const data =
-            getFormData();
-
-
-        publishButton.disabled =
-            true;
-
-        publishButton.textContent =
-            "Публикация...";
-
-
-        result.className =
-            "result";
-
-        result.innerHTML =
-            "";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    WORKER_URL,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(data)
-                    }
-                );
-
-
-            const responseData =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    responseData.error ||
-                    "Не удалось опубликовать новость."
-                );
-
-            }
-
-
-            showResult(
-
-                `
-                    <strong>
-                        ${responseData.message}
-                    </strong>
-                    <br>
-                    <a
-                        href="${responseData.url}"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        Открыть новость →
-                    </a>
-                `,
-
-                "success"
-
-            );
-
-
-            loadNews();
-
-        }
-
-        catch (error) {
-
-            showResult(
-                escapeHtml(
-                    error.message
-                ),
-                "error"
-            );
-
-        }
-
-        finally {
-
-            publishButton.disabled =
-                false;
-
-            publishButton.textContent =
-                "Опубликовать";
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   DRAFTS
-========================================= */
-
-const DRAFTS_KEY =
-    "creative_awards_news_drafts";
-
-
-function getDrafts() {
-
-    try {
-
-        return JSON.parse(
-            localStorage.getItem(
-                DRAFTS_KEY
-            ) || "[]"
-        );
-
-    }
-
-    catch {
-
-        return [];
-
-    }
-
-}
-
-
-function saveDraft() {
-
-    const data =
-        getFormData();
-
-
-    if (!data.title) {
-
-        showResult(
-            "Введите заголовок новости.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const drafts =
-        getDrafts();
-
-
-    const existingIndex =
-        drafts.findIndex(
-            draft =>
-                draft.slug === data.slug
-        );
-
-
-    data.savedAt =
-        new Date().toISOString();
-
-
-    if (existingIndex >= 0) {
-
-        drafts[existingIndex] =
-            data;
-
-    }
-
-    else {
-
-        drafts.unshift(
-            data
-        );
-
-    }
-
-
-    localStorage.setItem(
-        DRAFTS_KEY,
-        JSON.stringify(drafts)
-    );
-
-
-    showResult(
-        "Черновик сохранён в этом браузере.",
-        "success"
-    );
-
-
-    loadDrafts();
-
-}
-
-
-saveDraftButton.addEventListener(
-    "click",
-    saveDraft
-);
-
-
-/* =========================================
-   LOAD DRAFT
-========================================= */
-
-function loadDraft(draft) {
-
-    titleInput.value =
-        draft.title || "";
-
-    dateInput.value =
-        draft.date || "";
+    currentDraftId = null;
+    currentSlug = null;
 
     tagInput.value =
-        draft.tag || "Новости";
+        "Новости";
 
-    slugInput.value =
-        draft.slug || "";
+    renderTags();
 
-    slugInput.dataset.manual =
-        "true";
+    document.getElementById(
+        "editorMode"
+    ).textContent =
+        "Новая публикация";
 
-    coverImageInput.value =
-        draft.coverImage || "";
+    document.getElementById(
+        "saveStatus"
+    ).textContent =
+        "Готово";
 
-    coverCaptionInput.value =
-        draft.coverCaption || "";
-
-    descriptionInput.value =
-        draft.description || "";
-
-    tagsInput.value =
-        draft.tags || "";
-
-    contentInput.value =
-        draft.content || "";
-
-    relatedNewsInput.value =
-        draft.relatedNews || "";
-
-    passwordInput.value =
-        draft.password || "";
+    hideStatus();
 
     updatePreview();
 
@@ -1863,217 +1351,1507 @@ function loadDraft(draft) {
 }
 
 
-/* =========================================
-   DELETE DRAFT
-========================================= */
+/* =====================================================
+   PREVIEW
+===================================================== */
 
-function deleteDraft(index) {
+function updatePreview() {
 
-    const drafts =
-        getDrafts();
+    const data =
+        getFormData();
+
+    const tagHtml =
+        tags.map(
+            tag =>
+                `<span class="tag-pill">${escapeHtml(tag)}</span>`
+        ).join("");
 
 
-    drafts.splice(
-        index,
-        1
+    const previewHtml = `
+
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<style>
+
+body {
+    margin: 0;
+    padding: 40px;
+    font-family:
+        Arial,
+        sans-serif;
+    color: #171512;
+    background: #fff;
+}
+
+.article-head {
+    margin-bottom: 30px;
+}
+
+.cat-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: .6;
+    margin-bottom: 12px;
+}
+
+.article-title {
+    font-size: clamp(
+        32px,
+        5vw,
+        58px
     );
+    line-height: 1.05;
+    margin: 0 0 18px;
+}
+
+.article-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    opacity: .55;
+}
+
+.cover {
+    margin: 30px 0;
+}
+
+.cover img {
+    display: block;
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.cap {
+    margin-top: 8px;
+    font-size: 12px;
+    opacity: .5;
+}
+
+.lead {
+    font-size: 20px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.prose {
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.prose h2 {
+    margin-top: 42px;
+}
+
+.prose blockquote {
+    margin: 30px 0;
+    padding: 20px;
+    border-left: 3px solid #b8934f;
+    background: #f5f2ec;
+}
+
+.tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.tag-pill {
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #f0ede8;
+    font-size: 12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="article-head">
+
+<span class="cat-tag">
+${escapeHtml(data.tag)}
+</span>
+
+<h1 class="article-title">
+${escapeHtml(data.title || "Заголовок новости")}
+</h1>
+
+<div class="article-meta">
+
+<span>
+Creative Awards
+</span>
+
+<span>•</span>
+
+<span>
+${escapeHtml(data.date || "Дата публикации")}
+</span>
+
+</div>
+
+</header>
 
 
-    localStorage.setItem(
-        DRAFTS_KEY,
-        JSON.stringify(drafts)
-    );
+<div class="cover">
+
+${
+    data.coverImage
+        ? `
+<img
+src="${escapeAttribute(data.coverImage)}"
+alt="${escapeAttribute(data.title)}"
+>
+`
+        : `
+<div style="
+padding:80px 20px;
+border-radius:16px;
+background:#eee;
+text-align:center;
+opacity:.5;
+">
+Обложка не указана
+</div>
+`
+}
+
+<div class="cap">
+${escapeHtml(data.coverCaption)}
+</div>
+
+</div>
 
 
-    loadDrafts();
+<p class="lead">
+
+${
+    escapeHtml(
+        data.description ||
+        "Вступительный текст новости..."
+    )
+}
+
+</p>
+
+
+<div class="prose">
+
+${
+    data.content ||
+    "<p>Содержание новости...</p>"
+}
+
+</div>
+
+
+<div class="tags-row">
+
+${tagHtml}
+
+</div>
+
+</body>
+
+</html>
+`;
+
+
+    previewFrame.srcdoc =
+        previewHtml;
+
+
+    saveStatus.textContent =
+        "Изменения не сохранены";
+}
+
+
+/* =====================================================
+   AUTO PREVIEW
+===================================================== */
+
+[
+    titleInput,
+    dateInput,
+    tagInput,
+    slugInput,
+    coverImageInput,
+    coverCaptionInput,
+    descriptionInput,
+    contentInput,
+    relatedNewsInput
+].forEach(
+    element => {
+
+        element.addEventListener(
+            "input",
+            updatePreview
+        );
+
+    }
+);
+
+
+/* =====================================================
+   IMAGE PREVIEW
+===================================================== */
+
+coverImageInput.addEventListener(
+    "input",
+    updateCoverPreview
+);
+
+
+function updateCoverPreview() {
+
+    const url =
+        coverImageInput.value.trim();
+
+    const box =
+        document.getElementById(
+            "coverPreview"
+        );
+
+    const image =
+        document.getElementById(
+            "coverPreviewImage"
+        );
+
+    if (!url) {
+
+        box.style.display =
+            "none";
+
+        return;
+
+    }
+
+    image.src =
+        url;
+
+    box.style.display =
+        "block";
 
 }
 
 
-/* =========================================
-   LOAD DRAFTS
-========================================= */
+/* =====================================================
+   IMAGE UPLOAD
+===================================================== */
 
-function loadDrafts() {
+document
+    .getElementById("imageFile")
+    .addEventListener(
+        "change",
+        uploadImage
+    );
 
-    const drafts =
-        getDrafts();
+
+async function uploadImage(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file)
+        return;
 
 
-    if (!drafts.length) {
+    const password =
+        passwordInput.value.trim();
 
-        newsList.innerHTML =
-            `
-            <div style="opacity:.5;font-size:13px;">
-                Черновиков пока нет.
-            </div>
-            `;
+
+    if (!password) {
+
+        showStatus(
+            "Сначала укажи пароль администратора.",
+            "error"
+        );
+
+        event.target.value =
+            "";
 
         return;
 
     }
 
 
-    newsList.innerHTML =
-        drafts.map(
-            (draft, index) => `
+    const formData =
+        new FormData();
 
-            <div class="news-item">
+    formData.append(
+        "image",
+        file
+    );
 
-                <div class="news-thumb">
+    formData.append(
+        "password",
+        password
+    );
 
-                    ${
-                        draft.coverImage
 
-                            ? `<img
-                                src="${escapeHtml(draft.coverImage)}"
-                                alt=""
-                              >`
+    showStatus(
+        "Загружаем изображение...",
+        "loading"
+    );
 
-                            : ""
-                    }
 
-                </div>
+    try {
 
-                <div class="news-info">
+        const response =
+            await fetch(
+                `${API_URL}/upload`,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
 
-                    <strong>
-                        ${escapeHtml(
-                            draft.title
-                        )}
-                    </strong>
 
-                    <span>
-                        ${escapeHtml(
-                            draft.date || ""
-                        )}
-                    </span>
+        const result =
+            await response.json();
 
-                </div>
 
-                <div class="news-actions">
+        if (!response.ok) {
 
-                    <button
-                        class="news-action"
-                        onclick="loadDraft(
-                            getDrafts()[${index}]
-                        )"
-                    >
-                        Редактировать
-                    </button>
+            throw new Error(
+                result.error ||
+                "Не удалось загрузить изображение."
+            );
 
-                    <button
-                        class="news-action"
-                        onclick="deleteDraft(${index})"
-                    >
-                        Удалить
-                    </button>
+        }
 
-                </div>
 
-            </div>
+        coverImageInput.value =
+            result.url || result.imageUrl;
 
-            `
-        )
-        .join("");
+
+        updateCoverPreview();
+
+        updatePreview();
+
+
+        showStatus(
+            "Изображение загружено.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
 
 }
 
 
-/* =========================================
-   NEWS API
-========================================= */
+/* =====================================================
+   PUBLISH
+===================================================== */
 
-let currentTab =
-    "published";
+form.addEventListener(
+    "submit",
+    publishNews
+);
 
+
+async function publishNews(event) {
+
+    event.preventDefault();
+
+
+    const data =
+        getFormData();
+
+
+    if (!data.password) {
+
+        showStatus(
+            "Введите пароль администратора.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showStatus(
+        "Публикуем новость...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/publish`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(data)
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось опубликовать новость."
+            );
+
+        }
+
+
+        currentSlug =
+            result.slug ||
+            data.slug;
+
+
+        showStatus(
+            result.message ||
+            "Новость опубликована.",
+            "success"
+        );
+
+
+        saveStatus.textContent =
+            "Опубликовано";
+
+
+        await loadNews();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE DRAFT
+===================================================== */
+
+async function saveDraft() {
+
+    const data =
+        getFormData();
+
+
+    if (!data.password) {
+
+        showStatus(
+            "Введите пароль администратора.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showStatus(
+        "Сохраняем черновик...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/draft`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            ...data,
+
+                            id:
+                                currentDraftId
+
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось сохранить черновик."
+            );
+
+        }
+
+
+        currentDraftId =
+            result.id ||
+            currentDraftId;
+
+
+        saveStatus.textContent =
+            "Черновик сохранён";
+
+
+        showStatus(
+            "Черновик сохранён.",
+            "success"
+        );
+
+
+        await loadDrafts();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD NEWS
+===================================================== */
 
 async function loadNews() {
 
     if (currentTab === "drafts") {
 
-        loadDrafts();
+        await loadDrafts();
 
         return;
 
     }
 
 
-    /*
-        ВАЖНО:
+    try {
 
-        Твой текущий Worker умеет только
-        POST / публикацию.
-
-        Поэтому опубликованные новости
-        пока нельзя получить через него.
-
-        Когда добавим GET /news в Worker,
-        эта функция автоматически будет
-        использовать его.
-    */
+        newsList.innerHTML =
+            `<div class="empty-list">
+                Загрузка...
+            </div>`;
 
 
-    newsList.innerHTML =
+        const response =
+            await fetch(
+                `${API_URL}/news`
+            );
 
-        `
-        <div style="opacity:.5;font-size:13px;line-height:1.6;">
-            Список опубликованных новостей пока
-            не подключён к Worker.
-            <br><br>
-            Следующий шаг — добавить GET API,
-            которое получает список файлов
-            из GitHub.
-        </div>
-        `;
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось загрузить новости."
+            );
+
+        }
+
+
+        publishedNews =
+            Array.isArray(result)
+                ? result
+                : result.news || [];
+
+
+        renderNews();
+
+
+    } catch (error) {
+
+        newsList.innerHTML =
+            `<div class="empty-list">
+                ${escapeHtml(error.message)}
+            </div>`;
+
+    }
 
 }
 
 
-/* =========================================
-   TABS
-========================================= */
+/* =====================================================
+   LOAD DRAFTS
+===================================================== */
 
-document
-    .querySelectorAll(".news-tab")
-    .forEach(tab => {
+async function loadDrafts() {
 
-        tab.addEventListener(
-            "click",
-            () => {
+    try {
 
-                document
-                    .querySelectorAll(
-                        ".news-tab"
+        newsList.innerHTML =
+            `<div class="empty-list">
+                Загрузка...
+            </div>`;
+
+
+        const password =
+            passwordInput.value.trim();
+
+
+        const response =
+            await fetch(
+                `${API_URL}/drafts?password=${encodeURIComponent(password)}`
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось загрузить черновики."
+            );
+
+        }
+
+
+        drafts =
+            Array.isArray(result)
+                ? result
+                : result.drafts || [];
+
+
+        renderDrafts();
+
+
+    } catch (error) {
+
+        newsList.innerHTML =
+            `<div class="empty-list">
+                ${escapeHtml(error.message)}
+            </div>`;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER PUBLISHED
+===================================================== */
+
+function renderNews() {
+
+    newsCount.textContent =
+        `${publishedNews.length} материалов`;
+
+
+    if (!publishedNews.length) {
+
+        newsList.innerHTML =
+            `<div class="empty-list">
+                Опубликованных новостей пока нет.
+            </div>`;
+
+        return;
+
+    }
+
+
+    newsList.innerHTML =
+        publishedNews
+            .map(
+                news =>
+                    createNewsItem(
+                        news,
+                        false
                     )
-                    .forEach(
-                        item =>
-                            item.classList.remove(
-                                "active"
-                            )
-                    );
+            )
+            .join("");
+
+}
 
 
-                tab.classList.add(
-                    "active"
-                );
+/* =====================================================
+   RENDER DRAFTS
+===================================================== */
+
+function renderDrafts() {
+
+    newsCount.textContent =
+        `${drafts.length} черновиков`;
 
 
-                currentTab =
-                    tab.dataset.tab;
+    if (!drafts.length) {
+
+        newsList.innerHTML =
+            `<div class="empty-list">
+                Черновиков пока нет.
+            </div>`;
+
+        return;
+
+    }
 
 
-                loadNews();
+    newsList.innerHTML =
+        drafts
+            .map(
+                draft =>
+                    createNewsItem(
+                        draft,
+                        true
+                    )
+            )
+            .join("");
 
+}
+
+
+/* =====================================================
+   NEWS ITEM
+===================================================== */
+
+function createNewsItem(
+    item,
+    draft
+) {
+
+    const title =
+        item.title ||
+        "Без названия";
+
+
+    const slug =
+        item.slug ||
+        "";
+
+
+    const image =
+        item.coverImage ||
+        item.cover_image ||
+        "";
+
+
+    const date =
+        item.date ||
+        item.updatedAt ||
+        item.createdAt ||
+        "";
+
+
+    const id =
+        item.id ||
+        "";
+
+
+    const encodedSlug =
+        encodeURIComponent(slug);
+
+
+    const openUrl =
+        item.url ||
+        `/news/${slug}`;
+
+
+    return `
+
+<div class="news-item">
+
+    <div class="news-thumb">
+
+        ${
+            image
+                ? `
+<img
+src="${escapeAttribute(image)}"
+alt=""
+>
+`
+                : ""
+        }
+
+    </div>
+
+
+    <div class="news-info">
+
+        <strong>
+            ${escapeHtml(title)}
+        </strong>
+
+        <div class="news-meta">
+
+            <span>
+                ${escapeHtml(date)}
+            </span>
+
+            ${
+                draft
+                    ? `
+<span>
+    Черновик
+</span>
+`
+                    : `
+<span>
+    ${escapeHtml(slug)}
+</span>
+`
             }
+
+        </div>
+
+    </div>
+
+
+    <div class="news-actions">
+
+        ${
+            draft
+                ? `
+<button
+class="news-action"
+title="Открыть"
+onclick="openDraft('${escapeJs(id)}')"
+>
+✎
+</button>
+
+<button
+class="news-action"
+title="Опубликовать"
+onclick="publishDraft('${escapeJs(id)}')"
+>
+↑
+</button>
+
+<button
+class="news-action danger"
+title="Удалить"
+onclick="deleteDraft('${escapeJs(id)}')"
+>
+×
+</button>
+`
+                : `
+<a
+class="news-action"
+title="Открыть"
+href="${escapeAttribute(openUrl)}"
+target="_blank"
+style="
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+"
+>
+↗
+</a>
+
+<button
+class="news-action"
+title="Редактировать"
+onclick="openNews('${escapeJs(slug)}')"
+>
+✎
+</button>
+
+<button
+class="news-action danger"
+title="Удалить"
+onclick="deleteNews('${escapeJs(slug)}')"
+>
+×
+</button>
+`
+        }
+
+    </div>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   OPEN NEWS
+===================================================== */
+
+async function openNews(slug) {
+
+    showStatus(
+        "Загружаем новость...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/news/${encodeURIComponent(slug)}`
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось открыть новость."
+            );
+
+        }
+
+
+        fillEditor(
+            result.news ||
+            result
         );
 
-    });
+
+        currentSlug =
+            slug;
 
 
-/* =========================================
-   INITIAL
-========================================= */
+        currentDraftId =
+            null;
+
+
+        document.getElementById(
+            "editorMode"
+        ).textContent =
+            "Редактирование публикации";
+
+
+        showStatus(
+            "Новость загружена.",
+            "success"
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN DRAFT
+===================================================== */
+
+async function openDraft(id) {
+
+    const password =
+        passwordInput.value.trim();
+
+
+    if (!password) {
+
+        showStatus(
+            "Введите пароль администратора.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showStatus(
+        "Загружаем черновик...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/draft/${encodeURIComponent(id)}?password=${encodeURIComponent(password)}`
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось открыть черновик."
+            );
+
+        }
+
+
+        fillEditor(
+            result.draft ||
+            result
+        );
+
+
+        currentDraftId =
+            id;
+
+
+        currentSlug =
+            null;
+
+
+        document.getElementById(
+            "editorMode"
+        ).textContent =
+            "Редактирование черновика";
+
+
+        showStatus(
+            "Черновик загружен.",
+            "success"
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   FILL EDITOR
+===================================================== */
+
+function fillEditor(data) {
+
+    titleInput.value =
+        data.title || "";
+
+    dateInput.value =
+        data.date || "";
+
+    tagInput.value =
+        data.tag || "Новости";
+
+    slugInput.value =
+        data.slug || "";
+
+    coverImageInput.value =
+        data.coverImage ||
+        data.cover_image ||
+        "";
+
+    coverCaptionInput.value =
+        data.coverCaption ||
+        data.cover_image_caption ||
+        "";
+
+    descriptionInput.value =
+        data.description ||
+        data.lead ||
+        "";
+
+    contentInput.value =
+        data.content || "";
+
+    relatedNewsInput.value =
+        data.relatedNews ||
+        data.related_news ||
+        "";
+
+
+    const rawTags =
+        Array.isArray(data.tags)
+            ? data.tags
+            : String(
+                data.tags || ""
+            )
+                .split(",")
+                .map(x => x.trim())
+                .filter(Boolean);
+
+
+    tags =
+        rawTags;
+
+
+    renderTags();
+
+    updateCoverPreview();
+
+    updatePreview();
+
+}
+
+
+/* =====================================================
+   DELETE NEWS
+===================================================== */
+
+async function deleteNews(slug) {
+
+    if (
+        !confirm(
+            "Удалить эту опубликованную новость?\n\nЭто действие нельзя отменить."
+        )
+    ) {
+        return;
+    }
+
+
+    const password =
+        passwordInput.value.trim();
+
+
+    if (!password) {
+
+        showStatus(
+            "Введите пароль администратора.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showStatus(
+        "Удаляем новость...",
+        "loading"
+    );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/news/${encodeURIComponent(slug)}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            password
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось удалить новость."
+            );
+
+        }
+
+
+        showStatus(
+            "Новость удалена.",
+            "success"
+        );
+
+
+        if (
+            currentSlug === slug
+        ) {
+            newArticle();
+        }
+
+
+        await loadNews();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE DRAFT
+===================================================== */
+
+async function deleteDraft(id) {
+
+    if (
+        !confirm(
+            "Удалить этот черновик?"
+        )
+    ) {
+        return;
+    }
+
+
+    const password =
+        passwordInput.value.trim();
+
+
+    if (!password) {
+
+        showStatus(
+            "Введите пароль администратора.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/draft/${encodeURIComponent(id)}`,
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            password
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Не удалось удалить черновик."
+            );
+
+        }
+
+
+        showStatus(
+            "Черновик удалён.",
+            "success"
+        );
+
+
+        await loadDrafts();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PUBLISH DRAFT
+===================================================== */
+
+async function publishDraft(id) {
+
+    await openDraft(id);
+
+    if (!confirm(
+        "Опубликовать этот черновик?"
+    )) {
+        return;
+    }
+
+    await publishNews(
+        new Event("submit")
+    );
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function switchTab(tab) {
+
+    currentTab =
+        tab;
+
+
+    document
+        .querySelectorAll(".news-tab")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.tab === tab
+            );
+
+        });
+
+
+    if (tab === "published") {
+
+        loadNews();
+
+    } else {
+
+        loadDrafts();
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+
+}
+
+
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll("\n", "\\n")
+        .replaceAll("\r", "\\r");
+
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+renderTags();
 
 updatePreview();
 
@@ -2083,3 +2861,4 @@ loadNews();
 
 </body>
 </html>
+```
