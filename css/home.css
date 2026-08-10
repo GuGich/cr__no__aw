@@ -1233,3 +1233,111 @@ grid-template-columns:1fr;
 
 
 }
+
+  article header.article-head{
+    position:static; border:none; padding:0; display:block; background:none;
+    margin-bottom:30px;
+  }
+  .cat-tag{
+    display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold-mid); border:1px solid var(--gold-low); padding:6px 14px; margin-bottom:18px;
+  }
+  h1.article-title{
+    font-size:clamp(30px,5vw,52px); line-height:1.08; margin:0 0 20px; color:var(--gold-hi);
+  }
+  .article-meta{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    font-size:13px; color:var(--muted); padding-bottom:26px; border-bottom:1px solid var(--line);
+  }
+  .article-meta .dot{ width:4px; height:4px; border-radius:50%; background:var(--gold-low); }
+  .article-meta .author{ color:var(--ink); font-weight:700; }
+
+  .cover{
+    margin:32px 0 8px;
+    height:clamp(240px,42vw,480px);
+    position:relative;
+    border:1px solid var(--line);
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 20%, rgba(232,200,135,0.14), transparent 60%),
+      linear-gradient(180deg, #1c1812, #0e0c09);
+  }
+  .cover img{ width:100%; height:100%; object-fit:cover; }
+  .cover .cap{ position:absolute; left:20px; bottom:14px; font-size:11.5px; color:var(--muted); }
+
+  .lead{
+    font-family:'Cormorant Garamond',serif; font-weight:600;
+    font-size:clamp(19px,2.4vw,24px); line-height:1.55; color:var(--ink);
+    margin:30px 0 8px; max-width:760px;
+  }
+
+  .prose{ max-width:760px; margin-top:22px; }
+  .prose p{ color:var(--muted); line-height:1.85; font-size:15.5px; margin:0 0 20px; }
+  .prose p strong{ color:var(--ink); }
+  .prose h2{
+    font-family:'Cormorant Garamond',serif; color:var(--gold-hi);
+    font-size:clamp(22px,3vw,30px); margin:44px 0 16px;
+  }
+  .prose a{ color:var(--gold-hi); text-decoration:underline; text-decoration-color:var(--gold-low); text-underline-offset:2px; }
+  .prose ul{ margin:0 0 20px; padding-left:0; list-style:none; }
+  .prose ul li{
+    color:var(--muted); font-size:15px; line-height:1.7; padding:0 0 10px 20px; position:relative;
+  }
+  .prose ul li::before{ content:'✦'; position:absolute; left:0; top:2px; color:var(--gold-mid); font-size:10px; }
+
+  blockquote{
+    margin:34px 0; max-width:760px; padding:22px 26px;
+    border-left:2px solid var(--gold-mid); background:var(--panel);
+    font-family:'Cormorant Garamond',serif; font-size:20px; line-height:1.5; color:var(--ink);
+  }
+  blockquote cite{
+    display:block; margin-top:12px; font-family:'Manrope',sans-serif; font-style:normal;
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-mid);
+  }
+
+  .gallery{
+    max-width:760px; display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:32px 0;
+  }
+  .gallery .g-item{
+    height:180px; border:1px solid var(--line); position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 20%, rgba(232,200,135,0.1), transparent 60%),
+      linear-gradient(180deg, #1c1812, #0e0c09);
+  }
+  .gallery .g-item img{ width:100%; height:100%; object-fit:cover; }
+  .gallery .g-item.wide{ grid-column:1 / -1; height:280px; }
+
+  .tags-row{
+    display:flex; gap:10px; flex-wrap:wrap; margin:38px 0 0; max-width:760px;
+  }
+  .tag-pill{
+    font-size:11.5px; letter-spacing:.06em; color:var(--muted);
+    border:1px solid var(--line); padding:8px 14px;
+  }
+
+  .share-row{
+    display:flex; align-items:center; gap:16px; margin-top:34px; max-width:760px;
+    padding-top:24px; border-top:1px solid var(--line); flex-wrap:wrap;
+  }
+  .share-row .lbl{ font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-mid); }
+  .share-row a{
+    text-decoration:none; color:var(--ink); font-size:13px; border:1px solid var(--line);
+    padding:8px 16px;
+  }
+  .share-row a:hover{ border-color:var(--gold-hi); color:var(--gold-hi); }
+
+  .more-block{
+    max-width:760px; margin-top:60px; padding-top:36px; border-top:1px solid var(--line);
+  }
+  .more-block h3{ font-family:'Cormorant Garamond',serif; color:var(--gold-hi); font-size:24px; margin:0 0 20px; }
+  .more-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .more-card{
+    border:1px solid var(--line); background:var(--panel); padding:18px 20px; text-decoration:none;
+  }
+  .more-card .m-cat{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-mid); }
+  .more-card h4{ font-family:'Cormorant Garamond',serif; color:var(--ink); font-size:18px; margin:8px 0 0; line-height:1.3; }
+
+  @media (max-width:700px){
+    .gallery{ grid-template-columns:1fr; }
+    .more-grid{ grid-template-columns:1fr; }
+  }

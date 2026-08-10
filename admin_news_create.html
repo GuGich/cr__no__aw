@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Создание новости — Creative Awards</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .admin-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px 120px;
+        }
+
+        .admin-head {
+            margin-bottom: 40px;
+        }
+
+        .admin-head h1 {
+            margin: 0 0 10px;
+        }
+
+        .admin-head p {
+            opacity: .65;
+            margin: 0;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 22px;
+        }
+
+        .admin-section {
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+        }
+
+        .admin-section h2 {
+            margin: 0 0 22px;
+            font-size: 20px;
+        }
+
+        .field {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 700;
+            opacity: .75;
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 15px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            outline: none;
+        }
+
+        .field textarea {
+            min-height: 320px;
+            resize: vertical;
+            font-family: monospace;
+            line-height: 1.55;
+        }
+
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            border-color: currentColor;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            opacity: .5;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .publish-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 24px 28px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+        }
+
+        .publish-info {
+            min-width: 0;
+        }
+
+        .publish-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .publish-url {
+            font-size: 13px;
+            opacity: .55;
+            word-break: break-all;
+        }
+
+        .publish-button {
+            border: 0;
+            padding: 14px 22px;
+            border-radius: 12px;
+            background: var(--accent, #b8934f);
+            color: #fff;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .publish-button:hover {
+            opacity: .9;
+        }
+
+        .publish-button:disabled {
+            opacity: .5;
+            cursor: wait;
+        }
+
+        .result {
+            display: none;
+            padding: 18px 20px;
+            border-radius: 14px;
+            line-height: 1.5;
+        }
+
+        .result.success {
+            display: block;
+            border: 1px solid rgba(80, 180, 100, .35);
+        }
+
+        .result.error {
+            display: block;
+            border: 1px solid rgba(220, 70, 70, .4);
+        }
+
+        .result a {
+            color: inherit;
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            .admin-page {
+                padding: 50px 16px 80px;
+            }
+
+            .admin-section {
+                padding: 20px;
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .publish-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .publish-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="admin-page">
+
+    <div class="admin-head">
+        <div class="eyebrow">Creative Awards</div>
+
+        <h1 class="display">
+            Создание новости
+        </h1>
+
+        <p>
+            Административная панель публикации материалов.
+        </p>
+    </div>
+
+
+    <form class="admin-form" id="newsForm">
+
+        <!-- ОСНОВНАЯ ИНФОРМАЦИЯ -->
+
+        <section class="admin-section">
+
+            <h2>Основная информация</h2>
+
+            <div class="field">
+                <label for="title">
+                    Заголовок
+                </label>
+
+                <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    placeholder="Открыт приём заявок Creative Awards 2026"
+                    required
+                >
+            </div>
+
+
+            <div class="two-columns">
+
+                <div class="field">
+                    <label for="date">
+                        Дата публикации
+                    </label>
+
+                    <input
+                        id="date"
+                        name="date"
+                        type="text"
+                        placeholder="10 августа 2026"
+                        required
+                    >
+                </div>
+
+
+                <div class="field">
+                    <label for="tag">
+                        Категория
+                    </label>
+
+                    <input
+                        id="tag"
+                        name="tag"
+                        type="text"
+                        placeholder="Новости"
+                        value="Новости"
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="field">
+                <label for="slug">
+                    Slug
+                </label>
+
+                <input
+                    id="slug"
+                    name="slug"
+                    type="text"
+                    placeholder="open-applications-2026"
+                    required
+                >
+
+                <span class="field-hint">
+                    Например: open-applications-2026
+                </span>
+            </div>
+
+        </section>
+
+
+        <!-- ОБЛОЖКА -->
+
+        <section class="admin-section">
+
+            <h2>Обложка</h2>
+
+            <div class="field">
+
+                <label for="coverImage">
+                    URL изображения
+                </label>
+
+                <input
+                    id="coverImage"
+                    name="coverImage"
+                    type="url"
+                    placeholder="https://creativeawards.fun/images/news/example.jpg"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="coverCaption">
+                    Подпись
+                </label>
+
+                <input
+                    id="coverCaption"
+                    name="coverCaption"
+                    type="text"
+                    placeholder="Creative Awards 2026"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ОПИСАНИЕ -->
+
+        <section class="admin-section">
+
+            <h2>Описание</h2>
+
+            <div class="field">
+
+                <label for="description">
+                    Краткое описание
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="4"
+                    placeholder="Коротко опишите содержание новости..."
+                    required
+                ></textarea>
+
+                <span class="field-hint">
+                    Используется как вступление и описание страницы.
+                </span>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="tags">
+                    Теги
+                </label>
+
+                <input
+                    id="tags"
+                    name="tags"
+                    type="text"
+                    placeholder="Creative Awards 2026, Новости, Анонс"
+                >
+
+                <span class="field-hint">
+                    Разделяйте теги запятыми.
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- СОДЕРЖАНИЕ -->
+
+        <section class="admin-section">
+
+            <h2>Содержание</h2>
+
+            <div class="field">
+
+                <label for="content">
+                    HTML-код новости
+                </label>
+
+                <textarea
+                    id="content"
+                    name="content"
+                    placeholder="<h2>Что нового</h2>
+
+<p>
+Текст новости...
+</p>
+
+<ul>
+    <li>Первый пункт</li>
+    <li>Второй пункт</li>
+</ul>"
+                    required
+                ></textarea>
+
+                <span class="field-hint">
+                    Здесь можно использовать HTML.
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ПАРОЛЬ -->
+
+        <section class="admin-section">
+
+            <h2>Авторизация</h2>
+
+            <div class="field">
+
+                <label for="password">
+                    Пароль администратора
+                </label>
+
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- РЕЗУЛЬТАТ -->
+
+        <div
+            class="result"
+            id="result"
+        ></div>
+
+
+        <!-- ПУБЛИКАЦИЯ -->
+
+        <div class="publish-box">
+
+            <div class="publish-info">
+
+                <strong>
+                    URL публикации
+                </strong>
+
+                <span
+                    class="publish-url"
+                    id="previewUrl"
+                >
+                    Заполните slug
+                </span>
+
+            </div>
+
+
+            <button
+                class="publish-button"
+                id="publishButton"
+                type="submit"
+            >
+                Опубликовать
+            </button>
+
+        </div>
+
+    </form>
+
+</main>
+
+
+<script>
+
+const WORKER_URL =
+    "https://YOUR-NEWS-WORKER.workers.dev";
+
+
+const form =
+    document.getElementById("newsForm");
+
+const publishButton =
+    document.getElementById("publishButton");
+
+const result =
+    document.getElementById("result");
+
+const previewUrl =
+    document.getElementById("previewUrl");
+
+const titleInput =
+    document.getElementById("title");
+
+const slugInput =
+    document.getElementById("slug");
+
+const dateInput =
+    document.getElementById("date");
+
+
+// ------------------------------------------
+// Slug preview
+// ------------------------------------------
+
+function normalizeSlug(value) {
+
+    const translit = {
+        "а": "a",
+        "б": "b",
+        "в": "v",
+        "г": "g",
+        "д": "d",
+        "е": "e",
+        "ё": "yo",
+        "ж": "zh",
+        "з": "z",
+        "и": "i",
+        "й": "y",
+        "к": "k",
+        "л": "l",
+        "м": "m",
+        "н": "n",
+        "о": "o",
+        "п": "p",
+        "р": "r",
+        "с": "s",
+        "т": "t",
+        "у": "u",
+        "ф": "f",
+        "х": "kh",
+        "ц": "ts",
+        "ч": "ch",
+        "ш": "sh",
+        "щ": "shch",
+        "ъ": "",
+        "ы": "y",
+        "ь": "",
+        "э": "e",
+        "ю": "yu",
+        "я": "ya"
+    };
+
+    return value
+        .toLowerCase()
+        .split("")
+        .map(char => translit[char] ?? char)
+        .join("")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+}
+
+
+function updatePreview() {
+
+    const slug =
+        normalizeSlug(slugInput.value);
+
+    const yearMatch =
+        dateInput.value.match(/\b(20\d{2})\b/);
+
+    const year =
+        yearMatch
+            ? yearMatch[1]
+            : new Date().getFullYear();
+
+    if (!slug) {
+
+        previewUrl.textContent =
+            "Заполните slug";
+
+        return;
+
+    }
+
+    previewUrl.textContent =
+        `https://creativeawards.fun/news/${year}/${slug}.html`;
+
+}
+
+
+slugInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+dateInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+
+// ------------------------------------------
+// Automatic slug from title
+// ------------------------------------------
+
+titleInput.addEventListener(
+    "input",
+    () => {
+
+        if (
+            slugInput.dataset.manual === "true"
+        ) {
+            return;
+        }
+
+        slugInput.value =
+            normalizeSlug(
+                titleInput.value
+            );
+
+        updatePreview();
+
+    }
+);
+
+
+slugInput.addEventListener(
+    "input",
+    () => {
+
+        slugInput.dataset.manual =
+            "true";
+
+        updatePreview();
+
+    }
+);
+
+
+// ------------------------------------------
+// Submit
+// ------------------------------------------
+
+form.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+        result.className =
+            "result";
+
+        result.innerHTML =
+            "";
+
+        publishButton.disabled =
+            true;
+
+        publishButton.textContent =
+            "Публикация...";
+
+
+        const data = {
+
+            title:
+                titleInput.value.trim(),
+
+            date:
+                dateInput.value.trim(),
+
+            slug:
+                slugInput.value.trim(),
+
+            tag:
+                document
+                    .getElementById("tag")
+                    .value
+                    .trim(),
+
+            coverImage:
+                document
+                    .getElementById("coverImage")
+                    .value
+                    .trim(),
+
+            coverCaption:
+                document
+                    .getElementById("coverCaption")
+                    .value
+                    .trim(),
+
+            description:
+                document
+                    .getElementById("description")
+                    .value
+                    .trim(),
+
+            tags:
+                document
+                    .getElementById("tags")
+                    .value
+                    .trim(),
+
+            content:
+                document
+                    .getElementById("content")
+                    .value,
+
+            password:
+                document
+                    .getElementById("password")
+                    .value
+
+        };
+
+
+        try {
+
+            const response =
+                await fetch(
+                    WORKER_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+
+            const responseData =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    responseData.error ||
+                    "Не удалось опубликовать новость."
+                );
+
+            }
+
+
+            result.className =
+                "result success";
+
+            result.innerHTML = `
+                <strong>
+                    Новость опубликована!
+                </strong>
+                <br>
+                <a
+                    href="${responseData.url}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    ${responseData.url}
+                </a>
+            `;
+
+
+            publishButton.textContent =
+                "Опубликовано";
+
+
+        } catch (error) {
+
+            result.className =
+                "result error";
+
+            result.innerHTML = `
+                <strong>
+                    Ошибка публикации
+                </strong>
+                <br>
+                ${escapeHtml(
+                    error.message
+                )}
+            `;
+
+
+            publishButton.disabled =
+                false;
+
+            publishButton.textContent =
+                "Опубликовать";
+
+        }
+
+    }
+);
+
+
+// ------------------------------------------
+// Escape
+// ------------------------------------------
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+// Initial preview
+
+updatePreview();
+
+</script>
+
+</body>
+</html>
