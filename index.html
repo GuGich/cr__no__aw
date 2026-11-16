@@ -122,7 +122,37 @@
   </div>
 
   <div class="hero-visual">
-   <img src="images/hero_image2.png" alt="Персонаж с тростью и короной" style="max-width: 90%; height: auto; display: block; margin: 0 auto;">
+   <img id="hero-img" src="images/hero_image2.png" alt="Creative Awards" style="max-width: 90%; height: auto; display: block; margin: 0 auto;">
+<script>
+  const heroImages = [
+    { src: 'images/hero_image.png', weight: 15 },
+    { src: 'images/hero_image2.png', weight: 35 }, 
+    { src: 'images/hero_image3.png', weight: 40 }, 
+    { src: 'images/hero_image6.png', weight: 8 }, 
+    { src: 'images/hero_secret.png', weight: 2 }  
+  ];
+
+  function getWeightedImage(items) {
+    // Считаем общий вес всех картинок
+    const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+    // Выбираем случайное число от 0 до общего веса
+    let random = Math.random() * totalWeight;
+
+    for (const item of items) {
+      if (random < item.weight) {
+        return item.src;
+      }
+      random -= item.weight;
+    }
+    return items[0].src;
+  }
+
+  const heroImgElement = document.getElementById('hero-img');
+  if (heroImgElement) {
+    heroImgElement.src = getWeightedImage(heroImages);
+  }
+</script>
+
     <div class="countdown-box">
       <div class="countdown-cap-top" id="cd-caption">До объявления номинантов (29 ноября 2026, в 18:00 по МСК)</div>
       <div class="countdown">
