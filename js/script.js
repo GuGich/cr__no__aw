@@ -178,7 +178,7 @@ if(loader){
             if(diff <= 0){
 
                 cdCaption.textContent =
-                    'Голосование завершено';
+                    'Время вышло';
 
             }
 
