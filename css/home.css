@@ -1345,3 +1345,36 @@ grid-template-columns:1fr;
   .crumbs-news{ font-size:12px; color:var(--muted); margin-bottom:22px; letter-spacing:.04em; }
   .crumbs-news a{ text-decoration:none; color:var(--muted); }
   .crumbs-news a:hover{ color:var(--gold-hi); }
+
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content::before {
+    content: "";
+    position: absolute;
+
+    z-index: -1;
+    pointer-events: none;
+
+    top: -50px;
+    bottom: -50px;
+    left: -60px;
+    right: -100px;
+
+    background: radial-gradient(
+        ellipse at 35% 50%,
+        rgba(0, 0, 0, .38),
+        rgba(0, 0, 0, .18) 50%,
+        transparent 80%
+    );
+
+    filter: blur(50px);
+}
+
+/* Затемнение и размытие фонового видео */
+.hero-bg-video video {
+    filter: brightness(.65) blur(2px);
+}
